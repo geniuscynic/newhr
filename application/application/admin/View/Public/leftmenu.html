@@ -1,0 +1,72 @@
+{assign name="baseController" value="app\\Common\\controller\\BaseController" /}
+<aside id="sitebar" class="sidebar-menu">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class=" nav flex-column">
+
+      <li class="nav-item menu ">
+        <a  class="nav-link {:$baseController::setMenuActive('Index')}" href="#">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+
+        </a>
+
+      </li>
+      <li class="nav-item menu ">
+        <a  class="nav-link {:$baseController::setMenuActive('Blog')}" data-toggle="collapse" href="#collapseBlog"  aria-expanded="false" aria-controls="collapseBlog">
+          <i class="fas fa-edit"></i>
+          <span>文章管理</span>
+          <span class="pull-right-container">
+            <i class="fas fa-angle-down"></i>
+          </span>
+        </a>
+        <ul class="sidebar-menu nav flex-colum collapse menu {:$baseController::setSubMenuShow()}"  id="collapseBlog" data-parent="#sitebar">
+          <li class="nav-item"> 
+            <a href="{:url('admin/blog/add')}" class="nav-link {:$baseController::setSubMenuActive('add')}">
+              <i class="fa fa-pen"></i> 添加文章</a>
+          </li>
+          <li class="nav-item">
+            <a href="{:url('admin/blog/list')}" class="nav-link {:$baseController::setSubMenuActive('list')}">
+              <i class="fa fa-pen"></i> 文章列表</a>
+          </li>
+
+        </ul>
+      </li>
+
+      <li class="nav-item menu ">
+        <a  class="nav-link {:$baseController::setMenuActive('Category')}"  data-toggle="collapse" href="#collapseCategory"  aria-expanded="false" aria-controls="collapseCategory">
+          <i class="fas fa-th"></i>
+          <span>板块管理</span>
+          <span class="pull-right-container">
+            <i class="fas fa-angle-down"></i>
+          </span>
+        </a>
+        <ul class="sidebar-menu nav flex-colum collapse menu {:$baseController::setSubMenuShow()}" id="collapseCategory" data-parent="#sitebar">
+          <li class="nav-item">
+            <a href="{:url('admin/category/add')}" class="nav-link {:$baseController::setSubMenuActive('add')}">
+              <i class="fa fa-pen"></i> 添加板块</a>
+          </li>
+          <li class="nav-item">
+            <a href="{:url('admin/category/list')}" class="nav-link {:$baseController::setSubMenuActive('list')}">
+              <i class="fa fa-pen"></i> 板块列表</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item menu ">
+        <a class="nav-link {:$baseController::setMenuActive('User')}"  data-toggle="collapse" href="#collapseUser"  aria-expanded="false" aria-controls="collapseUser">
+          <i class="fas fa-user"></i>
+          <span>用户管理</span>
+          <span class="pull-right-container">
+            <i class="fas fa-angle-down"></i>
+          </span>
+        </a>
+        <ul class="sidebar-menu nav flex-colum collapse menu {:$baseController::setSubMenuShow()}" id="collapseUser" data-parent="#sitebar">
+          <li class="nav-item">
+            <a href="{:url('/admin/user/list')}" class="nav-link {:$baseController::setSubMenuActive('add')}">
+              <i class="fa fa-pen"></i> 用户列表</a>
+          </li>
+
+        </ul>
+      </li>
+
+    </ul>
+</aside>

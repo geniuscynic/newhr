@@ -1,0 +1,27 @@
+
+{assign name="msg" value="app\Common\Entity\Message" /}
+{if isset($message)}
+  {eq name="message:getType()" value="$msg::TYPE_FAILED"}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {volist name="message:getMessage()" id="vo"} 
+          {$vo}
+          <br/> 
+          {/volist}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+  {/eq}
+
+  {eq name="message:getType()" value="$msg::TYPE_SUCCESSFULLY"}
+  <div class="alert alert-primary alert-dismissible fade show" role="alert">
+          {volist name="message:getMessage()" id="vo"} 
+          {$vo}
+          <br/> 
+          {/volist}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+  {/eq}
+{/if}

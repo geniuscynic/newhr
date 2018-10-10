@@ -1,0 +1,84 @@
+{extend name="Public:base" /} {block name="main"}
+
+
+
+<div class="card">
+  <div class="card-body">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="#">板块管理</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">板块列表</li>
+      </ol>
+    </nav>
+    <h3 class="box-title">板块列表</h3>
+    
+<div id="message"></div>
+<form>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">标题</th>
+          <th scope="col">所属板块</th>
+          <th scope="col">标签</th>
+          <th scope="col">修改时间</th>
+          <th scope="col">动作</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      {volist name="blogList" id="vo"}
+      <tr>
+          <th scope="row" class="tableId">{$vo.id}</th>
+          <td>
+            {$vo.title}
+           
+          </td>
+          <td>
+              {$vo.category.name}
+            </td>
+            <td>
+                {volist name="$vo.tag" id="tag"}
+                    {$tag.name}, 
+                {/volist}
+            </td>
+          <td>{$vo.updateTime}</td>
+          <td>
+            <button type="button" class="btn btn-success btnEdit" data-id="{$vo.id}">编辑</button>
+           
+            <button type="button" class="btn btn-danger"  data-id="{$vo.id}">删除</button>
+          </td>
+      </tr>
+      {/volist}
+            
+         
+        
+      
+      </tbody>
+    </table>
+  </form>
+      
+
+  </div>
+</div>
+{/block} {block name="footerscript"} {__block__}
+
+
+<script type="text/javascript">
+
+
+
+  $(document).ready(function () {
+      
+
+      $(".btnEdit").on("click", function() {
+          var id = $(this).attr("data-id");
+      });
+
+  });
+</script> {/block}

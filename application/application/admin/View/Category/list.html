@@ -1,0 +1,152 @@
+{extend name="Public:base" /} {block name="main"}
+
+
+
+<div class="card">
+  <div class="card-body">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="#">板块管理</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">板块列表</li>
+      </ol>
+    </nav>
+    <h3 class="box-title">板块列表</h3>
+    
+<div id="message"></div>
+<form>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">板块名</th>
+          <th scope="col">修改时间</th>
+          <th scope="col">排序</th>
+          <th scope="col">层级</th>
+          <th scope="col">动作</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      {volist name="categoryList" id="vo"}
+      <tr>
+          <th scope="row" class="tableId">{$vo.id}</th>
+          <td>
+            <span class="tableField" style="padding-left: {$vo.level * 2 - 2}rem">{$vo.name}</span>
+            <input class="tableInput catetoryName" type="text" name="catetoryName" value="{$vo.name}"  />
+          </td>
+          <td>{$vo.updateTime}</td>
+          <td>
+            <span class="tableField">{$vo.seqNum}</span>
+            <input class="tableInput seqNum" type="text" name="seqNum" value="{$vo.seqNum}" size="3"  />
+          </td>
+          <td>{$vo.level}
+          </td>
+          <td>
+            <button type="button" class="btn btn-success btnEdit">编辑</button>
+            <button type="button" class="btn btn-success btnSave">保存</button>
+            <button type="button" class="btn btn-danger">删除</button>
+          </td>
+      </tr>
+      {/volist}
+            
+         
+        
+      
+      </tbody>
+    </table>
+  </form>
+      
+
+  </div>
+</div>
+{/block} {block name="footerscript"} {__block__}
+
+
+<script type="text/javascript">
+
+
+
+  $(document).ready(function () {
+      $(".tableField").show();
+      $(".tableInput").hide();
+      $(".btnSave").hide();
+
+
+      var validator = $("form").validate({
+                  rules: {
+                    categoryName: {
+                      required: true,
+                      maxlength:10
+                    },
+                  
+                    seqNum: {
+                      required: true,
+                      number: true
+                    }
+                  
+              },
+              onsubmit: false
+        });
+
+      $(".btnEdit").on("click", function() {
+        $(this).parents("tr").find(".tableField").hide(500);
+        $(this).parents("tr").find(".tableInput").show(500);
+
+        $(this).parents("tr").find(".btnSave").show(500);
+        $(this).parents("tr").find(".btnEdit").hide(500);
+      });
+
+      $(".btnSave").on("click", function() {
+        //var catetoryName =  $(this).parents("tr").find(".catetoryName");
+        //validator.element(catetoryName);
+
+        //var seqNum =  $(this).parents("tr").find(".seqNum");
+        //validator.element(seqNum);
+           if(!$("form").valid()) {
+              return false;
+           }
+
+          var _this = this;
+
+          var id = $(this).parents("tr").find(".tableId").text();
+          var categoryName = $(this).parents("tr").find(".catetoryName").val();
+          var seqNUm = $(this).parents("tr").find(".seqNum").val();
+          
+          var data = "id=" + id + "&name=" + categoryName + "&seqNum=" + seqNUm;
+            $.ajax({
+              method: "POST",
+              url: "{:url('admin/category/save')}",
+              dataType: "json",
+              data: data
+            })
+            .done(function( msg ) {
+                //alert( "Data Saved: " + msg );
+                var json = $.parseJSON(msg);
+
+                $("#message").Messages({
+                  data: json
+                });
+
+                if(json.type == 1) {
+                  $(_this).parents("tr").find(".tableField").show(500);
+                  $(_this).parents("tr").find(".tableInput").hide(500);
+
+                  $(_this).parents("tr").find(".btnSave").hide(500);
+                  $(_this).parents("tr").find(".btnEdit").show(500);
+
+                  $(_this).parents("tr").find(".catetoryName").prev().text(categoryName);
+                  $(_this).parents("tr").find(".seqNum").prev().text(seqNUm);
+                }
+            });
+      });
+
+         
+     
+
+  });
+</script> {/block}

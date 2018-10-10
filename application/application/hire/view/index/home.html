@@ -1,0 +1,2755 @@
+
+<!doctype html>
+<html lang="zh-hans">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Access-Control-Allow-Methods" content="POST, GET, OPTIONS, DELETE, OPTIONS">
+    <meta http-equiv="Access-Control-Max-Age" content="3600">
+    <meta http-equiv="Access-Control-Allow-Credentials" content="true">
+    <meta http-equiv="Access-Control-Allow-Headers" content="DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>个人履历注册</title>
+    <link href="http://www.w3cplus.com/sites/all/themes/w3cplusResponsive/favicon.ico"
+        rel="shortcut icon">
+    <link rel="stylesheet" href="{$default_dir}static/hire//jquery.mobile-1.4.5.min.css">
+    <script src="{$default_dir}static/hire/jquery.min.js"></script>
+    <script src="{$default_dir}static/hire/jquery.mobile-1.4.5.min.js"></script>
+    <script src="{$default_dir}static/hire/jquery.promptInput.js"></script>
+    <link href="{$default_dir}static/hire//mobiscroll.custom-2.5.0.min.css" rel="stylesheet" type="text/css" />
+    <script src="{$default_dir}static/hire/mobiscroll.custom-2.5.0.min.js" type="text/javascript"></script>
+    <style>
+        .ui-bar-f
+        {
+            font-family: -apple-system,SF UI Text,Helvetica Neue,Helvetica,Arial,sans-serif;
+            color: #ffffff;
+            background-color: #74baee;
+        }
+        .ui-body-f
+        {
+            font-weight: bold;
+            color: purple;
+        }
+        label
+        {
+            color: #666666;
+        }
+        legend
+        {
+            color: #666666;
+        }
+        .buttns
+        {
+            background-color: #9CEBF4;
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面容器start -->
+    <div data-role="page" id="login">
+        <!-- 页眉部分start -->
+        <div data-role="header" data-theme="f">
+            <h1>
+                个人履历注册</h1>
+        </div>
+        <!-- 页眉部分end -->
+        <div data-role="content">
+            <div data-role="">
+                <label for="name">
+                    身份证号:</label>
+                <input type="text" name="cardid" id="cardid" />
+                <div id="divcheck">
+                    <input type="button" data-icon="check" style="background-color: #9CEBF4" id="btncheck"
+                        value="验证" /></div>
+            </div>
+            <div data-role="" style="display: none" id="divpass">
+                <label for="name">
+                    密码(请输入6位):</label>
+                <input type="password" name="pass" id="pass" />
+            </div>
+             <div id="InterviewCity" style="display: none" data-type="horizontal" data-position="left">
+                <label for="name">
+                    面试地点:</label>
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <select name="ddlInterviewCity" id="ddlInterviewCity">
+                    </select>
+                </fieldset>
+            </div>
+
+            <div data-role="" style="display: none" id="divnext0">
+                <input type="button" style="background-color: #9CEBF4" data-icon="check" id="next0"
+                    value="登录" />
+            </div>
+            <div data-role="" style="text-align: center">
+                AUO电子履历系统欢迎您<br />
+                请按提示操作填写
+            </div>
+        </div>
+        <!-- content部分end -->
+        <!-- 页脚部分start -->
+        <div data-role="footer" data-position="fixed" style="height: 42px; text-align: center">
+            <img src="{$default_dir}static/hire/auo.png" style="height: 36px; width: 78px; margin-top: 3px" />
+        </div>
+        <!-- 页脚部分end -->
+    </div>
+    <!-- 页面容器end -->
+    <div data-role="page" id="pwd">
+        <!-- 页眉部分start -->
+        <div data-role="header" data-theme="f">
+            <h1>
+                密码维护</h1>
+        </div>
+        <!-- 页眉部分end -->
+        <div data-role="content">
+            <div data-role="">
+                <label for="lblpassid">
+                    身份证号:</label>
+                <input type="text" name="cardidm" id="cardidm" />
+            </div>
+            <div data-role="" id="div6">
+                <label for="name">
+                    密码(请输入6位):</label>
+                <input type="password" name="passm" id="passm" />
+            </div>
+            <div data-role="" id="div9">
+                <label for="name">
+                    确认密码:</label>
+                <input type="password" name="passmcon" id="passmcon" />
+            </div>
+            <div data-role="controlgroup" data-type="horizontal">
+                <input type="button" data-icon="check" id="btnConfirm" style="background-color: #9CEBF4"
+                    value="确认" /><input type="button" style="background-color: #9CEBF4" data-icon="back"
+                        id="btnback" value="返回" />
+            </div>
+        </div>
+        <!-- content部分end -->
+        <!-- 页脚部分start -->
+        <div data-role="footer" data-position="fixed" style="height: 42px; text-align: center">
+            <img src="{$default_dir}static/hire/auo.png" style="height: 36px; width: 78px; margin-top: 3px" />
+        </div>
+        <!-- 页脚部分end -->
+    </div>
+    <!-- 页眉部分end -->
+    <input type="text" name="entryid" id="entryid" value="" style="display: none" />
+    <input type="text" name="hidCardid" id="hidCardid" value="" style="display: none" />
+    <input type="text" name="hidEmpSource" id="hidEmpSource" value="" style="display: none" />
+    <input type="text" name="cardprov" id="cardprov" value="" style="display: none" />
+    <input type="text" name="cardsex" id="cardsex" value="" style="display: none" />
+    <!-- 页面容器start -->
+    <div data-role="page" id="info1" data-add-back-btn="true">
+        <!-- 页眉部分start -->
+        <div data-role="header" data-add-back-btn="false" data-theme="f">
+            <h1>
+                基本信息</h1>
+        </div>
+        <!-- content部分start -->
+        <div data-role="content">
+            <div data-role="">
+                <label for="name" id="lblcardid">
+                    身份证号码:</label>
+            </div>
+            <div data-role="" id="divEmpType" style="display: none">
+                <label for="name" id="lblEmpType">
+                    身份类别:</label>
+            </div>
+            <div data-role="" id="divsoufrom" style="display: none">
+                <label for="name" id="lblsoufrom">
+                    入职来源:</label>
+            </div>
+            <div data-role="" id="divSource" style="display: none">
+                <label for="name" id="lblSource">
+                    外包公司名称:</label>
+            </div>
+            <div data-role="" id="divsite1" style="display: none">
+                <label for="name" id="lblsite">
+                    厂区:</label>
+            </div>
+            <div id="divsite">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend>厂区：</legend>
+                    <input type="radio" id="site1" name="empsite" value="AUSZ" />
+                    <label for="site1">
+                        AUSZ</label>
+                    <input type="radio" id="site2" name="empsite" value="AUXM" />
+                    <label for="site2">
+                        AUXM</label>
+                    <input type="radio" id="site3" name="empsite" value="AUSJ" />
+                    <label for="site3">
+                        AUSJ</label>
+                    <input type="radio" id="site4" name="empsite" value="AUKS" />
+                    <label for="site4">
+                        AUKS</label>
+                </fieldset>
+            </div>
+            <div data-role="">
+                <label for="name">
+                    姓名:</label>
+                <input type="text" name="txtName" id="txtName" value="" />
+            </div>
+            <div id="divEmpType1">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend>身份类别：</legend>
+                    <input type="radio" id="cardtype1" name="Emptype" value="3" />
+                    <label for="cardtype1">
+                        实习生</label>
+                    <input type="radio" id="cardtype2" name="Emptype" value="1" />
+                    <label for="cardtype2">
+                        一般员工</label>
+                    <input type="radio" id="cardtype3" name="Emptype" value="7" />
+                    <label for="cardtype3">
+                        外包员工</label>
+                    <input type="radio" id="cardtype4" name="Emptype" value="6" />
+                    <label for="cardtype3">
+                        派遣员工</label>
+                        <!-- add 2018-06-12 -->
+                          <input type="radio" id="cardtype5" name="Emptype" value="9" />
+                    <label for="cardtype5">
+                        临时工</label>
+                </fieldset>
+            </div>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>性别：</legend>
+                <input type="radio" id="rdlsex1" name="rdlsex" value="1" />
+                <label for="rdlsex1">
+                    男</label>
+                <input type="radio" id="rdlsex2" name="rdlsex" value="2" />
+                <label for="rdlsex2">
+                    女</label>
+            </fieldset>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>婚姻状况：</legend>
+                <input type="radio" id="rdlMarried1" name="rdlMarried" value="0" />
+                <label for="rdlMarried1">
+                    单身</label>
+                <input type="radio" id="rdlMarried2" name="rdlMarried" value="1" />
+                <label for="rdlMarried2">
+                    已婚</label>
+            </fieldset>
+            <script type="text/javascript">
+                $(function () {
+
+                    //获取url中的参数
+                    function request(paras) {
+                        var url = location.href;
+                        var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+                        var paraObj = {}
+                        for (i = 0; j = paraString[i]; i++) {
+                            paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);
+                        }
+                        var returnValue = paraObj[paras.toLowerCase()];
+                        if (typeof (returnValue) == "undefined") {
+                            return "";
+                        } else {
+                            return returnValue;
+                        }
+                    };
+
+                    $.trim = function (str) {
+                        return str.replace(/(^\s*)|(\s*$)/g, "");
+                    }
+                    $.RefreashRadio = function (rid) {
+                        try {
+                            $('input:radio[name="' + rid + '"]:checked').checkboxradio("refresh");
+
+                        } catch (e) { }
+                    }
+                    $.getUrlParam = function (name) {
+                        //            if (name == "source") {
+                        //                if ($("#hidEmpSource").val() != "") {
+                        //                    return $("#hidEmpSource").val();
+                        //                }
+                        //                
+                        //            }
+
+                        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                        var r = window.location.search.substr(1).match(reg);
+                        if (r != null) return decodeURIComponent(r[2]); return null;
+
+                    }
+
+                    $.getParam = function (pagename) {
+                        //alert($.getUrlParam("source"));
+                        // return "?source=HRD";
+                        var param = "";
+                        if ($.getUrlParam("site") != null) {
+                            param = param + "site=" + encodeURIComponent($.getUrlParam("site"));
+                        }
+                        if ($.getUrlParam("source") != null) {
+                            if (param != "") {
+                                param = param + "&source=" + encodeURIComponent($.getUrlParam("source"));
+                            }
+                            else {
+                                param = param + "source=" + encodeURIComponent($.getUrlParam("source"));
+                            }
+                            //param = param + "source=" + $.getUrlParam("source");
+                        }
+
+                        //add by 2016-08-11
+                        if ($.getUrlParam("usetype") != null) {
+                            if (param != "") {
+                                param = param + "&usetype=" + encodeURIComponent($.getUrlParam("usetype"));
+                            }
+                            else {
+                                param = param + "usetype=" + encodeURIComponent($.getUrlParam("usetype"));
+                            }
+                        }
+
+                        if ($.getUrlParam("emptype") != null) {
+                            if (param != "") {
+                                param = param + "&emptype=" + encodeURIComponent($.getUrlParam("emptype"));
+                            }
+                            else {
+                                param = param + "emptype=" + encodeURIComponent($.getUrlParam("emptype"));
+                            }
+                        }
+                        if ($.getUrlParam("soufrom") != null) {
+                            if (param != "") {
+                                param = param + "&soufrom=" + encodeURIComponent($.getUrlParam("soufrom"));
+                            }
+                            else {
+                                param = param + "soufrom=" + encodeURIComponent($.getUrlParam("soufrom"));
+                            }
+                        }
+
+                        if (param == "") {
+                            return "#" + pagename;
+                        }
+                        else {
+                            return "?" + param + "#" + pagename;
+                        }
+                    }
+
+                    if (window.location.href.split('#').length == 1) {
+                        window.location.href = "hire" + $.getParam("login");
+                    }
+
+
+                    //绑定面试地点
+
+                    $.ajax({
+                        url: "ajax.ashx?func=GetWorkPalce&type=InterviewCity&site=" + $.getUrlParam("site"),
+                        contentType: "application/json; charset=utf-8",
+                        type: "GET",
+                        dataType: 'json',
+                        crossDomain: true,
+                        async: false,
+                        success: function (data) {
+                            $("#ddlInterviewCity").empty();
+
+                            $.each(data, function (key, item) {
+
+                                $("#ddlInterviewCity").prepend("<option value='" + key + "'>" + item + "</option>");
+                            });
+                            $("#ddlInterviewCity").prepend("<option value=''>==面试地点==</option>");
+                            try {
+                                $("#ddlInterviewCity").selectmenu("refresh", true);
+                            } catch (e) { }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                        }
+
+                    });
+
+
+                    $.DisplayURLEmpSource = function () {
+
+                        if ($.getUrlParam("source") != null) {
+
+                            $("#lblSource").html("外包公司名称:" + $.getUrlParam("source"));
+                            $("#lblEmpType").html("身份类别:外包员工");
+                            if ($.getUrlParam("emptype") == "7") {
+                                $("#lblSource").html("外包公司名称:" + $.getUrlParam("source"));
+                                $("#lblEmpType").html("身份类别:外包员工");
+                            }
+                            else if ($.getUrlParam("emptype") == "6") {
+                                $("#lblSource").html("派遣公司名称:" + $.getUrlParam("source"));
+                                $("#lblEmpType").html("身份类别:派遣员工");
+                            }
+                            // add 2018-06-12
+                            else if ($.getUrlParam("emptype") == "1") {
+                                $("#lblSource").html("派遣公司名称:" + $.getUrlParam("source"));
+                                $("#lblEmpType").html("身份类别:一般员工");
+                            }
+                            // add 2018-06-12
+                            else if ($.getUrlParam("emptype") == "9") {
+                                $("#lblSource").html("派遣公司名称:" + $.getUrlParam("source"));
+                                $("#lblEmpType").html("身份类别:临时工");
+                            }
+
+
+
+                            $('#divSource').css('display', '');
+                            $('#divEmpType').css('display', '');
+                            $('#divEmpType1').css('display', 'none');
+
+
+                            // $("input[name='Emptype'][value='外包员工']").attr("checked", true);
+
+                            //$('input:radio[name="Emptype"]:checked').checkboxradio("refresh");
+
+                        }
+                        else {
+                            if ($.getUrlParam("emptype") != null) {
+                                $('#divSource').css('display', 'none');
+                                $('#divEmpType').css('display', '');
+                                $('#divEmpType1').css('display', 'none');
+
+                                if ($.getUrlParam("emptype") == "3") {
+                                    $("#lblEmpType").html("身份类别:实习生");
+
+                                }
+                                else if ($.getUrlParam("emptype") == "1") {
+                                    $("#lblEmpType").html("身份类别:一般员工");
+                                }
+                                else if ($.getUrlParam("emptype") == "7") {
+                                    $("#lblEmpType").html("身份类别:外包员工");
+                                }
+                                // add 2018-06-12
+                                else if ($.getUrlParam("emptype") == "9") {
+                                    $("#lblEmpType").html("身份类别:临时工");
+                                }
+                                else {
+                                    $("#lblEmpType").html("身份类别:派遣员工");
+                                }
+                                $("input[name='Emptype'][value='" + $.getUrlParam("emptype") + "']").attr("checked", true);
+                                $.RefreashRadio("Emptype");
+                            }
+                            else {
+                                $('#divSource').css('display', 'none');
+                                $('#divEmpType').css('display', 'none');
+                                $('#divEmpType1').css('display', '');
+                            }
+                            if ($.getUrlParam("soufrom") != null) {
+                                $.DisplayEmpsource($.getUrlParam("soufrom"));
+                                $('#div10').css('display', 'none');
+                                $('#divsoufrom').css('display', '');
+
+                                if ($.getUrlParam("soufrom") == "11") {
+                                    $("#lblsoufrom").html("入职来源:人才市场");
+                                }
+                                else if ($.getUrlParam("soufrom") == "3") {
+                                    $("#lblsoufrom").html("入职来源:校园访才");
+
+                                }
+                                //add @2018/07/19 by gloriawei
+                                else if ($.getUrlParam("soufrom") == "4") {
+                                    $("#lblsoufrom").html("入职来源:求职网站");
+
+                                }
+                                else if ($.getUrlParam("soufrom") == "27") {
+                                     // update 2018-06-12,add 1、9
+                                    if ($.getUrlParam("emptype") == "6" || $.getUrlParam("emptype") == "1" || $.getUrlParam("emptype") == "9") {
+                                        $("#lblsoufrom").html("入职来源:派遣公司");
+                                    }
+                                    else {
+                                        $("#lblsoufrom").html("入职来源:外包公司");
+                                    }
+
+                                }
+                                else if ($.getUrlParam("soufrom") == "28") {
+                                    $("#lblsoufrom").html("入职来源:中介公司");
+
+                                }
+                                else if ($.getUrlParam("soufrom") == "15") {
+                                    $("#lblsoufrom").html("入职来源:内部推荐");
+                                }
+                                else if ($.getUrlParam("soufrom") == "6") {
+                                    $("#lblsoufrom").html("入职来源:公司网站");
+                                }
+                                else {
+                                    $("#lblsoufrom").html("入职来源:" + $.getUrlParam("soufrom"));
+                                }
+                            }
+
+                        }
+
+                        if ($.getUrlParam("site") != null) {
+                            $("#lblsite").html("厂区:" + $.getUrlParam("site"));
+                            $('#divsite').css('display', 'none');
+                            $('#divsite1').css('display', '');
+                        }
+                        else {
+                            $('#divsite').css('display', '');
+                            $('#divsite1').css('display', 'none');
+                        }
+
+                    }
+
+                    $.BindPatchCom = function (site1) {
+                        jQuery.support.cors = true;
+
+                        $.ajax({
+                            url: "viewajax.ashx?func=GetPatchCompany&site=" + escape(site1),
+                            type: "GET",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: 'json',
+                            crossDomain: true,
+                            success: function (data) {
+                                $("#ddlpaCompany").empty();
+
+                                $.each(data, function (key, item) {
+                                    $("#ddlpaCompany").prepend("<option value='" + item + "'>" + item + "</option>");
+                                });
+
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+
+                        });
+                    }
+
+                    $.DisplayEmpsource = function (name) {
+
+                        if (name == "11") {
+                            $('#div4').css('display', '');
+                            $('#lbl4').text("人才市场名称");
+                            $('#div5').css('display', 'none');
+                        }
+                        else if (name == "3") {
+                            $('#div4').css('display', '');
+                            $('#lbl4').text("校园访才名称");
+                            $('#div5').css('display', 'none');
+
+                        }
+                        else if (name == "27") {
+                            $('#div4').css('display', 'none');
+                            $('#div5').css('display', '');
+
+                            var site1 = "";
+                            if ($.getUrlParam("site") != null) {
+                                site1 = $.getUrlParam("site");
+                            }
+                            else {
+                                site1 = $('input:radio[name="empsite"]:checked').val();
+                            }
+                            $.BindPatchCom(site1);
+                        }
+                        else if (name == "28") {
+                            $('#div4').css('display', '');
+                            $('#lbl4').text("中介公司名称");
+                            $('#div5').css('display', 'none');
+                        }
+                        else {
+                            $("#div4").css('display', 'none');
+                            $('#div5').css('display', 'none');
+                        }
+                    }
+
+                    $.setCheckedValue = function (radioName, newValue) {
+                        if (!radioName)
+                            return;
+                        var radios = document.getElementsByName(radioName);
+                        for (var i = 0; i < radios.length; i++) {
+                            radios[i].checked = false;
+                            if (radios[i].value == newValue.toString()) {
+                                // alert(newValue);
+                                radios[i].checked = true;
+                                //$("input[name=" + radioName + "]:eq(" + i + ")").attr("checked", 'checked'); 
+                                //alert(newValue);
+                            }
+
+                        }
+                    }
+
+                    $.setSelectValue = function (selectname, newValue) {
+                        var count = $("#" + selectname + " option").length;
+                        for (var i = 0; i < count; i++) {
+                            if ($("#" + selectname + " ").get(0).options[i].text == newValue) {
+                                $("#" + selectname + " ").get(0).options[i].selected = true;
+                                break;
+                            }
+                        }
+                    }
+
+
+                    $.BindCity = function (provinceval, text) {
+                        if (provinceval != "") {
+
+                            $.ajax({
+                                url: "ajax.ashx?func=GetCity&country=" + provinceval,
+                                contentType: "application/json; charset=utf-8",
+                                type: "GET",
+                                dataType: 'json',
+                                crossDomain: true,
+
+                                success: function (data) {
+                                    $("#ddlcity").empty();
+
+                                    $.each(data, function (key, item) {
+
+                                        $("#ddlcity").prepend("<option value='" + key + "'>" + item + "</option>");
+                                    });
+                                    if (text != "") {
+                                        $.setSelectValue("ddlcity", text);
+                                    }
+                                    try {
+                                        $("#ddlcity").selectmenu("refresh", true);
+                                    } catch (e) { }
+
+
+                                },
+                                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                    alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                                }
+
+                            });
+                        }
+                    }
+
+                    $.BindBirthday = function () {
+                        var cardids = $("#hidCardid").val();
+
+
+                        $("#txtBirthday").val(cardids.slice(6, 10) + "/" + cardids.slice(10, 12) + "/" + cardids.slice(12, 14));
+                        /*if (cardids.length == 18) {
+                        if (cardids.slice(16, 17) % 2 == 1) {
+
+                        $("input[name=rdlsex]:eq(0)").attr("checked", 'checked');
+
+                        }
+                        else {
+                        $("input[name=rdlsex]:eq(1)").attr("checked", 'checked');
+                        }
+                        }
+                        else if (cardids.length == 15) {
+                        if (cardids.slice(14, 15) % 2 == 1) {
+                        $("input[name=rdlsex]:eq(0)").attr("checked", 'checked');
+                        }
+                        else {
+                        $("input[name=rdlsex]:eq(1)").attr("checked", 'checked');
+                        }
+                        }*/
+                    }
+
+
+
+                    $.BindEmpbasic = function () {
+
+                        $.ajax({
+                            url: "ajax.ashx?func=GetEmp&resumeNo=" + $("#entryid").val(),
+                            contentType: "application/json; charset=utf-8",
+                            type: "GET",
+                            dataType: 'json',
+                            crossDomain: true,
+                            success: function (data) {
+
+                                if (data != null) {
+
+                                    $("#txtName").val(data.Name);
+                                    $("#txtBirthday").val(data.Birthday.split(" ")[0]);
+                                    $("#txtHeight").val(data.BodyHeight);
+                                    $("#txtweight").val(data.BodyWeight);
+                                    $.setSelectValue("ddlDressSize", data.DressSize);
+                                    $.setSelectValue("ddlShoesSize", data.ShoesSize);
+                                    $("#txtphone").val(data.Phone);
+                                    $("#txtpostcode").val(data.PostCode);
+                                    $("#txtaddr").val(data.Address);
+                                    // $("#ddlNation").val(data.Ethnic);
+                                    $.setSelectValue("ddlNation", data.Ethnic);
+
+                                    $("input[name='rdlsex'][value='" + data.Sex + "']").attr("checked", true);
+
+                                    $("input[name='ctype'][text='" + data.CensusType + "']").attr("checked", true);
+                                    if (data.Sex == "男") {
+                                        $("input[name='rdlsex'][value='1']").attr("checked", true);
+                                        // $("input[name='rdlsex'][value='2']").attr("checked", false);
+                                    }
+                                    else {
+                                        // $("input[name='rdlsex'][value='1']").attr("checked", false);
+                                        $("input[name='rdlsex'][value='2']").attr("checked", true);
+                                    }
+                                    if (data.CensusType == "城镇") {
+                                        $("input[name='ctype'][value='01']").attr("checked", true);
+                                    }
+                                    else {
+                                        $("input[name='ctype'][value='02']").attr("checked", true);
+                                    }
+                                    if (data.IsMarried == "Y") {
+                                        $("input[name='rdlMarried'][value='1']").attr("checked", true);
+                                    }
+                                    else {
+                                        $("input[name='rdlMarried'][value='0']").attr("checked", true);
+                                    }
+                                    if (data.EmpType == "实习生") {
+                                        $("input[name='Emptype'][value='3']").attr("checked", true);
+                                    }
+                                    else if (data.EmpType == "一般员工") {
+                                        $("input[name='Emptype'][value='1']").attr("checked", true);
+                                    }
+                                    // add 2018-06-12
+                                    else if (data.EmpType == "派遣员工") { 
+                                        $("input[name='Emptype'][value='6']").attr("checked", true);
+                                    }
+                                    // add 2018-06-12
+                                    else if (data.EmpType == "临时工") {  
+                                        $("input[name='Emptype'][value='9']").attr("checked", true);
+                                    }
+                                    else {
+                                        $("input[name='Emptype'][value='7']").attr("checked", true);
+                                    }
+                                    // $("input[name='Emptype'][value='" + data.EmpType + "']").attr("checked", true);
+
+                                    $.RefreashRadio("Emptype");
+                                    $.RefreashRadio("ctype");
+                                    $.RefreashRadio("rdlsex");
+                                    $.RefreashRadio("rdlMarried");
+
+                                    $("input[name='empsite'][value='" + data.Site + "']").attr("checked", true);
+                                    $.RefreashRadio("empsite");
+                                    $("#ddlprovince option[text='" + data.Province + "']").attr("selected", true);
+                                    $.setSelectValue("ddlprovince", data.Province);
+
+                                    $.BindCity($("#ddlprovince").val(), data.City);
+
+                                    try {
+                                        $("#ddlNation").selectmenu("refresh", true);
+
+                                    } catch (e) { }
+                                    try {
+                                        $("#ddlprovince").selectmenu("refresh", true);
+                                    } catch (e) { }
+                                    // add 2018-06-12
+                                    try {
+                                        $("#ddlDressSize").selectmenu("refresh", true);
+                                    } catch (e) { }
+                                    // add 2018-06-12
+                                    try {
+                                        $("#ddlShoesSize").selectmenu("refresh", true);
+                                    } catch (e) { }
+
+                                }
+                                else {
+
+                                    if ($.trim($("#cardprov").val()) != "") {
+                                        // alert($.trim($("#cardprov").val()));
+                                        // $("#ddlprovince ").val(data.Province);
+                                        $.setSelectValue("ddlprovince", $.trim($("#cardprov").val()));
+                                        try {
+                                            $("#ddlprovince").selectmenu("refresh", true);
+                                        } catch (e) { }
+
+                                        //var checkText = $("#ddlprovince").find("option:selected").val();
+                                        $.BindCity($("#ddlprovince").val(), "");
+                                        if ($.trim($("#cardsex").val()) == "1") {
+                                            $("input[name='rdlsex'][value='1']").attr("checked", true)
+                                        }
+                                        else {
+                                            $("input[name='rdlsex'][value='2']").attr("checked", true);
+                                        }
+                                        $.RefreashRadio("rdlsex");
+                                    }
+                                }
+
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+
+                        });
+                    }
+                    $.BindEmpotherinfo = function () {
+                        $.ajax({
+                            url: "ajax.ashx?func=GetEmpOtherInfo&resumeNo=" + $("#entryid").val(),
+                            contentType: "application/json; charset=utf-8",
+                            type: "GET",
+                            dataType: 'json',
+                            crossDomain: true,
+                            success: function (data) {
+
+                                if (data != null) {
+                                    if ($.getUrlParam("source") == null) {
+
+                                        $("#sourcename").val(data.EntrySourceName);
+
+                                        try {
+                                            $("#ddlInviewNo").val(data.EntrySource);
+                                            try {
+                                                $("#ddlInviewNo").selectmenu("refresh", true);
+                                            } catch (e) { }
+                                            //  $("input[name='empSource'][value='" + data.EntrySource + "']").attr("checked", true);
+                                            // $('input:radio[name="empSource"]:checked').checkboxradio("refresh");
+                                        } catch (e) { }
+                                        if ($.getUrlParam("soufrom") != null) {
+                                            $.DisplayEmpsource($.getUrlParam("soufrom"));
+                                            $('#div10').css('display', 'none');
+                                        }
+                                        else {
+                                            $.DisplayEmpsource(data.EntrySource);
+                                        }
+
+                                        if (data.EntrySource == "派遣公司,名称:") {
+                                            try {
+
+                                                $.setSelectValue("ddlpaCompany", data.EntrySourceName);
+
+                                                // $("input[name='pqcom'][value='" + data.EntrySourceName + "']").attr("checked", true);
+                                                //$('input:radio[name="pqcom"]:checked').checkboxradio("refresh");
+                                                try {
+                                                    $("#ddlpaCompany").selectmenu("refresh", true);
+                                                } catch (e) { }
+
+                                            }
+                                            catch (e) { }
+                                        }
+
+
+                                    }
+                                    else {
+                                        $('#div4').css('display', 'none');
+                                        $('#div5').css('display', 'none');
+                                        $('#div10').css('display', 'none');
+                                    }
+
+                                    $("#txtleavedate").val(data.LeaveDate.split(" ")[0]);
+
+
+                                    $("input[name='isbenqgroup'][value='" + data.IsFromBenQGroup + "']").attr("checked", true);
+
+                                    $.RefreashRadio("isbenqgroup");
+
+                                    if (data.IsFromBenQGroup == "N") {
+                                        $("#divcom1").css('display', 'none');
+                                        $("#divcomdate").css('display', 'none');
+                                    }
+                                    else {
+                                        $("#divcom1").css('display', '');
+                                        $("#divcomdate").css('display', '');
+                                    }
+                                    $("input[name='bengroup'][value='" + data.CompanyName + "']").attr("checked", true);
+
+                                    $.RefreashRadio("bengroup");
+                                    $("input[name='isbigdis'][value='" + data.IsBigDisease + "']").attr("checked", true);
+                                    //$('input:radio[name="isbigdis"]:checked').checkboxradio("refresh");
+                                    $.RefreashRadio("isbigdis");
+                                    var distypena = data.DiseaseName.slice(0, 4);
+                                    if (distypena == "其他疾病") {
+                                        $("input[name='bigdis'][value='其他疾病']").attr("checked", true);
+                                        $.RefreashRadio("bigdis");
+                                        // $('input:radio[name="bigdis"]:checked').checkboxradio("refresh");
+                                        $("#txtbigdis").val(data.DiseaseName.slice(5, data.DiseaseName.length));
+                                    }
+                                    else {
+                                        $("input[name='bigdis'][value='" + data.DiseaseName + "']").attr("checked", true);
+                                        $.RefreashRadio("bigdis");
+                                        //$('input:radio[name="bigdis"]:checked').checkboxradio("refresh");
+                                    }
+
+                                    $("input[name='disstatus'][value='" + data.DiseaseStatus + "']").attr("checked", true);
+                                    $.RefreashRadio("disstatus");
+                                    // $('input:radio[name="disstatus"]:checked').checkboxradio("refresh");
+
+                                    if (data.IsBigDisease == "Y") {
+                                        $('#div8').css('display', '');
+                                    }
+                                    else {
+                                        $("#div8").css('display', 'none');
+                                    }
+
+                                    if (distypena == "其他疾病") {
+                                        $('#div7').css('display', '');
+                                    }
+                                    else {
+                                        $("#div7").css('display', 'none');
+                                    }
+                                }
+
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+
+                        });
+                    }
+
+
+                    $.BindEdulevel = function () {
+                        $.ajax({
+                            url: "ajax.ashx?func=GetHighestEduLevel&resumeNo=" + $("#entryid").val(),
+                            contentType: "application/json; charset=utf-8",
+                            type: "GET",
+                            dataType: 'json',
+                            crossDomain: true,
+                            success: function (data) {
+
+                                if (data != null) {
+                                    // alert(data.EduBackground); alert(data.EduStatus);
+                                    // $("input[name='deulevel'][value='" + data.EduBackground + "']").attr("checked", true);
+                                    if (data.EduBackground == "初中及以下") {
+                                        $("input[name='deulevel'][value='06']").attr("checked", true);
+                                    }
+                                    else if (data.EduBackground == "专科") {
+                                        $("input[name='deulevel'][value='04']").attr("checked", true);
+                                    }
+                                    else {
+                                        $("input[name='deulevel'][value='05']").attr("checked", true);
+                                    }
+
+                                    if (data.EduStatus == "畢業") {
+                                        $("input[name='EduStatus'][value='1']").attr("checked", true);
+                                    }
+                                    else if (data.EduStatus == "肄業") {
+                                        $("input[name='EduStatus'][value='2']").attr("checked", true);
+                                    }
+                                    else {
+                                        $("input[name='EduStatus'][value='3']").attr("checked", true);
+                                    }
+
+                                    $.RefreashRadio("deulevel");
+                                    $.RefreashRadio("EduStatus");
+                                    //$('input:radio[name="deulevel"]:checked').checkboxradio("refresh");
+                                    $("#txtsch").val(data.School);
+                                    $("#txtmajor").val(data.Major);
+                                    try {
+                                        $("#txtedustart").val(data.StartDate.split(" ")[0]);
+                                        $("#txteduend").val(data.EndDate.split(" ")[0]);
+                                    } catch (e) { }
+                                }
+
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+
+                        });
+                    }
+
+                    $.BindEmpFamily = function () {
+                        $.ajax({
+                            url: "ajax.ashx?func=GetFamily&resumeNo=" + $("#entryid").val() + "&dsta=" + new Date().getTime(),
+                            contentType: "application/json; charset=utf-8",
+                            type: "GET",
+                            dataType: 'json',
+                            crossDomain: true,
+
+                            success: function (data) {
+
+                                if (data != null) {
+
+                                    var empRel = "";
+                                    for (var i in data) {
+
+                                        empRel = empRel + "<div>" + data[i].Relatives + "姓名:" + data[i].Name + "</div>";
+                                    }
+
+                                    $("#divEmpRe").html(empRel);
+                                }
+
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+
+                        });
+
+                    }
+                    $.BindFamily = function () {
+                        /* $.ajax({
+                        url: $.GetBaseWebApi() + "api/Resume/GetFamily?resumeNo=" + $("#entryid").val(),
+                        type: "GET",
+                        crossDomain: true,
+                        success: function (data) {
+
+                        if (data != null) {
+                        for (var i in data) {
+
+                        if (data[i].Relatives == "父亲") {
+                        $("#txtfname").val(data[i].Name);
+                        $("#txtfaddr").val(data[i].Address);
+                        $("#txtftel").val(data[i].Phone);
+                        }
+                        else if (data[i].Relatives == "母亲") {
+                        $("#txtmname").val(data[i].Name);
+                        $("#txtmaddr").val(data[i].Address);
+                        $("#txtmtel").val(data[i].Phone);
+                        }
+                        else if (data[i].Relatives == "配偶") {
+                        $("#txtqname").val(data[i].Name);
+                        $("#txtqaddr").val(data[i].Address);
+                        $("#txtqtel").val(data[i].Phone);
+                        }
+                        }
+                        }
+
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                        }
+
+                        });
+                        */
+                    }
+
+                    $.BindAuoFamily = function () {
+                        $.ajax({
+                            url: "ajax.ashx?func=GetAUOFamily&resumeNo=" + $("#entryid").val(),
+                            contentType: "application/json; charset=utf-8",
+                            type: "GET",
+                            dataType: 'json',
+                            crossDomain: true,
+
+                            success: function (data) {
+                                if (data != null) {
+                                    $("input[name='auorela'][value='Y']").attr("checked", true);
+                                    //$('input:radio[name="auorela"]:checked').checkboxradio("refresh");
+                                    $.RefreashRadio("auorela");
+                                    $('#div1').css('display', '');
+                                    $('#div2').css('display', '');
+                                    $('#div3').css('display', '');
+
+                                    $("#txtauorela").val(data.Relatives);
+                                    $("#txtauoname").val(data.Name);
+                                    $("#txtauodept").val(data.Dept);
+                                }
+
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+
+                        });
+                    }
+                    $.BindUgentContact = function () {
+                        $.ajax({
+                            url: "ajax.ashx?func=GetUrgentContacter&resumeNo=" + $("#entryid").val(),
+                            contentType: "application/json; charset=utf-8",
+                            type: "GET",
+                            dataType: 'json',
+                            crossDomain: true,
+
+                            success: function (data) {
+                                if (data != null) {
+                                    $("#txtugentrela").val(data.Relatives);
+                                    $("#txtugentName").val(data.Name);
+                                    $("#txtugenttel").val(data.Phone);
+
+                                }
+
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+
+                        });
+                    }
+                    //alert($.getUrlParam('a'));
+
+                    $("#cardid").change(function () {
+                        if ($('#cardid').val() != "") {
+                            var cardidins = $('#cardid').val();
+                            var check18 = /^[1-9]\d{5}[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}(\d|x|X)$/.test(cardidins);
+
+                            var check15 = /^[1-9]\d{7}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\d{3}$/.test(cardidins);
+                            if (check18 == true || check15 == true) {
+
+                                jQuery.support.cors = true;
+                                /*
+                                $.ajax({
+                                url: "ajax.ashx?func=CheckIdnIsExist&idn=" + cardidins,
+                                contentType: "application/json; charset=utf-8",
+                                type: "GET",
+                                dataType: 'json',
+                                crossDomain: true,
+
+                                success: function (data) {
+                                if (data == true) {
+
+                                $("#divcheck").css("display", "none");
+                                $("#divpass").css("display", "block");
+                                $("#divnext0").css("display", "block");
+                                }
+                                else {
+                                // $("#lblpassid").html("身份证号码:" + $("#cardid").val());
+                                $("#cardidm").val($("#cardid").val());
+                                $("#divcheck").css("display", "block");
+                                window.location.href = "hr.html" + $.getParam("pwd");
+                                }
+                                },
+                                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                                }
+
+                                });*/
+                                var site = "AUSZ";
+                                var emptype = "1";
+                                var soufrom = "27";
+                                if ($.getUrlParam("emptype") != null) {
+                                    if ($.getUrlParam("source") != null) {
+                                        emptype = "6";
+                                    }
+                                    else {
+                                        emptype = $.getUrlParam("emptype");
+                                    }
+                                }
+                                if ($.getUrlParam("site") != null) {
+                                    site = $.getUrlParam("site");
+                                }
+                                if ($.getUrlParam("soufrom") != null) {
+                                    soufrom = $.getUrlParam("soufrom");
+                                }
+
+                                $.ajax({
+                                    url: "{:url('hire/index/handle')}?func=CheckIdn&idn=" + cardidins + "&site=" + site + "&empType=" + emptype + "&source=" + soufrom,
+                                    contentType: "application/json; charset=utf-8",
+                                    type: "POST",
+                                    dataType: 'json',
+                                    crossDomain: true,
+
+                                    success: function (data) {
+
+                                        if (data == "Y") {
+
+                                            $("#divcheck").css("display", "none");
+                                            $("#divpass").css("display", "block");
+                                            $("#divnext0").css("display", "block");
+                                            var usetype = request("usetype");  //用户类型，如：针对idl的校园招聘，则usetype=dil
+                                            if (usetype != null && usetype != '' && usetype == 'idl') {
+                                                $("#InterviewCity").css("display", "block");  //面试地点 add by 2016-08-11
+                                            }
+                                        }
+                                        else if (data == "N") {
+                                            // $("#lblpassid").html("身份证号码:" + $("#cardid").val());
+                                            $("#cardidm").val($("#cardid").val());
+                                            $("#divcheck").css("display", "block");
+                                            $("#InterviewCity").css("display", "none");   //面试地点 add by 2016-08-11
+                                            window.location.href = "hr.html" + $.getParam("pwd");
+                                        }
+                                        else {
+                                            alert(data);
+                                        }
+                                    },
+                                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                                    }
+
+                                });
+
+                            }
+                            else {
+                                $("#divpass").css("display", "none");
+                                $("#divnext0").css("display", "none");
+                                alert("身份证号错误，请重新填写");
+                            }
+
+                        }
+                    });
+                    $("#btnback").click(function () {
+                        $("#cardid").val("");
+                        window.location.href = "hr.html" + $.getParam("login");
+
+                    });
+                    $("#btnConfirm").click(function () {
+                        var cardidins = $('#cardidm').val();
+                        var pwd = $('#passm').val();
+                        var pwdcon = $('#passmcon').val();
+                        var usetype = request("usetype");  //用户类型，如：针对idl的校园招聘，则usetype=dil
+                        var emptype = request("emptype");
+                        var siteNoOne = request("site");
+                        if (pwd == pwdcon && pwd.length == 6) {
+                            $.ajax({
+                                url: "ajax.ashx?func=MaintainPwd&site=" + siteNoOne + "&idn=" + cardidins + "&pwd=" + pwd + "&useType=" + usetype + "&empType=" + emptype,
+                                contentType: "application/json; charset=utf-8",
+                                type: "GET",
+                                dataType: 'json',
+                                crossDomain: true,
+
+                                success: function (data) {
+                                    if (data.slice(0, 5) == "error") {
+                                        alert("提交失败");
+                                    }
+                                    else {
+
+                                        $("#cardid").val($("#cardidm").val());
+                                        $("#entryid").val(data);
+                                        $("#divcheck").css("display", "none");
+                                        $("#divpass").css("display", "block");
+                                        $("#divnext0").css("display", "block");
+                                        if (usetype != null && usetype != '' && usetype == 'idl') {
+                                            $("#InterviewCity").css("display", "block");
+                                        }
+                                        window.location.href = "hr.html" + $.getParam("login");
+                                    }
+                                },
+                                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                    alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                                }
+
+                            });
+                        }
+                        else {
+                            alert("密码输入错误，请重新填写");
+                        }
+
+                    });
+                    //登陆
+                    $("#next0").click(function () {
+                        var cardidins = $('#cardid').val();
+                        var pwd = $('#pass').val();
+                        var usetype = request("usetype");  //用户类型，如：正对idl的校园招聘，则usetype=dil
+                        var site = request("site");  //site
+                        var source = request("source");  //source
+                        if (cardidins != "" && pwd != "") {
+                            $.ajax({
+                                // url: "ajax.ashx?func=CheckIdnAndPwd&idn=" + cardidins + "&pwd=" + pwd,
+                                url: "viewajax.ashx?func=LogInByIdnAndPwd&idn=" + cardidins + "&pwd=" + pwd,
+                                contentType: "application/json; charset=utf-8",
+                                type: "GET",
+                                dataType: 'json',
+                                crossDomain: true,
+
+                                success: function (data) {
+
+                                    if (data == null) {
+                                        alert("密码输入错误");
+                                    }
+                                    else {
+
+                                        if (usetype != null && usetype != '' && usetype == 'idl') {
+                                            if (data.ResumeNo == '' || data.ResumeNo == null) {
+                                                alert("用户不存在");
+                                            }
+                                            else {
+                                                if ($("#InterviewCity").attr("style").indexOf('display: block') != -1) {
+                                                    if ($("#ddlInterviewCity").val() == '' || $("#ddlInterviewCity").val() == null) {
+                                                        alert('请选择面试地点');
+                                                        return false;
+                                                    }
+                                                    else {
+                                                        var resumeno = data.ResumeNo;
+                                                        $.ajax({
+                                                            url: "ajax.ashx?func=PostIdlInterviewCity&ResumeNo=" + resumeno
+                                                                  + "&City=" + escape($("#ddlInterviewCity").find("option:selected").text()),
+                                                            contentType: "application/json; charset=utf-8",
+                                                            type: "POST",
+                                                            dataType: 'json',
+                                                            crossDomain: true,
+
+                                                            success: function (data, textStatus) {
+                                                                if (data == false) {
+                                                                    alert("面试地点提交失败");
+                                                                }
+                                                                else {
+                                                                    $.ajax({
+                                                                        url: "ajax.ashx?func=CheckIsEmploy&ResumeNo=" + resumeno,
+                                                                        contentType: "application/json; charset=utf-8",
+                                                                        type: "POST",
+                                                                        dataType: 'json',
+                                                                        crossDomain: true,
+
+                                                                        success: function (data, textStatus) {
+                                                                            if (data == false) {
+                                                                                window.location.href = "ResumeIdl.html?site=" + encodeURIComponent(site) + "&resumeNo=" + encodeURIComponent(resumeno) + "&emptype=1&source=" + encodeURIComponent(source);  //usetype == 'idl'跳转到IDL校园招聘的简历填写页面 add by 2016-08-11
+                                                                            }
+                                                                            else {
+
+                                                                                window.location.href = "ResumeIdl2.aspx?site=" + encodeURIComponent(site) + "&resumeNo=" + encodeURIComponent(resumeno);  //usetype == 'idl'跳转到IDL校园招聘的简历填写第二部分页面 add by 2016-09-25
+                                                                            }
+                                                                        },
+                                                                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                                                            alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                                                                        }
+                                                                    });
+
+                                                                }
+                                                            },
+                                                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            $("#lblcardid").html("身份证号码:" + $("#cardid").val());
+
+                                            // $("#entryid").val(data);
+                                            $("#cardprov").val(data.Province);
+                                            $("#cardsex").val(data.Sex);
+
+                                            $("#entryid").val(data.ResumeNo);
+                                            $("#hidCardid").val($("#cardid").val());
+                                            $.BindBirthday();
+                                            $.DisplayURLEmpSource();
+                                            $.BindEmpbasic();
+                                            window.location.href = "hr.html" + $.getParam("info1");
+                                        }
+                                    }
+                                },
+                                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                    alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                                }
+
+                            });
+                        }
+                        else {
+                            alert('身份证或密码不能为空！');
+                            return false;
+                        }
+
+                    });
+
+                    $.CheckBasicInfo = function () {
+                        if ($('input:radio[name="ctype"]:checked').val() == undefined) {
+                            alert("请选择户籍类型");
+                            return false;
+                        }
+                        if ($('input:radio[name="rdlsex"]:checked').val() == undefined) {
+                            alert("请选择性别");
+                            return false;
+                        }
+                        if ($('input:radio[name="rdlMarried"]:checked').val() == undefined) {
+                            alert("请选择婚姻状况");
+                            return false;
+                        }
+                        if ($.getUrlParam("source") == null) {
+                            if ($('input:radio[name="Emptype"]:checked').val() == undefined) {
+                                alert("请选择身份类别");
+                                return false;
+                            }
+                        }
+                        //  var tel = /^[0-9]{6}$/;
+                        //if (tel.test($("#txtpostcode").val()) == false) {
+                        //  alert("请正确填写您的邮政编码");
+                        // return false;
+                        // }
+
+
+                        if ($.trim($("#txtName").val()) == "") {
+                            alert("请填写您的姓名");
+                            return false;
+                        }
+                        var reg = /^(\w|[\u4E00-\u9FA5])*$/;
+                        if (reg.test($.trim($("#txtName").val())) == false) {
+                            alert("姓名只能是英文，数字和汉字组合");
+                            return false;
+                        }
+
+
+                        if ($.trim($("#txtBirthday").val()) == "") {
+                            alert("请填写您的出生日期");
+                            return false;
+                        }
+
+                        if ($.trim($("#txtHeight").val()) == "") {
+                            alert("请填写您的身高");
+                            return false;
+                        }
+                        var tel = /^[0-9]+$/;
+                        if (tel.test($("#txtHeight").val()) == false) {
+                            alert("请正确填写您的身高(只能为数字)");
+                            return false;
+                        }
+                        if ($.trim($("#txtweight").val()) == "") {
+                            alert("请填写您的体重");
+                            return false;
+                        }
+
+                        //var tel = /^[0-9]+$/;
+                        if (tel.test($("#txtweight").val()) == false) {
+                            alert("请正确填写您的体重(只能为数字)");
+                            return false;
+                        }
+                        if ($.trim($("#txtphone").val()) == "") {
+                            alert("请填写您的行动电话");
+                            return false;
+                        }
+
+                        var tel1 = /^[0-9]+[-]{0,1}[0-9]+$/;
+                        if (tel1.test($("#txtphone").val()) == false) {
+                            alert("请正确填写您的行动电话");
+                            return false;
+                        }
+                        if ($.trim($("#txtaddr").val()) == "") {
+                            alert("请填写您的户籍详细地址");
+                            return false;
+                        }
+                        if ($.getUrlParam("site") == null) {
+                            if ($('input:radio[name="empsite"]:checked').val() == undefined) {
+                                alert("请选择厂区");
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+
+                    $("#next1").click(function () {
+                        if ($.CheckBasicInfo() == false) {
+                            return false;
+                        }
+                        //            var obj = {
+                        //                ResumeNo: $("#entryid").val(),
+                        //                Name: $("#txtName").val(),
+                        //                IdentityNo: $("#hidCardid").val(),
+                        //                Sex: $('input:radio[name="rdlsex"]:checked').val(),
+                        //                IsMarried: $('input:radio[name="rdlMarried"]:checked').val(),
+                        //                Birthday: $("#txtBirthday").val(),
+                        //                BodyHeight: $("#txtHeight").val(),
+                        //                BodyWeight: $("#txtweight").val(),
+                        //                Phone: $("#txtphone").val(),
+                        //                Ethnic: $("#ddlNation").find("option:selected").text(),
+                        //                CensusType: $('input:radio[name="ctype"]:checked').val(),
+                        //                PostCode: $("#txtpostcode").val(),
+                        //                Province: $("#ddlprovince").find("option:selected").text(),
+                        //                City: $("#ddlcity").find("option:selected").text(),
+                        //                Address: $("#txtaddr").val(),
+                        //                EmpType: $('input:radio[name="Emptype"]:checked').val()
+                        //            };
+                        var site = "";
+                        if ($.getUrlParam("site") != null) {
+                            site = $.getUrlParam("site");
+                        }
+                        else {
+                            site = $('input:radio[name="empsite"]:checked').val();
+                        }
+                        var etype = "";
+                        if ($.getUrlParam("source") != null) {
+                            //add 2018-06-12
+                            if ($.getUrlParam("emptype") != null && ($.getUrlParam("emptype") == "1" || $.getUrlParam("emptype") == "9")) {
+                                etype = $.getUrlParam("emptype");
+                            }
+                            else {
+                                etype = "6";
+                            }
+                        }
+                        else {
+                            etype = $('input:radio[name="Emptype"]:checked').val();
+                            if ($.getUrlParam("emptype") != null) {
+                                etype = $.getUrlParam("emptype");
+                            }
+                        }
+                        $.ajax({
+                            url: "ajax.ashx?func=PutEmpBasicInfo&ResumeNo=" + $("#entryid").val()
+                        + "&Name=" + escape($("#txtName").val())
+                        + "&IdentityNo=" + escape($("#hidCardid").val())
+                        + "&Sex=" + escape($('input:radio[name="rdlsex"]:checked').val())
+                        + "&IsMarried=" + escape($('input:radio[name="rdlMarried"]:checked').val())
+                        + "&Birthday=" + escape($("#txtBirthday").val())
+                        + "&BodyHeight=" + escape($("#txtHeight").val())
+                        + "&BodyWeight=" + escape($("#txtweight").val())
+                        + "&DressSize=" + escape($("#ddlDressSize").find("option:selected").val())
+                        + "&ShoesSize=" + escape($("#ddlShoesSize").find("option:selected").val())
+                        + "&Phone=" + escape($("#txtphone").val())
+                        + "&Ethnic=" + escape($("#ddlNation").find("option:selected").val())
+                        + "&CensusType=" + escape($('input:radio[name="ctype"]:checked').val())
+                        + "&PostCode=" + "111111"//escape($("#txtpostcode").val())
+                        + "&Province=" + escape($("#ddlprovince").find("option:selected").val())//escape($("#ddlprovince").find("option:selected").text())
+                        + "&City=" + escape($("#ddlcity").find("option:selected").text())
+                        + "&Address=" + escape($("#txtaddr").val())
+                        + "&Site=" + escape(site)
+                        + "&EmpType=" + escape(etype),
+                            contentType: "application/json; charset=utf-8",
+                            type: "POST",
+                            dataType: 'json',
+                            crossDomain: true,
+
+                            success: function (data, textStatus) {
+                                if (data == false) {
+                                    alert("提交失败。");
+                                }
+                                else {
+                                    $.BindEdulevel();
+                                    window.location.href = "hr.html" + $.getParam("info2");
+                                }
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+                        });
+                        // window.location.href = "hr.html#theme-page";
+
+                    });
+
+                    $.CheckEduInfo = function () {
+                        if ($('input:radio[name="deulevel"]:checked').val() == undefined) {
+                            alert("请选择学历");
+                            return false;
+                        }
+                        if ($.trim($("#txtsch").val()) == "") {
+                            alert("请填写学校名称");
+                            return false;
+                        }
+                        if ($.trim($("#txtmajor").val()) == "") {
+                            alert("请填写专业");
+                            return false;
+                        }
+
+                        if ($.trim($("#txtedustart").val()) == "") {
+                            alert("请填写起始日期");
+                            return false;
+                        }
+                        if ($.trim($("#txteduend").val()) == "") {
+                            alert("请填写毕业日期");
+                            return false;
+                        }
+                        if ($('input:radio[name="EduStatus"]:checked').val() == undefined) {
+                            alert("请选择学历状态");
+                            return false;
+                        }
+
+                        var objDate1 = new Date($.trim($("#txtedustart").val()));
+                        var objDate2 = new Date($.trim($("#txteduend").val()));
+
+                        if (objDate1 >= new Date()) {
+                            alert("起始日期必须小于当前日期");
+                            return false;
+                        }
+                        if (objDate1 >= objDate2) {
+                            alert("毕业日期必须大于起始日期");
+                            return false;
+                        }
+
+                        return true;
+                    }
+                    $("#next2").click(function () {
+                        if ($.CheckEduInfo() == false) {
+                            return false;
+                        }
+                        //            var obj = {
+                        //                ResumeNo: $("#entryid").val(),
+                        //                EduBackground: $('input:radio[name="deulevel"]:checked').val(),
+                        //                School: $("#txtsch").val(),
+                        //                Major: $("#txtmajor").val(),
+                        //                StartDate: $("#txtedustart").val(),
+                        //                EndDate: $("#txteduend").val()
+                        //            };deustatus
+                        $.ajax({
+                            url: "ajax.ashx?func=PutHighestEduLevel&ResumeNo=" + $("#entryid").val()
+                        + "&EduBackground=" + escape($('input:radio[name="deulevel"]:checked').val())
+                        + "&School=" + escape($("#txtsch").val())
+                        + "&MajorClass=''" 
+                        + "&Major=" + escape($("#txtmajor").val())
+                        + "&StartDate=" + escape($("#txtedustart").val())
+                        + "&EndDate=" + escape($("#txteduend").val())
+                        + "&EduStatus=" + escape($('input:radio[name="EduStatus"]:checked').val()),
+
+                            contentType: "application/json; charset=utf-8",
+                            type: "POST",
+                            dataType: 'json',
+                            crossDomain: true,
+
+                            success: function (data, textStatus) {
+                                if (data == false) {
+
+                                    alert("提交失败。");
+                                }
+                                else {
+                                    // $.BindFamily();
+                                    $.BindEmpFamily();
+                                    $.BindAuoFamily();
+                                    $.BindUgentContact();
+                                    window.location.href = "hr.html" + $.getParam("info3");
+                                }
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+                        });
+
+
+                    });
+
+                    $.CheckRelation = function () {
+                        /* if ($.trim($("#txtfname").val()) != "") {
+                        if ($.trim($("#txtfaddr").val()) == "") {
+                        alert("请填写父亲地址");
+                        return false;
+                        }
+                        if ($.trim($("#txtftel").val()) == "") {
+                        alert("请填写父亲电话");
+                        return false;
+                        }
+                        }
+                        if ($.trim($("#txtmname").val()) != "") {
+                        if ($.trim($("#txtmname").val()) == "") {
+                        alert("请填写母亲地址");
+                        return false;
+                        }
+                        if ($.trim($("#txtmtel").val()) == "") {
+                        alert("请填写母亲电话");
+                        return false;
+                        }
+                        }
+                        if ($.trim($("#txtqname").val()) != "") {
+                        if ($.trim($("#txtqaddr").val()) == "") {
+                        alert("请填写配偶地址");
+                        return false;
+                        }
+                        if ($.trim($("#txtqtel").val()) == "") {
+                        alert("请填写配偶电话");
+                        return false;
+                        }
+                        }*/
+                        if ($.trim($("#divEmpRe").html()) == "") {
+                            alert("请至少维护一位家属");
+                            return false;
+                        }
+                        if ($.trim($("#txtugentName").val()) != "") {
+                            if ($.trim($("#txtugentrela").val()) == "") {
+                                alert("请填写紧急联络人关系");
+                                return false;
+                            }
+                            if ($.trim($("#txtugentName").val()) == "") {
+                                alert("请填写紧急联络人姓名");
+                                return false;
+                            }
+                            if ($.trim($("#txtugenttel").val()) == "") {
+                                alert("请填写紧急联络人电话");
+                                return false;
+                            }
+                            var tel1 = /^[0-9]+[-]{0,1}[0-9]+$/;
+                            if (tel1.test($("#txtugenttel").val()) == false) {
+                                alert("请正确填写紧急联络人电话");
+                                return false;
+                            }
+                            if ($.trim($("#txtugentrela").val().replace(/[\d]/g, '')) != $.trim($("#txtugentrela").val())) {
+                                alert("紧急联络人关系不能有数字组成");
+                                return false;
+                            }
+                            if ($.trim($("#txtugentName").val().replace(/[\d]/g, '')) != $.trim($("#txtugentName").val())) {
+                                alert("紧急联络人姓名不能有数字组成");
+                                return false;
+                            }
+
+                            //                var tel = /^[0-9]+$/;
+                            //                if (tel.test($.trim($("#txtugenttel").val())) == false) {
+                            //                    alert("请正确填写紧急联络人电话(只能为数字)");
+                            //                    return false;
+                            //                }
+                        }
+                        else {
+                            alert("请填写紧急联络人姓名");
+                            return false;
+                        }
+                        if ($('input:radio[name="auorela"]:checked').val() == "Y") {
+                            if ($.trim($("#txtauorela").val()) == "") {
+                                alert("请填写亲戚/朋友关系");
+                                return false;
+                            }
+                            if ($.trim($("#txtauoname").val()) == "") {
+                                alert("请填写亲戚/朋友姓名");
+                                return false;
+                            }
+                            if ($.trim($("#txtauodept").val()) == "") {
+                                alert("请填写亲戚/朋友部门");
+                                return false;
+                            }
+
+                        }
+                        return true;
+                    }
+
+                    $("#next3").click(function () {
+                        if ($.CheckRelation() == false) {
+                            return false;
+                        }
+                        var issucc = true;
+
+                        /*if ($.trim($("#txtfname").val()) != "") {
+                        var obj = {
+                        ResumeNo: $("#entryid").val(),
+                        Relatives: "父亲",
+                        Name: $("#txtfname").val(),
+                        Address: $("#txtfaddr").val(),
+                        Phone: $("#txtftel").val(),
+                        Dept: ""
+                        };
+                        $.ajax({
+                        type: "POST",
+                        crossDomain: true,
+                        url: $.GetBaseWebApi() + "api/Resume/PutFamily",
+                        data: obj,
+                        dataType: "json",
+                        success: function (data, textStatus) {
+                        if (data == false) {
+                        issucc = false;
+                        alert("提交失败(父亲资料)。");
+                        }
+
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        issucc = false;
+                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                        }
+                        });
+                        }
+                        if ($.trim($("#txtmname").val()) != "") {
+                        var obj = {
+                        ResumeNo: $("#entryid").val(),
+                        Relatives: "母亲",
+                        Name: $("#txtmname").val(),
+                        Address: $("#txtmaddr").val(),
+                        Phone: $("#txtmtel").val(),
+                        Dept: ""
+                        };
+                        $.ajax({
+                        type: "POST",
+                        crossDomain: true,
+                        url: $.GetBaseWebApi() + "api/Resume/PutFamily",
+                        data: obj,
+                        dataType: "json",
+                        success: function (data, textStatus) {
+                        if (data == false) {
+                        issucc = false;
+                        alert("提交失败(母亲资料)。");
+                        }
+
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        issucc = false;
+                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                        }
+                        });
+                        }
+                        if ($.trim($("#txtqname").val()) != "") {
+                        var obj = {
+                        ResumeNo: $("#entryid").val(),
+                        Relatives: "配偶",
+                        Name: $("#txtqname").val(),
+                        Address: $("#txtqaddr").val(),
+                        Phone: $("#txtqtel").val(),
+                        Dept: ""
+                        };
+                        $.ajax({
+                        type: "POST",
+                        crossDomain: true,
+                        url: $.GetBaseWebApi() + "api/Resume/PutFamily",
+                        data: obj,
+                        dataType: "json",
+                        success: function (data, textStatus) {
+                        if (data == false) {
+                        issucc = false;
+                        alert("提交失败(配偶资料)。");
+                        }
+
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        issucc = false;
+                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                        }
+                        });
+                        }
+                        */
+                        if ($.trim($("#txtugentName").val()) != "") {
+                            //                var obj = {
+                            //                    ResumeNo: $("#entryid").val(),
+                            //                    Relatives: $("#txtugentrela").val(),
+                            //                    Name: $("#txtugentName").val(),
+                            //                    Address: "",
+                            //                    Phone: $("#txtugenttel").val(),
+                            //                    Dept: ""
+                            //                };
+                            $.ajax({
+                                url: "ajax.ashx?func=PostUrgentContacter&ResumeNo=" + $("#entryid").val()
+                        + "&Relatives=" + escape($("#txtugentrela").val())
+                        + "&Name=" + escape($("#txtugentName").val())
+                        + "&Address=" + ""
+                        + "&Phone=" + escape($("#txtugenttel").val())
+                        + "&Dept=" + "",
+                                contentType: "application/json; charset=utf-8",
+                                type: "POST",
+                                dataType: 'json',
+                                crossDomain: true,
+
+                                success: function (data, textStatus) {
+                                    if (data == false) {
+                                        issucc = false;
+                                        alert("提交失败(紧急联络人资料)。");
+                                    }
+
+                                },
+                                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                    issucc = false;
+                                    alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                                }
+                            });
+                        }
+                        if ($('input:radio[name="auorela"]:checked').val() == "Y") {
+                            //                var obj = {
+                            //                    ResumeNo: $("#entryid").val(),
+                            //                    Relatives: $("#txtauorela").val(),
+                            //                    Name: $("#txtauoname").val(),
+                            //                    Address: "",
+                            //                    Phone: "",
+                            //                    Dept: $("#txtauodept").val()
+                            //                };
+                            $.ajax({
+                                url: "ajax.ashx?func=PutAUOFamily&ResumeNo=" + $("#entryid").val()
+                        + "&Relatives=" + escape($("#txtauorela").val())
+                        + "&Name=" + escape($("#txtauoname").val())
+                        + "&Address=" + ""
+                        + "&Phone=" + ""
+                        + "&Dept=" + escape($("#txtauodept").val()),
+                                contentType: "application/json; charset=utf-8",
+                                type: "POST",
+                                dataType: 'json',
+                                crossDomain: true,
+
+                                success: function (data, textStatus) {
+                                    if (data == false) {
+                                        issucc = false;
+                                        alert("提交失败（亲戚/朋友资料）。");
+                                    }
+
+                                },
+                                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                    issucc = false;
+                                    alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                                }
+                            });
+                        }
+                        if (issucc == true) {
+                            $.BindEmpotherinfo();
+                            window.location.href = "hr.html" + $.getParam("info4");
+                        }
+
+                    });
+                    $("#last3").click(function () {
+                        window.location.href = "hr.html" + $.getParam("info3");
+
+                    });
+                    $("#last2").click(function () {
+                        window.location.href = "hr.html" + $.getParam("info2");
+
+                    });
+                    $("#last1").click(function () {
+                        window.location.href = "hr.html" + $.getParam("info1");
+
+                    });
+                    $("#last4").click(function () {
+                        window.location.href = "hr.html" + $.getParam("info1");
+
+                    });
+                    $("#finish2").click(function () {
+                        window.location.href = "hr.html" + $.getParam("info6");
+
+                    });
+                    $.CheckOtherInfo = function () {
+                        // if ($.getUrlParam("source") == null) {
+                        //                if ($('input:radio[name="empSource"]:checked').val() == undefined) {
+                        //                    alert("请选择入职来源");
+                        //                }
+
+                        //    }
+                        if ($('#div4').css('display') != "none") {
+
+                            if ($.trim($("#sourcename").val()) == "") {
+                                alert("请输入入职来源名称 ");
+                                return false;
+                            }
+
+                        }
+
+                        if ($('input:radio[name="isbenqgroup"]:checked').val() == "Y") {
+                            if ($('input:radio[name="bengroup"]:checked').val() == undefined) {
+                                alert("请选择曾就职于明基友达集团");
+                                return false;
+                            }
+
+                            if ($.trim($("#txtleavedate").val()) == "") {
+                                alert("请填写离职日期");
+                                return false;
+                            }
+                            //                var objDate1 = new Date($.trim($("#txtleavedate").val()));
+
+                            //                if (objDate1 > new Date()) {
+                            //                    alert("离职日期必须小于当前日期");
+                            //                    return false;
+                            //                }
+                        }
+
+                        if ($('input:radio[name="isbigdis"]:checked').val() == "Y") {
+                            if ($('input:radio[name="bigdis"]:checked').val() == undefined) {
+                                alert("请选择患有疾病");
+                                return false;
+                            }
+                            if ($('input:radio[name="disstatus"]:checked').val() == undefined) {
+                                alert("请选择所患的疾病目前状况");
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                    $("#finish").click(function () {
+                        if ($.CheckOtherInfo() == false) {
+                            return false;
+                        }
+                        var sourcetype = "";
+                        var souname = "";
+                        if ($.getUrlParam("source") == null) {
+                            if ($.getUrlParam("soufrom") == null) {
+                                sourcetype = $("#ddlInviewNo").val(); //$('input:radio[name="empSource"]:checked').val();
+                                if ($("#ddlInviewNo").val() == "11") {
+                                    souname = $("#sourcename").val();
+                                }
+                                else if ($("#ddlInviewNo").val() == "3") {
+                                    souname = $("#sourcename").val();
+                                }
+                                else if ($("#ddlInviewNo").val() == "27") {
+                                    souname = $("#ddlpaCompany").find("option:selected").val(); // $('input:radio[name="pqcom"]:checked').val();
+                                }
+                                else if ($("#ddlInviewNo").val() == "28") {
+                                    souname = $("#sourcename").val();
+                                }
+                            }
+                            else {
+                                sourcetype = $.getUrlParam("soufrom");
+                                if ($("#ddlInviewNo").val() == "11") {
+                                    souname = $("#sourcename").val();
+                                }
+                                else if ($("#ddlInviewNo").val() == "3") {
+                                    souname = $("#sourcename").val();
+                                }
+                                else if ($("#ddlInviewNo").val() == "27") {
+                                    souname = $("#ddlpaCompany").find("option:selected").val(); // $('input:radio[name="pqcom"]:checked').val();
+                                }
+                                else if ($("#ddlInviewNo").val() == "28") {
+                                    souname = $("#sourcename").val();
+                                }
+                            }
+                        }
+                        else {
+                            sourcetype = "27";
+                            souname = $.getUrlParam("source");
+                        }
+                        var bigname = "";
+                        var dissta = "";
+                        if ($('input:radio[name="isbigdis"]:checked').val() == "Y") {
+                            if ($("input[name='bigdis']:checked").val() == "其他疾病") {
+                                bigname = "其他疾病:" + $("#txtbigdis").val();
+                            }
+                            else {
+                                bigname = $("input[name='bigdis']:checked").val();
+                            }
+                            dissta = $('input:radio[name="disstatus"]:checked').val();
+                        }
+                        var companyname = "";
+                        var livedate = ""
+                        if ($('input:radio[name="isbenqgroup"]:checked').val() == "Y") {
+                            companyname = $('input:radio[name="bengroup"]:checked').val();
+                            livedate = $("#txtleavedate").val();
+                        }
+
+                        //            var obj = {
+                        //                ResumeNo: $("#entryid").val(),
+                        //                EntrySource: sourcetype,
+                        //                EntrySourceName: souname,
+                        //                IsFromBenQGroup: $('input:radio[name="isbenqgroup"]:checked').val(),
+                        //                CompanyName: companyname, //$('input:radio[name="bengroup"]:checked').val(),
+                        //                LeaveDate: livedate, //$("#txtleavedate").val(),
+                        //                IsBigDisease: $('input:radio[name="isbigdis"]:checked').val(),
+                        //                DiseaseName: bigname,
+                        //                DiseaseStatus: dissta
+                        //            };
+
+                        $.ajax({
+                            url: "ajax.ashx?func=PostEmpOtherInfo&ResumeNo=" + $("#entryid").val()
+                        + "&EntrySource=" + escape(sourcetype)
+                        + "&EntrySourceName=" + escape(souname)
+                        + "&IsFromBenQGroup=" + escape($('input:radio[name="isbenqgroup"]:checked').val())
+                        + "&CompanyName=" + escape(companyname)
+                        + "&LeaveDate=" + escape(livedate)
+                        + "&IsBigDisease=" + escape($('input:radio[name="isbigdis"]:checked').val())
+                        + "&DiseaseName=" + escape(bigname)
+                        + "&DiseaseStatus=" + escape(dissta),
+                            contentType: "application/json; charset=utf-8",
+                            type: "POST",
+                            dataType: 'json',
+                            crossDomain: true,
+
+                            success: function (data, textStatus) {
+                                if (data == false) {
+
+                                    alert("提交失败。");
+                                }
+                                else {
+                                    window.location.href = "hr.html" + $.getParam("info5");
+                                }
+
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                issucc = false;
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+                        });
+
+                    });
+
+                    var qt = {
+                        preset: 'date', //日期
+                        theme: 'ios7', //'jqm', //皮肤样式
+                        display: 'modal', //显示方式 
+                        mode: 'clickpick', //日期选择模式
+                        dateFormat: 'yy/mm/dd', // 日期格式
+                        setText: '确定', //确认按钮名称
+                        cancelText: '取消', //取消按钮名籍我
+                        dateOrder: 'yymmdd', //面板中日期排列格式
+                        dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+                        endYear: 2030 //结束年份
+                    };
+                    var qt1 = {
+                        preset: 'date', //日期
+                        display: 'modal', //显示方式 
+                        dateOrder: 'yymmdd', //面板中日期排列格式
+                        dateFormat: 'yy/mm/dd', // 日期格式
+                        endYear: 2030 //结束年份
+                    }
+                    $('input:jqmData(role="datebox")').mobiscroll().date(qt);
+                    $('input:jqmData(role="datebox2")').mobiscroll().date(qt);
+                    $('input:jqmData(role="datebox3")').mobiscroll().date(qt);
+                    $('input:jqmData(role="datebox4")').mobiscroll().date(qt);
+
+
+                });
+    
+
+            </script>
+            <div data-role="">
+                <label for="txtBirthday">
+                    出生日期:</label>
+                <input type="text" data-role="datebox" id="txtBirthday" name="txtBirthday" />
+            </div>
+            <div data-role="">
+                <label for="name">
+                    身高（厘米）:</label>
+                <input type="tel" name="txtHeight" id="txtHeight" value="" />
+            </div>
+            <div data-role="">
+                <label for="name">
+                    体重（公斤）:</label>
+                <input type="tel" name="txtweight" id="txtweight" value="" />
+            </div>
+            <!-- add 2018-06-12 -->
+             <div data-role="none">
+                <label for="store">
+                    衣服尺码:</label>
+                <select name="ddlDressSize" id="ddlDressSize">
+                </select>
+            </div>
+             <!-- add 2018-06-12 -->
+             <div data-role="none">
+                <label for="store">
+                    鞋子尺码:</label>
+                <select name="ddlShoesSize" id="ddlShoesSize">
+                </select>
+            </div>
+
+            <div data-role="none">
+                <label for="name">
+                    行动电话:</label>
+                <input type="tel" name="txtphone" id="txtphone" value="" />
+            </div>
+            <div data-role="none">
+                <label for="store">
+                    民族:</label>
+                <select name="ddlNation" id="ddlNation">
+                </select>
+            </div>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>户籍类型：</legend>
+                <input type="radio" id="ctype1" name="ctype" value="01" />
+                <label for="ctype1">
+                    城镇</label>
+                <input type="radio" id="ctype2" name="ctype" value="02" />
+                <label for="ctype2">
+                    农村</label>
+            </fieldset>
+            <div data-role="none" style="display: none">
+                <label for="name">
+                    邮编:</label>
+                <input type="text" name="txtpostcode" id="txtpostcode" value="" />
+            </div>
+            <div data-role="none" data-type="horizontal" data-position="left">
+                <label for="name">
+                    户籍省市:</label>
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <select name="ddlprovince" id="ddlprovince">
+                    </select>
+                    <select name="ddlcity" id="ddlcity">
+                    </select>
+                </fieldset>
+            </div>
+            <div data-role="">
+                <label for="name">
+                    户籍详细地址（同身份证地址）:</label>
+                <input type="text" name="txtaddr" id="txtaddr" value="" />
+            </div>
+            <div data-role="navbar">
+                <ul>
+                    <li></li>
+                    <li>
+                        <input type="button" data-icon="forward" style="background-color: #9CEBF4" id="next1"
+                            value="下一步" /></li>
+                </ul>
+            </div>
+            <div data-role="controlgroup" data-type="horizontal">
+            </div>
+        </div>
+        <!-- content部分end -->
+        <!-- 页脚部分start -->
+        <div data-role="footer" data-position="fixed" style="height: 42px; text-align: center">
+            <img src="{$default_dir}static/hire/auo.png" style="height: 36px; width: 78px; margin-top: 3px" />
+        </div>
+        <!-- 页脚部分end -->
+    </div>
+    <!-- 页面容器end -->
+    <!-- 页面容器start -->
+    <div data-role="page" id="info2" data-add-back-btn="false">
+        <!-- 页眉部分start -->
+        <div data-role="header" data-add-back-btn="false" data-theme="f">
+            <h1>
+                最高学历</h1>
+        </div>
+        <!-- 页眉部分end -->
+        <!-- content部分start -->
+        <div data-role="content">
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>学历：</legend>
+                <input type="radio" id="deulevel1" name="deulevel" value="04" />
+                <label for="deulevel1">
+                    专科</label>
+                <input type="radio" id="deulevel2" name="deulevel" value="06" />
+                <label for="deulevel2">
+                    初中及以下</label>
+                <input type="radio" id="deulevel3" name="deulevel" value="05" />
+                <label for="deulevel3">
+                    高中/中专/技校/职高</label>
+            </fieldset>
+            <div data-role="">
+                <label for="name">
+                    学校名称:</label>
+                <input type="text" name="txtsch" id="txtsch" value="" />
+            </div>
+            <div data-role="">
+                <label for="name">
+                    专业:</label>
+                <input type="text" name="txtmajor" id="txtmajor" value="" />
+            </div>
+            <div data-role="">
+                <label for="name">
+                    起始日期:</label>
+                <input type="text" data-role="datebox2" name="txtedustart" id="txtedustart" value="" />
+            </div>
+            <div data-role="">
+                <label for="name">
+                    毕业日期:</label>
+                <input type="text" data-role="datebox3" name="txteduend" id="txteduend" value="" />
+            </div>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>学历状态：</legend>
+                <input type="radio" id="deustatus1" name="EduStatus" value="1" />
+                <label for="deustatus1">
+                    毕业</label>
+                <input type="radio" id="deustatus2" name="EduStatus" value="2" />
+                <label for="deustatus2">
+                    肄业</label>
+                <input type="radio" id="deustatus3" name="EduStatus" value="3" />
+                <label for="deustatus3">
+                    就学中</label>
+            </fieldset>
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <input type="button" data-icon="back" id="last1" style="background-color: #9CEBF4"
+                            value="上一步" /></li>
+                    <li>
+                        <input type="button" style="background-color: #9CEBF4;" data-icon="forward" id="next2"
+                            value="下一步" /></li>
+                </ul>
+            </div>
+        </div>
+        <!-- content部分end -->
+        <!-- 页脚部分start -->
+        <div data-role="footer" data-position="fixed" style="height: 42px; text-align: center">
+            <img src="{$default_dir}static/hire/auo.png" style="height: 36px; width: 78px; margin-top: 3px" />
+        </div>
+        <!-- 页脚部分end -->
+    </div>
+    <!-- 页面容器end -->
+    <!-- 页面容器start -->
+    <div data-role="page" id="info3" data-add-back-btn="true">
+        <!-- 页眉部分start -->
+        <div data-role="header" data-add-back-btn="false" data-theme="f">
+            <h1>
+                家庭状况</h1>
+        </div>
+        <!-- 页眉部分end -->
+        <!-- content部分start -->
+        <div data-role="content">
+            <div data-role="none">
+                <label for="store">
+                    关系:</label>
+                <select name="ddlRelation" id="ddlRelation">
+                    <option value="父亲">父亲</option>
+                    <option value="母亲">母亲</option>
+                    <option value="配偶">配偶</option>
+                    <option value="爷爷奶奶">爷爷奶奶</option>
+                </select>
+            </div>
+            <div data-role="">
+                <label for="name">
+                    姓名:</label>
+                <input type="text" name="txtname" id="txtname" value="" />
+            </div>
+            <div data-role="">
+                <label for="name">
+                    地址:</label>
+                <input type="text" name="txtaddr1" id="txtaddr1" value="同户籍地址" />
+            </div>
+            <div data-role="">
+                <label for="name">
+                    电话:</label>
+                <input type="tel" name="txttel" id="txttel" value="" />
+            </div>
+            <div data-role="controlgroup">
+                <input type="button" data-icon="check" style="background-color: #9CEBF4" id="btnAddRe"
+                    value="新增" />
+            </div>
+            <script type="text/javascript">
+                $(function () {
+
+
+                    $("#btnAddRe").click(function () {
+
+                        if ($.trim($("#txtname").val()) == "") {
+                            alert("请填写姓名");
+                            return false;
+                        }
+                        if ($.trim($("#txtaddr").val()) == "") {
+                            alert("请填写地址");
+                            return false;
+                        }
+                        if ($.trim($("#txttel").val()) == "") {
+                            alert("请填写电话");
+                            return false;
+                        }
+
+                        //		            var obj = {
+                        //		                ResumeNo: $("#entryid").val(),
+                        //		                Relatives: $("#ddlRelation").find("option:selected").text(),
+                        //		                Name: $("#txtname").val(),
+                        //		                Address: $("#txtaddr").val(),
+                        //		                Phone: $("#txttel").val(),
+                        //		                Dept: ""
+                        //		            };
+
+                        $.ajax({
+                            url: "ajax.ashx?func=PutFamily&ResumeNo=" + $("#entryid").val()
+                        + "&Relatives=" + escape($("#ddlRelation").find("option:selected").text())
+                        + "&Name=" + escape($("#txtname").val())
+                        + "&Address=" + escape($("#txtaddr1").val())
+                        + "&Phone=" + escape($("#txttel").val())
+                        + "&Dept=" + "",
+                            contentType: "application/json; charset=utf-8",
+                            type: "POST",
+                            dataType: 'json',
+                            crossDomain: true,
+
+                            success: function (data, textStatus) {
+                                if (data == false) {
+                                    issucc = false;
+                                    alert("提交失败。");
+                                }
+                                else {
+
+                                    $.BindEmpFamily();
+                                }
+                            },
+                            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                issucc = false;
+                                alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                            }
+                        });
+
+                    });
+                    $("input[name='auorela']").change(function () {
+
+                        if ($("input[name='auorela']:checked").val() == "Y") {
+                            $('#div1').css('display', '');
+                            $('#div2').css('display', '');
+                            $('#div3').css('display', '');
+                        }
+                        else {
+                            $("#div1").css('display', 'none');
+                            $('#div2').css('display', 'none');
+                            $('#div3').css('display', 'none');
+                        }
+                    });
+                });
+            </script>
+            <div data-role="" class="ui-grid-c" id="divEmpRe">
+            </div>
+            <div data-role="">
+                <label for="name">
+                    紧急联络人姓名:</label>
+                <input type="text" name="txtugentName" id="txtugentName" value="" />
+            </div>
+            <div data-role="">
+                <label for="name">
+                    紧急联络人关系:</label>
+                <input type="text" name="txtugentrela" id="txtugentrela" value="" />
+            </div>
+            <div data-role="">
+                <label for="name">
+                    紧急联络人电话:</label>
+                <input type="tel" name="txtugenttel" id="txtugenttel" value="" />
+            </div>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>有无亲戚/朋友在本公司上班：</legend>
+                <input type="radio" id="auorela1" name="auorela" value="N" />
+                <label for="auorela1">
+                    无</label>
+                <input type="radio" id="auorela2" name="auorela" value="Y" />
+                <label for="auorela2">
+                    有</label>
+            </fieldset>
+            <div data-role="" id="div1" style="display: none">
+                <label for="name">
+                    亲戚/朋友姓名:</label>
+                <input type="text" name="txtauoname" id="txtauoname" value="" />
+            </div>
+            <div data-role="" id="div2" style="display: none">
+                <label for="name">
+                    亲戚/朋友关系:</label>
+                <input type="text" name="txtauorela" id="txtauorela" value="" />
+            </div>
+            <div data-role="" id="div3" style="display: none">
+                <label for="name">
+                    亲戚/朋友部门:</label>
+                <input type="text" name="txtauodept" id="txtauodept" value="" />
+            </div>
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <input type="button" data-icon="back" id="last2" style="background-color: #9CEBF4"
+                            value="上一步" /></li>
+                    <li>
+                        <input type="button" style="background-color: #9CEBF4" data-icon="forward" id="next3"
+                            value="下一步" /></li>
+                </ul>
+            </div>
+        </div>
+        <!-- content部分end -->
+        <!-- 页脚部分start -->
+        <div data-role="footer" data-position="fixed" style="height: 42px; text-align: center">
+            <img src="{$default_dir}static/hire/auo.png" style="height: 36px; width: 78px; margin-top: 3px" />
+        </div>
+        <!-- 页脚部分end -->
+    </div>
+    <!-- 页面容器end -->
+    <!-- 页面容器start -->
+    <div data-role="page" id="info4" data-add-back-btn="true">
+        <!-- 页眉部分start -->
+        <div data-role="header" data-add-back-btn="false" data-theme="f">
+            <h1>
+                其它资料</h1>
+        </div>
+        <!-- 页眉部分end -->
+        <!-- content部分start -->
+        <div data-role="content">
+            <script type="text/javascript">
+                $(function () {
+
+                    //		        $("input[name='empSource']").change(function () {
+                    //		            $.DisplayEmpsource($("input[name='empSource']:checked").val());
+                    //		        });
+
+                    $("#ddlInviewNo").change(function () {
+
+                        var checkText = $("#ddlInviewNo").val();
+
+                        $.DisplayEmpsource(checkText);
+
+                    });
+
+
+                    $("input[name='bigdis']").change(function () {
+                        if ($("input[name='bigdis']:checked").val() == "其他疾病") {
+                            $('#div7').css('display', '');
+                        }
+                        else {
+                            $("#div7").css('display', 'none');
+                        }
+                    });
+
+                    $("input[name='isbigdis']").change(function () {
+                        if ($("input[name='isbigdis']:checked").val() == "Y") {
+                            $('#div8').css('display', '');
+                        }
+                        else {
+                            $("#div8").css('display', 'none');
+                        }
+                    });
+
+                }); 
+            </script>
+            <div data-role="" id="div10">
+                <label id="Label2" for="name">
+                    入职来源:</label>
+                <select name="ddlInviewNo" id="ddlInviewNo">
+                </select>
+            </div>
+            <div data-role="" id="div4" style="display: none">
+                <label id="lbl4" for="name">
+                    人才市场名称:</label>
+                <input type="text" name="sourcename" id="sourcename" value="" />
+            </div>
+            <div data-role="" id="div5" style="display: none">
+                <label id="Label1" for="name">
+                    外包公司名称:</label>
+                <select name="ddlpaCompany" id="ddlpaCompany">
+                </select>
+            </div>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>您曾否就职于明基友达集团？</legend>
+                <input type="radio" id="isbenqgroup1" name="isbenqgroup" value="N" />
+                <label for="isbenqgroup1">
+                    否</label>
+                <input type="radio" id="isbenqgroup2" name="isbenqgroup" value="Y" />
+                <label for="isbenqgroup2">
+                    是</label>
+            </fieldset>
+            <div data-role="" id="divcom1">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend>我曾就职于明基友达集团：</legend>
+                    <input type="radio" id="bengroup1" name="bengroup" value="明基" />
+                    <label for="bengroup1">
+                        明基</label>
+                    <input type="radio" id="bengroup2" name="bengroup" value="友达" />
+                    <label for="bengroup2">
+                        友达</label>
+                    <input type="radio" id="bengroup3" name="bengroup" value="佳世达" />
+                    <label for="bengroup3">
+                        佳世达</label>
+                    <input type="radio" id="bengroup4" name="bengroup" value="达方" />
+                    <label for="bengroup4">
+                        达方</label>
+                    <input type="radio" id="bengroup5" name="bengroup" value="达运" />
+                    <label for="bengroup5">
+                        达运</label>
+                    <input type="radio" id="bengroup6" name="bengroup" value="达信" />
+                    <label for="bengroup6">
+                        达信</label>
+                    <input type="radio" id="bengroup7" name="bengroup" value="威友" />
+                    <label for="bengroup7">
+                        威友</label>
+                    <input type="radio" id="bengroup8" name="bengroup" value="其他" />
+                    <label for="bengroup8">
+                        其他</label>
+                </fieldset>
+            </div>
+            <div data-role="" id="divcomdate">
+                <label for="name">
+                    离职日期:</label>
+                <input type="text" data-role="datebox4" name="txtleavedate" id="txtleavedate" value="" />
+            </div>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>曾否患有如下疾病? </legend>
+                <input type="radio" id="isbigdis1" name="isbigdis" value="N" />
+                <label for="isbigdis1">
+                    否
+                </label>
+                <input type="radio" id="isbigdis2" name="isbigdis" value="Y" />
+                <label for="isbigdis2">
+                    是</label>
+            </fieldset>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>患有疾病：</legend>
+                <input type="radio" id="bigdis1" name="bigdis" value="精神分裂病及癫痫病" />
+                <label for="bigdis1">
+                    精神分裂、癫痫或其他精神类疾病</label>
+                <input type="radio" id="bigdis2" name="bigdis" value="先天性及严重的心脏病" />
+                <label for="bigdis2">
+                    先天性及严重的心脏病</label>
+                <input type="radio" id="bigdis3" name="bigdis" value="甲亢及糖尿病" />
+                <label for="bigdis3">
+                    甲亢及糖尿病</label>
+                <input type="radio" id="bigdis4" name="bigdis" value="造血系统疾病" />
+                <label for="bigdis4">
+                    造血系统疾病</label>
+                <input type="radio" id="bigdis5" name="bigdis" value="病毒性肝炎及严重的肝胆肾疾病" />
+                <label for="bigdis5">
+                    病毒性肝炎及严重的肝胆肾疾病</label>
+                <input type="radio" id="bigdis6" name="bigdis" value="其他疾病" />
+                <label for="bigdis6">
+                    其他疾病</label>
+            </fieldset>
+            <div data-role="" id="div7" style="display: none">
+                <label for="name">
+                    其他疾病名称:</label>
+                <input type="text" name="txtbigdis" id="txtbigdis" value="" />
+            </div>
+            <div data-role="" id="div8" style="display: none">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend>请选择所患的疾病,目前状况是 </legend>
+                    <input type="radio" id="disstatus1" name="disstatus" value="已治愈" />
+                    <label for="disstatus1">
+                        已治愈
+                    </label>
+                    <input type="radio" id="disstatus2" name="disstatus" value="治疗中" />
+                    <label for="disstatus2">
+                        治疗中</label>
+                </fieldset>
+            </div>
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <input type="button" data-icon="back" id="last3" style="background-color: #9CEBF4"
+                            value="上一步" /></li>
+                    <li>
+                        <input type="button" style="background-color: #9CEBF4" data-icon="forward" id="finish"
+                            value="下一步" /></li>
+                </ul>
+            </div>
+        </div>
+        <!-- content部分end -->
+        <!-- 页脚部分start -->
+        <div data-role="footer" data-position="fixed" style="height: 42px; text-align: center">
+            <img src="{$default_dir}static/hire/auo.png" style="height: 36px; width: 78px; margin-top: 3px" />
+        </div>
+        <!-- 页脚部分end -->
+    </div>
+    <!-- 页面容器end -->
+    <!-- 页面容器start -->
+    <div data-role="page" id="info5" data-add-back-btn="true">
+        <!-- 页眉部分start -->
+        <div data-role="header" data-add-back-btn="false" data-theme="f">
+            <h1>
+                声明</h1>
+        </div>
+        <!-- 页眉部分end -->
+        <!-- content部分start -->
+        <div data-role="content">
+            <div data-role="">
+                本人所填上列各项均属事实，若有不实或虚构，愿接受取消录取资格或受雇后解雇之处分，并承担由此给公司造成的一切损失及相应之赔偿。
+            </div>
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <input type="button" data-icon="back" id="last4" style="background-color: #9CEBF4"
+                            value="修改" /></li>
+                    <li>
+                        <input type="button" style="background-color: #9CEBF4" data-icon="check" id="finish2"
+                            value="完成" /></li>
+                </ul>
+            </div>
+        </div>
+        <!-- content部分end -->
+        <!-- 页脚部分start -->
+        <div data-role="footer" data-position="fixed" style="height: 42px; text-align: center">
+            <img src="{$default_dir}static/hire/auo.png" style="height: 36px; width: 78px; margin-top: 3px" />
+        </div>
+        <!-- 页脚部分end -->
+    </div>
+    <!-- 页面容器end -->
+    <div data-role="page" id="info6" data-add-back-btn="true">
+        <!-- 页眉部分start -->
+        <div data-role="header" data-add-back-btn="false" data-theme="f">
+            <h1>
+                信息维护完成</h1>
+        </div>
+        <!-- 页眉部分end -->
+        <!-- content部分start -->
+        <div data-role="content">
+            <div data-role="" style="text-align: center">
+                感谢您的支持！</br>祝您生活愉快！
+            </div>
+        </div>
+        <!-- content部分end -->
+        <!-- 页脚部分start -->
+        <div data-role="footer" data-position="fixed" style="height: 42px; text-align: center">
+            <img src="{$default_dir}static/hire/auo.png" style="height: 36px; width: 78px; margin-top: 3px" />
+        </div>
+        <!-- 页脚部分end -->
+    </div>
+    <script type="text/javascript">
+        $(function () {
+
+
+            jQuery.support.cors = true;
+            //document.domain = "corpnet.auo.com";
+
+            if (window.location.href.split('#').length > 1) {
+
+
+                $.ajax({
+                    contentType: "application/json; charset=utf-8",
+                    type: "GET",
+                    url: "ajax.ashx?func=GetNation",
+                    dataType: "json",
+                    crossDomain: true,
+                    success: function (data) {
+                        $("#ddlNation").empty();
+
+                        //for (var i in data) {
+                        $.each(data, function (key, item) {
+                            $("#ddlNation").prepend("<option value='" + key + "'>" + item + "</option>");
+                            //$("#ddlNation").prepend("<option value='" + data[i] + "'>" + data[i] + "</option>");
+                        });
+                        //$("#ddlNation option[text='汉族']").attr("selected", true);
+                        // $("#ddlNation").val("汉族");
+                        $.setSelectValue("ddlNation", "汉族");
+                        try {
+                            $("#ddlNation").selectmenu("refresh", true);
+                        } catch (e) { }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                    }
+                });
+
+                $.ajax({
+                    contentType: "application/json; charset=utf-8",
+                    type: "GET",
+                    url: "ajax.ashx?func=GetDressSize",
+                    dataType: "json",
+                    crossDomain: true,
+                    success: function (data) {
+                        $("#ddlDressSize").empty();
+
+                        $.each(data, function (key, item) {
+                            $("#ddlDressSize").prepend("<option value='" + key + "'>" + item + "</option>");
+                        });
+
+                        $.setSelectValue("ddlDressSize", "XS");
+
+                        try {
+                            $("#ddlDressSize").selectmenu("refresh", true);
+                        } catch (e) { }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                    }
+                });
+
+                $.ajax({
+                    contentType: "application/json; charset=utf-8",
+                    type: "GET",
+                    url: "ajax.ashx?func=GetShoesSize",
+                    dataType: "json",
+                    crossDomain: true,
+                    success: function (data) {
+                        $("#ddlShoesSize").empty();
+
+                        $.each(data, function (key, item) {
+                            $("#ddlShoesSize").prepend("<option value='" + key + "'>" + item + "</option>");
+                        });
+
+                        $.setSelectValue("ddlShoesSize", "34");
+
+                        try {
+                            $("#ddlShoesSize").selectmenu("refresh", true);
+                        } catch (e) { }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                    }
+                });
+
+
+                $.ajax({
+                    url: "ajax.ashx?func=GetCountry",
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    crossDomain: true,
+                    success: function (data) {
+                        $("#ddlprovince").empty();
+
+                        $.each(data, function (key, item) {
+
+                            $("#ddlprovince").prepend("<option value='" + key + "'>" + item + "</option>");
+                        });
+                        //                  for (var i in data) {
+                        //                      $("#ddlprovince").prepend("<option value='" + i + "'>" + i + "</option>");
+                        //                  }
+                        $("#ddlprovince ").get(0).selectedIndex = 0;
+
+                        var checkText = $("#ddlprovince").find("option:selected").val();
+
+                        $.BindCity(checkText, "");
+                        try {
+                            $("#ddlprovince").selectmenu("refresh", true);
+                        } catch (e) { }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                    }
+
+                });
+
+                $.ajax({
+                    contentType: "application/json; charset=utf-8",
+                    type: "GET",
+                    url: "viewajax.ashx?func=GetSourceFrom",
+                    dataType: "json",
+                    crossDomain: true,
+                    success: function (data) {
+                        $("#ddlInviewNo").empty();
+
+                        $.each(data, function (key, item) {
+                            $("#ddlInviewNo").prepend("<option value='" + key + "'>" + item + "</option>");
+                        });
+                        if ($.getUrlParam("soufrom") != "" && $.getUrlParam("soufrom") != null) {
+                            $("#ddlInviewNo").val($.getUrlParam("source"));
+                        }
+                        try {
+                            $("#ddlInviewNo").selectmenu("refresh", true);
+                        } catch (e) { }
+
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
+                    }
+                });
+
+
+            }
+
+
+
+            $("#ddlprovince").change(function () {
+
+                var checkText = $("#ddlprovince").find("option:selected").val();
+
+                $.BindCity(checkText, "");
+
+            });
+
+
+            $("input[name='isbenqgroup']").change(function () {
+                if ($('input:radio[name="isbenqgroup"]:checked').val() == "N") {
+
+                    $("input:radio[name='bengroup']:checked").attr('checked', false);
+                    $('input:radio[name="bengroup"]').checkboxradio("refresh");
+                    $("#txtleavedate").val("");
+                    $("#divcom1").css('display', 'none');
+                    $("#divcomdate").css('display', 'none');
+
+                }
+                else {
+                    $("#divcom1").css('display', '');
+                    $("#divcomdate").css('display', '');
+                }
+            });
+
+            $("input[name='isbigdis']").change(function () {
+                if ($('input:radio[name="isbigdis"]:checked').val() == "N") {
+
+                    $("input:radio[name='bigdis']:checked").attr('checked', false);
+                    $('input:radio[name="bigdis"]').checkboxradio("refresh");
+                    $("input:radio[name='disstatus']:checked").attr('checked', false);
+                    $('input:radio[name="disstatus"]').checkboxradio("refresh");
+                    $("#txtbigdis").val("");
+                    $("#div7").css('display', 'none');
+
+                }
+            });
+        });
+    </script>
+</body>
+</html>
