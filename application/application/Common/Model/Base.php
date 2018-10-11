@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Common\model;
+namespace app\common\model;
 
 use think\Model;
 use think\Db;
@@ -59,5 +59,5 @@ class Base extends Model
         return $this->list;
     }
 
-
+    
 }

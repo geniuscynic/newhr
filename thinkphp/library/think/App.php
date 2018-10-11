@@ -671,6 +671,7 @@ class App extends Container
             $object = $this->__get($class);
         } else {
             $class = str_replace('\\' . $module . '\\', '\\' . $common . '\\', $class);
+
             if (class_exists($class)) {
                 $object = $this->__get($class);
             } else {

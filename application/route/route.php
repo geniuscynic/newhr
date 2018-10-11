@@ -30,8 +30,9 @@ Route::group('admin', function () {
 });
 
 Route::group('hire', function () {
-    Route::rule("/home", "hire/index/home", "POST|GET");
-    Route::rule("/handle", "hire/index/handle", "POST|GET");
+    Route::rule("/", "hire/index/home", "POST|GET");
+    Route::rule("/handle", "hire/index/handle", "POST");
+    Route::rule("/resource", "hire/index/resource", "GET");
 });
 
 

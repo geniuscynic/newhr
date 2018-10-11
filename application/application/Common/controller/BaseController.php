@@ -19,7 +19,7 @@ class BaseController extends Controller
         //dump(request());
         //Request::instance();
         //var_dump(APP_PATH);
-        $this->assign('default_dir', "/newhr/application/public/");
+        $this->assign('default_dir', "/newhr1/application/public/");
     }
 
     protected function setMessage(Message $message) {

@@ -15,7 +15,7 @@
     <title>个人履历注册</title>
     <link href="http://www.w3cplus.com/sites/all/themes/w3cplusResponsive/favicon.ico"
         rel="shortcut icon">
-    <link rel="stylesheet" href="{$default_dir}static/hire//jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="{$default_dir}static/hire/jquery.mobile-1.4.5.min.css">
     <script src="{$default_dir}static/hire/jquery.min.js"></script>
     <script src="{$default_dir}static/hire/jquery.mobile-1.4.5.min.js"></script>
     <script src="{$default_dir}static/hire/jquery.promptInput.js"></script>
@@ -48,6 +48,7 @@
     </style>
 </head>
 <body>
+       
     <!-- 页面容器start -->
     <div data-role="page" id="login">
         <!-- 页眉部分start -->
@@ -229,8 +230,10 @@
                     已婚</label>
             </fieldset>
             <script type="text/javascript">
+                 var ajaxUrl = "{:url('/hire/handle','',true,'127.0.0.1:81')}";
+                    var ajaxResource = "{:url('/hire/resource','',true,'127.0.0.1:81')}";
                 $(function () {
-
+                   
                     //获取url中的参数
                     function request(paras) {
                         var url = location.href;
@@ -571,7 +574,7 @@
                         if (provinceval != "") {
 
                             $.ajax({
-                                url: "ajax.ashx?func=GetCity&country=" + provinceval,
+                                url:  ajaxResource + "?func=GetCity&country=" + provinceval,
                                 contentType: "application/json; charset=utf-8",
                                 type: "GET",
                                 dataType: 'json',
@@ -582,7 +585,7 @@
 
                                     $.each(data, function (key, item) {
 
-                                        $("#ddlcity").prepend("<option value='" + key + "'>" + item + "</option>");
+                                        $("#ddlcity").append("<option value='" + item.code + "'>" + item.name + "</option>");
                                     });
                                     if (text != "") {
                                         $.setSelectValue("ddlcity", text);
@@ -1066,7 +1069,7 @@
                                 // $("#lblpassid").html("身份证号码:" + $("#cardid").val());
                                 $("#cardidm").val($("#cardid").val());
                                 $("#divcheck").css("display", "block");
-                                window.location.href = "hr.html" + $.getParam("pwd");
+                                window.location.href = "hire" + $.getParam("pwd");
                                 }
                                 },
                                 error: function (xmlHttpRequest, textStatus, errorThrown) {
@@ -1092,12 +1095,17 @@
                                     soufrom = $.getUrlParam("soufrom");
                                 }
 
+                                //var data = "func=CheckIdn&idn=" + cardidins  + "&empType=" + emptype + "&source=" + soufrom;
                                 $.ajax({
-                                    url: "{:url('hire/index/handle')}?func=CheckIdn&idn=" + cardidins + "&site=" + site + "&empType=" + emptype + "&source=" + soufrom,
-                                    contentType: "application/json; charset=utf-8",
+                                    url: ajaxUrl + "?site=" + site,
+                                    data: {
+                                        'func': 'CheckIdn',
+                                        'idn':cardidins,
+                                        'empType': emptype,
+                                        'source': soufrom
+                                    },
                                     type: "POST",
                                     dataType: 'json',
-                                    crossDomain: true,
 
                                     success: function (data) {
 
@@ -1116,7 +1124,7 @@
                                             $("#cardidm").val($("#cardid").val());
                                             $("#divcheck").css("display", "block");
                                             $("#InterviewCity").css("display", "none");   //面试地点 add by 2016-08-11
-                                            window.location.href = "hr.html" + $.getParam("pwd");
+                                            window.location.href = "hire" + $.getParam("pwd");
                                         }
                                         else {
                                             alert(data);
@@ -1139,7 +1147,7 @@
                     });
                     $("#btnback").click(function () {
                         $("#cardid").val("");
-                        window.location.href = "hr.html" + $.getParam("login");
+                        window.location.href = "hire" + $.getParam("login");
 
                     });
                     $("#btnConfirm").click(function () {
@@ -1151,11 +1159,19 @@
                         var siteNoOne = request("site");
                         if (pwd == pwdcon && pwd.length == 6) {
                             $.ajax({
-                                url: "ajax.ashx?func=MaintainPwd&site=" + siteNoOne + "&idn=" + cardidins + "&pwd=" + pwd + "&useType=" + usetype + "&empType=" + emptype,
-                                contentType: "application/json; charset=utf-8",
-                                type: "GET",
+                                url: ajaxUrl,
+                                type: "post",
                                 dataType: 'json',
                                 crossDomain: true,
+                                data: {
+                                    'func': 'MaintainPwd',
+                                    'site': siteNoOne,
+                                    'idn': cardidins,
+                                    'pwd': pwd,
+                                    'empType': emptype,
+                                    'useType': usetype
+                                    
+                                },
 
                                 success: function (data) {
                                     if (data.slice(0, 5) == "error") {
@@ -1171,7 +1187,7 @@
                                         if (usetype != null && usetype != '' && usetype == 'idl') {
                                             $("#InterviewCity").css("display", "block");
                                         }
-                                        window.location.href = "hr.html" + $.getParam("login");
+                                        window.location.href = "hire" + $.getParam("login");
                                     }
                                 },
                                 error: function (xmlHttpRequest, textStatus, errorThrown) {
@@ -1195,11 +1211,11 @@
                         if (cardidins != "" && pwd != "") {
                             $.ajax({
                                 // url: "ajax.ashx?func=CheckIdnAndPwd&idn=" + cardidins + "&pwd=" + pwd,
-                                url: "viewajax.ashx?func=LogInByIdnAndPwd&idn=" + cardidins + "&pwd=" + pwd,
-                                contentType: "application/json; charset=utf-8",
-                                type: "GET",
+                                url: ajaxUrl,
+                                type: "POST",
                                 dataType: 'json',
                                 crossDomain: true,
+                                data: "func=LogInByIdnAndPwd&idn=" + cardidins + "&pwd=" + pwd,
 
                                 success: function (data) {
 
@@ -1276,7 +1292,7 @@
                                             $.BindBirthday();
                                             $.DisplayURLEmpSource();
                                             $.BindEmpbasic();
-                                            window.location.href = "hr.html" + $.getParam("info1");
+                                            window.location.href = "hire" + $.getParam("info1");
                                         }
                                     }
                                 },
@@ -1423,26 +1439,26 @@
                             }
                         }
                         $.ajax({
-                            url: "ajax.ashx?func=PutEmpBasicInfo&ResumeNo=" + $("#entryid").val()
-                        + "&Name=" + escape($("#txtName").val())
-                        + "&IdentityNo=" + escape($("#hidCardid").val())
-                        + "&Sex=" + escape($('input:radio[name="rdlsex"]:checked').val())
-                        + "&IsMarried=" + escape($('input:radio[name="rdlMarried"]:checked').val())
-                        + "&Birthday=" + escape($("#txtBirthday").val())
-                        + "&BodyHeight=" + escape($("#txtHeight").val())
-                        + "&BodyWeight=" + escape($("#txtweight").val())
-                        + "&DressSize=" + escape($("#ddlDressSize").find("option:selected").val())
-                        + "&ShoesSize=" + escape($("#ddlShoesSize").find("option:selected").val())
-                        + "&Phone=" + escape($("#txtphone").val())
-                        + "&Ethnic=" + escape($("#ddlNation").find("option:selected").val())
-                        + "&CensusType=" + escape($('input:radio[name="ctype"]:checked').val())
-                        + "&PostCode=" + "111111"//escape($("#txtpostcode").val())
-                        + "&Province=" + escape($("#ddlprovince").find("option:selected").val())//escape($("#ddlprovince").find("option:selected").text())
-                        + "&City=" + escape($("#ddlcity").find("option:selected").text())
-                        + "&Address=" + escape($("#txtaddr").val())
-                        + "&Site=" + escape(site)
-                        + "&EmpType=" + escape(etype),
-                            contentType: "application/json; charset=utf-8",
+                            url:  ajaxUrl,
+                            data: "func=PutEmpBasicInfo&ResumeNo=" + $("#entryid").val()
+                                    + "&Name=" + escape($("#txtName").val())
+                                    + "&IdentityNo=" + escape($("#hidCardid").val())
+                                    + "&Sex=" + escape($('input:radio[name="rdlsex"]:checked').val())
+                                    + "&IsMarried=" + escape($('input:radio[name="rdlMarried"]:checked').val())
+                                    + "&Birthday=" + escape($("#txtBirthday").val())
+                                    + "&BodyHeight=" + escape($("#txtHeight").val())
+                                    + "&BodyWeight=" + escape($("#txtweight").val())
+                                    + "&DressSize=" + escape($("#ddlDressSize").find("option:selected").val())
+                                    + "&ShoesSize=" + escape($("#ddlShoesSize").find("option:selected").val())
+                                    + "&Phone=" + escape($("#txtphone").val())
+                                    + "&Ethnic=" + escape($("#ddlNation").find("option:selected").val())
+                                    + "&CensusType=" + escape($('input:radio[name="ctype"]:checked').val())
+                                    + "&PostCode=" + "111111"//escape($("#txtpostcode").val())
+                                    + "&Province=" + escape($("#ddlprovince").find("option:selected").val())//escape($("#ddlprovince").find("option:selected").text())
+                                    + "&City=" + escape($("#ddlcity").find("option:selected").text())
+                                    + "&Address=" + escape($("#txtaddr").val())
+                                    + "&Site=" + escape(site)
+                                    + "&EmpType=" + escape(etype),
                             type: "POST",
                             dataType: 'json',
                             crossDomain: true,
@@ -1453,14 +1469,14 @@
                                 }
                                 else {
                                     $.BindEdulevel();
-                                    window.location.href = "hr.html" + $.getParam("info2");
+                                    window.location.href = "hire" + $.getParam("info2");
                                 }
                             },
                             error: function (xmlHttpRequest, textStatus, errorThrown) {
                                 alert("系统异常:" + XMLHttpRequest.readyState + textStatus);
                             }
                         });
-                        // window.location.href = "hr.html#theme-page";
+                        // window.location.href = "hire#theme-page";
 
                     });
 
@@ -1518,7 +1534,9 @@
                         //                EndDate: $("#txteduend").val()
                         //            };deustatus
                         $.ajax({
-                            url: "ajax.ashx?func=PutHighestEduLevel&ResumeNo=" + $("#entryid").val()
+                            url: ajaxUrl ,
+
+                            data: "func=PutHighestEduLevel&ResumeNo=" + $("#entryid").val()
                         + "&EduBackground=" + escape($('input:radio[name="deulevel"]:checked').val())
                         + "&School=" + escape($("#txtsch").val())
                         + "&MajorClass=''" 
@@ -1526,8 +1544,6 @@
                         + "&StartDate=" + escape($("#txtedustart").val())
                         + "&EndDate=" + escape($("#txteduend").val())
                         + "&EduStatus=" + escape($('input:radio[name="EduStatus"]:checked').val()),
-
-                            contentType: "application/json; charset=utf-8",
                             type: "POST",
                             dataType: 'json',
                             crossDomain: true,
@@ -1542,7 +1558,7 @@
                                     $.BindEmpFamily();
                                     $.BindAuoFamily();
                                     $.BindUgentContact();
-                                    window.location.href = "hr.html" + $.getParam("info3");
+                                    window.location.href = "hire" + $.getParam("info3");
                                 }
                             },
                             error: function (xmlHttpRequest, textStatus, errorThrown) {
@@ -1804,28 +1820,28 @@
                         }
                         if (issucc == true) {
                             $.BindEmpotherinfo();
-                            window.location.href = "hr.html" + $.getParam("info4");
+                            window.location.href = "hire" + $.getParam("info4");
                         }
 
                     });
                     $("#last3").click(function () {
-                        window.location.href = "hr.html" + $.getParam("info3");
+                        window.location.href = "hire" + $.getParam("info3");
 
                     });
                     $("#last2").click(function () {
-                        window.location.href = "hr.html" + $.getParam("info2");
+                        window.location.href = "hire" + $.getParam("info2");
 
                     });
                     $("#last1").click(function () {
-                        window.location.href = "hr.html" + $.getParam("info1");
+                        window.location.href = "hire" + $.getParam("info1");
 
                     });
                     $("#last4").click(function () {
-                        window.location.href = "hr.html" + $.getParam("info1");
+                        window.location.href = "hire" + $.getParam("info1");
 
                     });
                     $("#finish2").click(function () {
-                        window.location.href = "hr.html" + $.getParam("info6");
+                        window.location.href = "hire" + $.getParam("info6");
 
                     });
                     $.CheckOtherInfo = function () {
@@ -1967,7 +1983,7 @@
                                     alert("提交失败。");
                                 }
                                 else {
-                                    window.location.href = "hr.html" + $.getParam("info5");
+                                    window.location.href = "hire" + $.getParam("info5");
                                 }
 
                             },
@@ -2238,13 +2254,15 @@
                         //		            };
 
                         $.ajax({
-                            url: "ajax.ashx?func=PutFamily&ResumeNo=" + $("#entryid").val()
-                        + "&Relatives=" + escape($("#ddlRelation").find("option:selected").text())
-                        + "&Name=" + escape($("#txtname").val())
-                        + "&Address=" + escape($("#txtaddr1").val())
-                        + "&Phone=" + escape($("#txttel").val())
-                        + "&Dept=" + "",
-                            contentType: "application/json; charset=utf-8",
+                            url: ajaxUrl,
+
+                            data:"func=PutFamily&ResumeNo=" + $("#entryid").val()
+                                + "&Relatives=" + escape($("#ddlRelation").find("option:selected").text())
+                                + "&Name=" + escape($("#txtname").val())
+                                + "&Address=" + escape($("#txtaddr1").val())
+                                + "&Phone=" + escape($("#txttel").val())
+                                + "&Dept=" + "",
+
                             type: "POST",
                             dataType: 'json',
                             crossDomain: true,
@@ -2579,7 +2597,7 @@
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
                     type: "GET",
-                    url: "ajax.ashx?func=GetNation",
+                    url: ajaxResource + "?func=GetNation",
                     dataType: "json",
                     crossDomain: true,
                     success: function (data) {
@@ -2605,14 +2623,14 @@
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
                     type: "GET",
-                    url: "ajax.ashx?func=GetDressSize",
+                    url: ajaxResource + "?func=GetDressSize",
                     dataType: "json",
                     crossDomain: true,
                     success: function (data) {
                         $("#ddlDressSize").empty();
 
                         $.each(data, function (key, item) {
-                            $("#ddlDressSize").prepend("<option value='" + key + "'>" + item + "</option>");
+                            $("#ddlDressSize").append("<option value='" + key + "'>" + item + "</option>");
                         });
 
                         $.setSelectValue("ddlDressSize", "XS");
@@ -2629,14 +2647,14 @@
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
                     type: "GET",
-                    url: "ajax.ashx?func=GetShoesSize",
+                    url: ajaxResource + "?func=GetShoesSize",
                     dataType: "json",
                     crossDomain: true,
                     success: function (data) {
                         $("#ddlShoesSize").empty();
 
                         $.each(data, function (key, item) {
-                            $("#ddlShoesSize").prepend("<option value='" + key + "'>" + item + "</option>");
+                            $("#ddlShoesSize").append("<option value='" + key + "'>" + item + "</option>");
                         });
 
                         $.setSelectValue("ddlShoesSize", "34");
@@ -2652,7 +2670,7 @@
 
 
                 $.ajax({
-                    url: "ajax.ashx?func=GetCountry",
+                    url: ajaxResource + "?func=GetCountry",
                     type: "GET",
                     contentType: "application/json; charset=utf-8",
                     dataType: 'json',
@@ -2662,7 +2680,7 @@
 
                         $.each(data, function (key, item) {
 
-                            $("#ddlprovince").prepend("<option value='" + key + "'>" + item + "</option>");
+                            $("#ddlprovince").append("<option value='" + item.code + "'>" + item.name + "</option>");
                         });
                         //                  for (var i in data) {
                         //                      $("#ddlprovince").prepend("<option value='" + i + "'>" + i + "</option>");
