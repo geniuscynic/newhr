@@ -19,7 +19,7 @@ class BaseController extends Controller
         //dump(request());
         //Request::instance();
         //var_dump(APP_PATH);
-        $this->assign('default_dir', "/newhr1/application/public/");
+        $this->assign('default_dir', "/hr/newhr/application/public/");
     }
 
     protected function setMessage(Message $message) {
@@ -77,5 +77,17 @@ class BaseController extends Controller
         else {
             return "";
         } 
+    }
+
+    protected function getCodeTable() : array {
+        cache('codeTable', null);
+        if(!cache('codeTable')) {
+            $codeTable = model("CodeTable")->getCodeTable();
+            cache('codeTable', $codeTable, 36000);
+        }
+
+        //dump(cache('codeTable'));
+        return cache('codeTable');
+        //model("CodeTable")->getCodeTable();
     }
 }

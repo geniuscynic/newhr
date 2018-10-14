@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>WeUI</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="http://cdn.staticfile.org/weui/1.1.3/style/weui.min.css" />
+    <link rel="stylesheet" href="http://cdn.staticfile.org/jquery-weui/1.2.1/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="{$default_dir}static/resume/example.css" />
+</head>
+
+<body ontouchstart>
+
+    <div class="container" id="container"></div>
+
+    <script type="text/javascript">
+        var handelUrl = "{:url('/resume/handle')}";
+        var resourceUrl = "{:url('/resume/resource')}";
+    </script>
+
+    <!-- 验证 -->
+    <script type="text/html" id="tpl_home">
+        <div class="page">
+                <div class="page__hd">
+                        <p>个人简历注册</p>
+                </div>
+
+                <div class="page__bd page__bd_spacing">
+                        <div class="weui-cells__title">手机号</div>
+                        <div class="weui-cells">
+                            <div class="weui-cell">
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" id="phone" name="phone"  type="tel" placeholder="请输入手机号"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="weui-btn-area">
+                            <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnLoginValidate">验证</a>
+                        </div>
+                </div>
+
+                <div class="page__ft">
+                   
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                $(function(){
+                    $('#btnLoginValidate').on('click', function(){
+                        //console.log("aa");
+                        var phone = $.trim($("#phone").val());
+                        if (phone == "") {
+                            $.toptip("请填写您的行动电话", 'error');
+                            return false;
+                        }
+
+                        var tel1 = /^[0-9]+[-]{0,1}[0-9]+$/;
+                        if (tel1.test(phone) == false) {
+                            $.toptip("请正确填写您的行动电话", 'error');
+                            return false;
+                        }
+
+                        //var id = $(this).data('id');
+                       // window.pageManager.go(id);
+                        $.ajax({
+                            url: handelUrl,
+                            type: "POST",
+                            dataType: 'json',
+                            crossDomain: true,
+                            data: {
+                                'func': "checkPhoneExist",
+                                'phone': phone
+                            }
+                        }).done(function(data) {
+                            //验证失败
+                            if(data.type == 2) {
+                               // window.pageManager.go(id);
+                                $.toptip(buildMessage(data.message), 'error');
+                            }
+                            //已注册
+                            else if(data.type == 3) {
+                                //window.pageManager.go(id);
+                                window.pageManager.go("login");
+
+                                window.pageManager.setPageAppend(function(obj) {
+                                    //console.log($(obj));
+                                    obj.find("#login_Phone").text(phone);
+                                });
+                                
+                            }
+                            //未注册
+                            else if(data.type == 4) {
+                                window.pageManager.setPageAppend(function(obj) {
+                                    //console.log($(obj));
+                                    obj.find("#lblPhone").text(phone);
+                                });
+
+                                window.pageManager.go("register");
+                                
+                                //console.log(phone);
+                               // console.log($("#lblPhone").text());
+                                //$("#lblPhone").text(phone);
+                               // console.log($("#lblPhone").text());
+                            }
+                           
+                        }).fail(function(data) {
+                                $.toptip('操作失败', 'error');
+                        });
+                    });
+                });
+            </script>
+    </script>
+
+    <!-- 注册 -->
+    <script type="text/html" id="tpl_register">
+        <div class="page">
+            <div class="page__hd">
+                    <p>个人简历注册</p>
+            </div>
+
+            <div class="page__bd page__bd_spacing">
+                <div class="weui-cells weui-cells_form">
+                    
+                    <div class="weui-cell">
+                      <div class="weui-cell__hd"><label class="weui-label" >手机号</label></div>
+                      <div class="weui-cell__bd">
+                        <label class="weui-msg__desc" id="lblPhone"></label>
+                      </div>
+                    </div>
+
+                  
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                          <label class="weui-label">密码</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                          <input class="weui-input" type="password" id="password"  placeholder="请输入密码" />
+                        </div>
+                    </div>
+
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                          <label class="weui-label">确认密码</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                          <input class="weui-input" type="password" id="password2" placeholder="请确认密码" />
+                        </div>
+                    </div>
+
+                    <div class="weui-btn-area">
+                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnRegister">注册</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#btnRegister').on('click', function(){
+
+                    var pwd = $('#password').val();
+                    var pwdcon = $('#password2').val();
+                    var phone = $("#lblPhone").text();
+
+                    if(pwd == "" || pwdcon == "") {
+                        $.toptip("密码不能为空", 'error');
+                        return false;
+                    } else if(pwd != pwdcon) {
+                        $.toptip("密码不一致", 'error');
+                        return false;
+                    }
+                    else if(pwd.length < 6) {
+                        $.toptip("密码不能少于6位", 'error');
+                        return false;
+                    }
+
+
+                    //console.log("aa");
+                    var id = $(this).data('id');
+                   // window.pageManager.go(id);
+                    $.ajax({
+                        url: handelUrl,
+                        type: "POST",
+                        dataType: 'json',
+                        crossDomain: true,
+                        data: {
+                            'func': "registerResume",
+                            'phone': phone,
+                            'password': pwd,
+                            'password2': pwdcon
+
+                        }
+                    }).done(function(data) {
+                        //验证失败
+                        
+                        if(data.type == 2) {
+                           // window.pageManager.go(id);
+                            $.toptip(buildMessage(data.message), 'error');
+
+                           
+                        }
+                        //已注册
+                        else if(data.type == 3) {
+                            $.toptip(buildMessage(data.message), 'error');
+                            //window.pageManager.go(id);
+                        }
+                        //注册成功
+                        else if(data.type == 1) {
+                           // window.pageManager.go(id);
+                           
+                           window.pageManager.setPageAppend(function(obj) {
+                                    //console.log($(obj));
+                                    obj.find("#login_Phone").text(phone);
+                            });
+                           window.pageManager.go("login");
+                           $.toptip("注册成功", 'success');
+                        }
+                       
+
+                    }).fail(function(data) {
+                        $.toptip('操作失败', 'error');;
+                    });
+                });
+            });
+        </script>
+    </script>
+
+    <!-- 登入 -->
+    <script type="text/html" id="tpl_login">
+        <div class="page">
+            <div class="page__hd">
+                    <p>简历登入</p>
+            </div>
+
+            <div class="page__bd page__bd_spacing">
+                <div class="weui-cells weui-cells_form">
+                    
+                    <div class="weui-cell">
+                      <div class="weui-cell__hd"><label class="weui-label" >手机号</label></div>
+                      <div class="weui-cell__bd">
+                        <label class="weui-msg__desc" id="login_Phone"></label>
+                      </div>
+                    </div>
+
+                  
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                          <label class="weui-label">密码</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                          <input class="weui-input" type="password" id="login_password"  placeholder="请输入密码" />
+                        </div>
+                    </div>
+
+
+                    <div class="weui-btn-area">
+                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnLogin">登入</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                $('#btnLogin').on('click', function(){
+
+                    var pwd = $('#login_password').val();
+                   
+                    if(pwd == "" ) {
+                        $.toptip("密码不能为空", 'error');
+                        return false;
+                    } 
+                    // else if(pwd.length < 6) {
+                    //     $.toptip("密码不能少于6位", 'error');
+                    //     return false;
+                    // }
+
+
+                    //console.log("aa");
+                    //var id = $(this).data('id');
+                   // window.pageManager.go(id);
+                    $.ajax({
+                        url: handelUrl,
+                        type: "POST",
+                        dataType: 'json',
+                        crossDomain: true,
+                        data: {
+                            'func': "loginResume",
+                            'phone': $("#login_Phone").text(),
+                            'password': pwd
+                        }
+                    }).done(function(data) {
+                        //验证失败
+                        
+                        if(data.type == 2) {
+                           // window.pageManager.go(id);
+                            $.toptip(buildMessage(data.message), 'error');
+
+                           
+                        }
+                        //已注册
+                        else if(data.type == 3) {
+                            $.toptip(buildMessage(data.message), 'error');
+                            //window.pageManager.go(id);
+                        }
+                        //注册成功
+                        else if(data.type == 1) {
+                            //window.pageManager.go(id);
+                           window.pageManager.go("basic");
+                        }
+                       
+
+                    }).fail(function(data) {
+                        $.toptip('操作失败', 'error');;
+                    });
+                });
+            });
+        </script>
+    </script>
+
+    <!-- 基本信息 -->
+    <script type="text/html" id="tpl_basic">
+        <div class="page">
+            <div class="page__hd">
+                    <p>基本信息</p>
+            </div>
+
+            <div class="page__bd page__bd_spacing">
+                <div class="weui-cells weui-cells_form">
+                    
+                    <div class="weui-cell">
+                      <div class="weui-cell__hd"><label class="weui-label" >手机号</label></div>
+                      <div class="weui-cell__bd">
+                        <label class="weui-msg__desc" id="login_Phone"></label>
+                      </div>
+                    </div>
+
+                  
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                          <label class="weui-label">身份证号</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                          <input class="weui-input" type="text" id="basic_cardno"  placeholder="请输入身份证号" />
+                        </div>
+                    </div>
+
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                          <label class="weui-label">姓名</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                          <input class="weui-input" type="text" id="basic_name"  placeholder="请输入姓名" />
+                        </div>
+                    </div>
+
+                    <div class="weui-cell">
+                          <div class="weui-cell__hd">
+                            <label for="" class="weui-label">性别</label>
+                          </div>
+                          <div class="weui-cell__bd">
+                                <input class="weui-input commonTable" id="basic_sex" data-type="10" type="text" value="" readonly="">
+                          </div>
+                    </div>
+
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label for="" class="weui-label">出生日期</label></div>
+                        <div class="weui-cell__bd">
+                          <input class="weui-input" type="text" id="basic_birthday" value="">
+                        </div>
+                    </div>
+
+                   
+
+                    <div class="weui-cell">
+                       
+                            <div class="weui-cell__hd">
+                                <label for="" class="weui-label">民族</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input commonTable" data-type="01" type="text" id="basic_nation" value="">
+                            </div>
+                        
+                    </div>
+
+                   
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label for="" class="weui-label">最高学历</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input commonTable" data-type="02" type="text" id="basic_educational" value="">
+                            </div>
+                        </div>
+                   
+
+                    
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label for="" class="weui-label">政治面貌</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input commonTable" data-type="03" type="text" id="basic_political" value="">
+                            </div>
+                        </div>
+                    
+
+                   
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label for="" class="weui-label">工作年限</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input commonTable" data-type="04" type="text" id="basic_workingYear" value="">
+                            </div>
+                        </div>
+                   
+
+                   
+                            <div class="weui-cell ">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">现居地址</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_house" value="江西省 南昌市 东湖区">
+                                </div>
+                            </div>
+                      
+                        
+                      
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">求职状态</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input commonTable" data-type="05" type="text" id="basic_workingStatus" value="">
+                                </div>
+                            </div>
+                       
+
+                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">到岗时间</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input commonTable" data-type="06" type="text" id="basic_joinTime" value="">
+                                </div>
+                            </div>
+                        
+
+                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">期望工作性质</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input commonTable" data-type="07" type="text" id="basic_workType" value="">
+                                </div>
+                            </div>
+                        
+
+                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">从事行业</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_industry" value="">
+                                </div>
+                            </div>
+                       
+
+                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">期望工作岗位</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_quarters" value="">
+                                </div>
+                            </div>
+                      
+                            
+                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">期望薪资</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input commonTable" data-type="08" type="text" id="basic_salary" value="">
+                                </div>
+                            </div>
+                       
+
+                       
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">期望工作地点</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_workingAddress" value="">
+                                </div>
+                            </div>
+                       
+
+                        <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">紧急联络人</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_contractName" value="">
+                                </div>
+                           
+                        </div>
+
+                        <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">紧急联系电话</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_contractPhone" value="">
+                                </div>
+                           
+                        </div>
+
+                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">个人证书技能</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_skill" value="">
+                                </div>
+                            </div>
+                        
+
+                       
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">技能证书</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_skillPhoto" value="">
+                                </div>
+                            </div>
+                       
+                            <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">爱好特长</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_hobby" value="">
+                                </div>
+                           
+                            </div>
+
+                    <div class="weui-btn-area">
+                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnBasic">下一步</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                $(".commonTable").each(function() {
+                    var type = $(this).data("type").toString();
+                    var title  = $(this).parents(".weui-cell").find('label').text();
+                    //console.log(title);
+                     $(this).select({
+                         'title': "选择" + title,
+                         'items': commonTable[type]
+                     });
+                });
+                
+                $("#basic_quarters").on("click", function() {
+
+                    $("#quartersPopup").popup();
+                });
+
+
+                $("#basic_birthday").calendar({
+                    'dateFormat': 'yyyy-mm-dd'
+                });
+
+                // $("#basic_origo").cityPicker({
+                //     title: "请选择籍贯地址"
+                // });
+
+                $("#basic_house").cityPicker({
+                    title: "请选择现居地址"
+                });
+
+                
+
+                
+
+                
+
+
+
+                $('#btnLogin').on('click', function(){
+
+                    var pwd = $('#login_password').val();
+                   
+                    if(pwd == "" ) {
+                        $.toptip("密码不能为空", 'error');
+                        return false;
+                    } 
+                    // else if(pwd.length < 6) {
+                    //     $.toptip("密码不能少于6位", 'error');
+                    //     return false;
+                    // }
+
+
+                    //console.log("aa");
+                    var id = $(this).data('id');
+                   // window.pageManager.go(id);
+                    $.ajax({
+                        url: handelUrl,
+                        type: "POST",
+                        dataType: 'json',
+                        crossDomain: true,
+                        data: {
+                            'func': "loginResume",
+                            'phone': $("#login_Phone").text(),
+                            'password': pwd
+                        }
+                    }).done(function(data) {
+                        //验证失败
+                        
+                        if(data.type == 2) {
+                           // window.pageManager.go(id);
+                            $.toptip(buildMessage(data.message), 'error');
+
+                           
+                        }
+                        //已注册
+                        else if(data.type == 3) {
+                            $.toptip(buildMessage(data.message), 'error');
+                            //window.pageManager.go(id);
+                        }
+                        //注册成功
+                        else if(data.type == 4) {
+                           // window.pageManager.go(id);
+                           //window.pageManager.go("login");
+                        }
+                       
+
+                    }).fail(function(data) {
+                        $.toptip('操作失败', 'error');;
+                    });
+                });
+            });
+        </script>
+    </script>
+
+    <div id="quartersPopup" class="weui-popup__container popup-left">
+        <div class="weui-popup__overlay"></div>
+        <div class="weui-popup__modal">
+            <div class="toolbar">
+                <div class="toolbar-inner"> <a href="javascript:;" class="picker-button close-select">确定</a>
+                    <h1 class="title">选择岗位</h1>
+                </div>
+            </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p>cell standard</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{$default_dir}static/resume/zepto.min.js"></script>
+    <script src="{$default_dir}static/resume/example.js"></script>
+    <script src="http://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
+    <script src="http://cdn.staticfile.org/jquery-weui/1.2.1/js/city-picker.min.js"></script>
+    <script src="{$default_dir}static/resume/quarters-picker.js"></script>
+
+    <script type="text/javascript">
+        var commonTable = "";
+        $(function () {
+            $.ajax({
+                url: resourceUrl,
+                type: "GET",
+                dataType: 'json',
+                crossDomain: true,
+                data: {
+                    'func': "GetCommonCode",
+                }
+            }).done(function (data) {
+                //验证失败
+                commonTable = data;
+
+            }).fail(function (data) {
+                $.toptip('操作失败', 'error');;
+            });
+
+        });
+    </script>
+</body>
+
+</html>

@@ -36,3 +36,8 @@ Route::group('hire', function () {
 });
 
 
+Route::group('resume', function () {
+    Route::rule("/", "resume/index/home", "GET");
+    Route::rule("/handle", "resume/index/handle", "POST");
+    Route::rule("/resource", "resume/index/resource", "GET");
+});

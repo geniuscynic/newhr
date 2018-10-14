@@ -8,8 +8,9 @@ class Message
     public  const  TYPE_DEFAULT = 0;
     public  const  TYPE_SUCCESSFULLY = 1;
     public  const  TYPE_FAILED = 2;
-    
-   
+    public  const  TYPE_EXIST = 3;
+    public  const  TYPE_NOT_EXIST = 4;
+
     public $type = 0;
     public $message = array();
     public $resultValue = array();
@@ -63,6 +64,9 @@ class Message
             case "array":
                 $this->resultValue = $data;
                 break;
+            
+            default:
+                $this->resultValue[] = $data;
         }
 
        

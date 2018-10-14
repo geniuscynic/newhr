@@ -59,5 +59,38 @@ class Base extends Model
         return $this->list;
     }
 
-    
+    protected function getCodeTableTree($array) :array{
+        //dump($array);
+        
+        $this->list = array();
+        $items = array();
+        foreach($array as $value){
+            //$value['text'] = $value['name'];
+            unset($value['id']);
+            unset($value['type']);
+            unset($value['level']);
+            unset($value['seqNum']);
+            $items[$value['code']] = $value;
+           
+        }
+
+        //dump($items);
+
+        foreach ($items as $key => $value){
+           // dump($items[$value['parentCode']]);
+
+            if(isset($items[$value['parentCode']])) {
+                //var_dump($value);
+                unset($items[$key]['parentCode']);
+                $items[$value['parentCode']]['sub'][] = &$items[$key]; 
+
+            }
+            else {
+                unset($items[$key]['parentCode']);
+                $this->list[] = &$items[$key]; 
+            }
+        }
+
+        return $this->list;
+    }
 }
