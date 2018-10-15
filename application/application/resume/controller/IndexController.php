@@ -9,8 +9,17 @@ class IndexController extends BaseController
    
     public function home() {
         
-        //$this->getCodeTable();
+        $codeTable = $this->getCodeTable();
+        //$codeTableQuarters = $this->getCodeTableByType(11);
 
+        $quartersCodeTable = $this->getCodeTableTree($codeTable["11"]);
+        unset($codeTable["11"]);
+
+        
+        $this->assign('codeTable', json_encode($codeTable,JSON_UNESCAPED_UNICODE));
+        $this->assign('quartersCodeTable', $quartersCodeTable);
+        //dump($quartersCodeTable);
+        //var_dump(json_encode($quartersCodeTable,JSON_UNESCAPED_UNICODE));
         return $this->fetch();
     }
 

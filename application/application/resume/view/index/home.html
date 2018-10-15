@@ -679,28 +679,52 @@
         <div class="weui-popup__modal">
             <div class="toolbar">
                 <div class="toolbar-inner"> <a href="javascript:;" class="picker-button close-select">确定</a>
-                    <h1 class="title">选择岗位</h1>
+                    <h1 class="title">111</h1>
                 </div>
             </div>
-            <div class="weui-cells">
-                <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cells level1">
+                {volist name="quartersCodeTable" id="vo"}
+                <a class="weui-cell weui-cell_access" href="javascript:;" data-id="#{$vo.code}">
                     <div class="weui-cell__bd">
-                        <p>cell standard</p>
+                        <p>{$vo.name}</p>
                     </div>
                     <div class="weui-cell__ft">
                     </div>
                 </a>
-                <a class="weui-cell weui-cell_access" href="javascript:;">
-                    <div class="weui-cell__bd">
-                        <p>cell standard</p>
+                    <div class="weui-cells level2" id="{$vo.code}">
+                        {volist name="vo['sub']" id="sub1"}
+                        <a class="weui-cell weui-cell_access" href="javascript:;" data-id="#{$sub1.code}">
+                            <div class="weui-cell__bd">
+                                <p>{$sub1.name}</p>
+                            </div>
+                            <div class="weui-cell__ft">
+                            </div>
+                        </a>
+                        {:dump($sub1['sub'])}
+                        {/volist}
+                            <div class="weui-cells weui-cells_checkbox level3" id="{$sub1.code}">
+                                {volist name="sub1['sub']" id="sub2"}
+                                
+                                <label class="weui-cell weui-check__label" for="{$sub2.code}">
+                                        <div class="weui-cell__hd">
+                                          <input type="checkbox" class="weui-check" name="checkbox1" id="{$sub2.code}" >
+                                          <i class="weui-icon-checked"></i>
+                                        </div>
+                                        <div class="weui-cell__bd">
+                                          <p>{$sub2.name}</p>
+                                        </div>
+                                </label>
+                                {/volist}
+                            </div>
                     </div>
-                    <div class="weui-cell__ft">
-                    </div>
-                </a>
+                {/volist}
+
             </div>
 
         </div>
     </div>
+
+
 
     <script src="{$default_dir}static/resume/zepto.min.js"></script>
     <script src="{$default_dir}static/resume/example.js"></script>
@@ -710,22 +734,30 @@
     <script src="{$default_dir}static/resume/quarters-picker.js"></script>
 
     <script type="text/javascript">
-        var commonTable = "";
-        $(function () {
-            $.ajax({
-                url: resourceUrl,
-                type: "GET",
-                dataType: 'json',
-                crossDomain: true,
-                data: {
-                    'func': "GetCommonCode",
-                }
-            }).done(function (data) {
-                //验证失败
-                commonTable = data;
+        var commonTable = {$codeTable|raw};
+         $(function () {
+        //     $.ajax({
+        //         url: resourceUrl,
+        //         type: "GET",
+        //         dataType: 'json',
+        //         crossDomain: true,
+        //         data: {
+        //             'func': "GetCommonCode",
+        //         }
+        //     }).done(function (data) {
+        //         //验证失败
+        //         commonTable = data;
 
-            }).fail(function (data) {
-                $.toptip('操作失败', 'error');;
+        //     }).fail(function (data) {
+        //         $.toptip('操作失败', 'error');;
+        //     });
+
+            $(".level1 > a, .level2 > a").on('click', function(){
+                //console.log("aa");
+                var subId = $(this).data("id");
+                $(subId).slideToggle("normal");
+
+                $(this).find(".weui-cell__ft").toggleClass("weui-cell__ft2");
             });
 
         });
