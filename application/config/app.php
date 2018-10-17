@@ -13,6 +13,10 @@
 // | 应用设置
 // +----------------------------------------------------------------------
 
+define("APPLICATION_FOLDER", "/newhr1");
+define("RESOURCE_FOLDER", APPLICATION_FOLDER."/application/public/");
+define("UPLOAD_FOLDER", "./uploads");
+
 return [
     // 应用名称
     'app_name'               => '',

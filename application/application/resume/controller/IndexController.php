@@ -124,6 +124,101 @@ class IndexController extends BaseController
         return json($msg);
     }
     
+    private function submitBasic3($input) {
+        //dump(session("resume1"));
+        //dump(session("resume"));
+        $resuemId = 0;
+       
+        if(session("resume") != null  && isset(session("resume")['id'])) {
+            $input['id'] = session("resume")['id'];
+            $resuemId = $input['id'];
+        }
+        else {
+            $msg = new Message(Message::TYPE_FAILED, '保存失败，请稍后再试');
+            //return json($msg);
+        }
+
+        $data = array();
+        if($input["skill"] != "" && $input["skill"] != "无") {
+            $data[] = array(
+                'resumeId' =>$resuemId,
+                "name" => $input["skill"],
+                "file1" => $this->parseFileName($input["li1"]),
+                "file2" => $this->parseFileName($input["li2"])
+            );
+        }
+
+        if($input["skill2"] != "" && $input["skill2"] != "无") {
+            $data[] = array(
+                'resumeId' =>$resuemId,
+                "name" => $input["skill2"],
+                "file1" => $this->parseFileName($input["li3"]),
+                "file2" => $this->parseFileName($input["li4"])
+            );
+        }
+
+        if($input["skill3"] != "" && $input["skill3"] != "无") {
+            $data[] = array(
+                'resumeId' =>$resuemId,
+                "name" => $input["skill2"],
+                "file1" => $this->parseFileName($input["li5"]),
+                "file2" => $this->parseFileName($input["li6"])
+            );
+        }
+
+        $data['hobby'] = $input["hobby"];
+        $data['id'] = $resuemId;
+        //dump($data);
+        $msg = model("Resume")->submitBasic3($data);
+        //var_dump($msg->getMessage());
+        
+        return json($msg);
+    }
+
+    private function parseFileName($url) {
+        if($url == "none") {
+            return "";
+        }
+
+        $url = str_replace("\")", "", $url);
+        $urls = explode("/", $url);
+
+        return array_pop($urls);
+    }
+
+    public function uploadPhoto($input) {
+        // 获取表单上传文件 例如上传了001.jpg
+        $file = request()->file('image');
+        
+
+        //$file->info["name"] = $file->info["name"] . ".jpg"; 
+        //dump( $file);
+        // 移动到框架应用根目录/uploads/ 目录下
+        $maxSize = 1024* 1024 * 5;
+        $info = $file->validate(['size'=> $maxSize])->rule(function () {
+            $resuemId = 0;
+            if(session("resume") != null  && isset(session("resume")['id'])) {
+                $resuemId = session("resume")['id'];
+            }
+
+            return $resuemId . "/" .date('YmdHis');
+        })->move(UPLOAD_FOLDER);
+        if($info){
+            // 成功上传后 获取上传信息
+            // 输出 jpg
+            //echo $info->getExtension();
+            // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
+            //echo $info->getSaveName();
+            // 输出 42a79759f284b767dfcb2a0197904287.jpg
+            //echo $info->getFilename(); 
+            echo UPLOAD_FOLDER . "/" .str_replace("\\", "/", $info->getSaveName());
+        }else{
+            // 上传失败获取错误信息
+            echo $file->getError();
+        }
+    }
+
+   
     public function resource() {
         $input = input('get.');
         $func = $input['func'];
@@ -164,4 +259,5 @@ class IndexController extends BaseController
         
         return json($array);
     }
+    
 }

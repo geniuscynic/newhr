@@ -91,3 +91,23 @@ body{font-family:-apple-system-font,Helvetica Neue,Helvetica,sans-serif}ul{list-
 .weui-cell_access .weui-cell__ft2:after {
 	border-width: 0px 2px 2px 0;
 }
+
+.weui-gallery__opt{
+    position:absolute;
+    right:0;
+    top:0;
+    left:10px;
+    background-color:#0D0D0D;
+    color:#FFFFFF;
+    line-height:60px;
+    
+  }
+
+.weui-icon-back.weui-icon_gallery-back {
+    color: #fff;
+    font-size:22px;
+}
+
+.weui-gallery__img {
+    top: 60px;
+}

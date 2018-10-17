@@ -11,7 +11,7 @@ class CodeTable extends Base
    
     public function getCodeTable() : array {
         
-        $phones = db()->Table("codeTable")
+        $phones = db()->Table("codetable")
                         ->field([
                         'code' => 'value',
                         'name' => 'title',
@@ -33,7 +33,7 @@ class CodeTable extends Base
     }
 
     public function getCodeTableByType($type) : array {
-        $phones = db()->Table("codeTable")->where(["type"=>$type])->select();
+        $phones = db()->Table("codetable")->where(["type"=>$type])->select();
               
         //var_dump(Db::getLastSql());
         return $this->getCodeTableTree($phones);

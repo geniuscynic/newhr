@@ -1196,6 +1196,7 @@ class Request
 
     protected function dealUploadFile($files)
     {
+       // dump($files);
         $array = [];
         foreach ($files as $key => $file) {
             if (is_array($file['name'])) {
@@ -1225,7 +1226,11 @@ class Request
                     if (empty($file['tmp_name']) || !is_file($file['tmp_name'])) {
                         continue;
                     }
-
+                    //dump($file);
+                    if($file['name'] == "blob") {
+                        $file['name'] = rand().".jpg";
+                    }
+                   // dump($file);
                     $array[$key] = (new File($file['tmp_name']))->setUploadInfo($file);
                 }
             }

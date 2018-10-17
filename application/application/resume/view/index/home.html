@@ -49,67 +49,7 @@
 
             <script type="text/javascript">
                 $(function(){
-                    $('#btnLoginValidate').on('click', function(){
-                        //console.log("aa");
-                        var phone = $.trim($("#phone").val());
-                        if (phone == "") {
-                            $.toptip("请填写您的行动电话", 'error');
-                            return false;
-                        }
-
-                        var tel1 = /^[0-9]+[-]{0,1}[0-9]+$/;
-                        if (tel1.test(phone) == false) {
-                            $.toptip("请正确填写您的行动电话", 'error');
-                            return false;
-                        }
-
-                        //var id = $(this).data('id');
-                       // window.pageManager.go(id);
-                        $.ajax({
-                            url: handelUrl,
-                            type: "POST",
-                            dataType: 'json',
-                            crossDomain: true,
-                            data: {
-                                'func': "checkPhoneExist",
-                                'phone': phone
-                            }
-                        }).done(function(data) {
-                            //验证失败
-                            if(data.type == 2) {
-                               // window.pageManager.go(id);
-                                $.toptip(buildMessage(data.message), 'error');
-                            }
-                            //已注册
-                            else if(data.type == 3) {
-                                //window.pageManager.go(id);
-                                window.pageManager.go("login");
-
-                                window.pageManager.setPageAppend(function(obj) {
-                                    //console.log($(obj));
-                                    obj.find("#login_Phone").text(phone);
-                                });
-                                
-                            }
-                            //未注册
-                            else if(data.type == 4) {
-                                window.pageManager.setPageAppend(function(obj) {
-                                    //console.log($(obj));
-                                    obj.find("#lblPhone").text(phone);
-                                });
-
-                                window.pageManager.go("register");
-                                
-                                //console.log(phone);
-                               // console.log($("#lblPhone").text());
-                                //$("#lblPhone").text(phone);
-                               // console.log($("#lblPhone").text());
-                            }
-                           
-                        }).fail(function(data) {
-                                $.toptip('操作失败', 'error');
-                        });
-                    });
+                    initLogin();
                 });
             </script>
     </script>
@@ -163,71 +103,7 @@
 
         <script type="text/javascript">
             $(function(){
-                $('#btnRegister').on('click', function(){
-
-                    var pwd = $('#password').val();
-                    var pwdcon = $('#password2').val();
-                    var phone = $("#lblPhone").text();
-
-                    if(pwd == "" || pwdcon == "") {
-                        $.toptip("密码不能为空", 'error');
-                        return false;
-                    } else if(pwd != pwdcon) {
-                        $.toptip("密码不一致", 'error');
-                        return false;
-                    }
-                    else if(pwd.length < 6) {
-                        $.toptip("密码不能少于6位", 'error');
-                        return false;
-                    }
-
-
-                    //console.log("aa");
-                    var id = $(this).data('id');
-                   // window.pageManager.go(id);
-                    $.ajax({
-                        url: handelUrl,
-                        type: "POST",
-                        dataType: 'json',
-                        crossDomain: true,
-                        data: {
-                            'func': "registerResume",
-                            'phone': phone,
-                            'password': pwd,
-                            'password2': pwdcon
-
-                        }
-                    }).done(function(data) {
-                        //验证失败
-                        
-                        if(data.type == 2) {
-                           // window.pageManager.go(id);
-                            $.toptip(buildMessage(data.message), 'error');
-
-                           
-                        }
-                        //已注册
-                        else if(data.type == 3) {
-                            $.toptip(buildMessage(data.message), 'error');
-                            //window.pageManager.go(id);
-                        }
-                        //注册成功
-                        else if(data.type == 1) {
-                           // window.pageManager.go(id);
-                           
-                           window.pageManager.setPageAppend(function(obj) {
-                                    //console.log($(obj));
-                                    obj.find("#login_Phone").text(phone);
-                            });
-                           window.pageManager.go("login");
-                           $.toptip("注册成功", 'success');
-                        }
-                       
-
-                    }).fail(function(data) {
-                        $.toptip('操作失败', 'error');;
-                    });
-                });
+                initRegister();
             });
         </script>
     </script>
@@ -273,65 +149,7 @@
 
         <script type="text/javascript">
             $(function(){
-                $('#btnLogin').on('click', function(){
-
-                    var pwd = $('#login_password').val();
-                   
-                    if(pwd == "" ) {
-                        $.toptip("密码不能为空", 'error');
-                        return false;
-                    } 
-                    // else if(pwd.length < 6) {
-                    //     $.toptip("密码不能少于6位", 'error');
-                    //     return false;
-                    // }
-
-
-                    //console.log("aa");
-                    //var id = $(this).data('id');
-                   // window.pageManager.go(id);
-                    $.ajax({
-                        url: handelUrl,
-                        type: "POST",
-                        dataType: 'json',
-                        crossDomain: true,
-                        data: {
-                            'func': "loginResume",
-                            'phone': $("#login_Phone").text(),
-                            'password': pwd
-                        }
-                    }).done(function(data) {
-                        //验证失败
-                        
-                        if(data.type == 2) {
-                           // window.pageManager.go(id);
-                            $.toptip(buildMessage(data.message), 'error');
-
-                           
-                        }
-                        //已注册
-                        else if(data.type == 3) {
-                            $.toptip(buildMessage(data.message), 'error');
-                            //window.pageManager.go(id);
-                        }
-                        //注册成功
-                        else if(data.type == 1) {
-                            //window.pageManager.go(id);
-                           
-                            // window.pageManager.setPageAppend(function(obj) {
-                            //         //console.log($(obj));
-                            //     obj.find("#login_Phone").text(phone);
-                            // });
-                           resume = data.resultValue[0];
-                           window.pageManager.go("basic");
-                           
-                        }
-                       
-
-                    }).fail(function(data) {
-                        $.toptip('操作失败', 'error');;
-                    });
-                });
+                initLogin();
             });
         </script>
     </script>
@@ -468,88 +286,7 @@
 
         <script type="text/javascript">
             $(function(){
-                if(resume != "") {
-                    jQuery.each(resume, function(i, val) {
-                        //text = text + " #Index:" + i + ":" + val;  
-                        //console.log(i + ":" + val);
-                        $("#basic_" + i).val(val);
-                    });  
-                }
-
-                $(".commonTable").each(function() {
-                    var type = $(this).data("type").toString();
-                    var title  = $(this).parents(".weui-cell").find('label').text();
-                    //console.log(title);
-                     $(this).select({
-                         'title': "选择" + title,
-                         'items': commonTable[type]
-                     });
-                });
-                
-                
-                $("#basic_birthday").calendar({
-                    'dateFormat': 'yyyy-mm-dd'
-                });
-
-        
-                $("#basic_house").cityPicker({
-                    title: "请选择现居地址"
-                });
-
-                $('#btnBasic1').on('click', function(){
-                   
-                    var pwd = $('#login_password').val();
-                   
-                    if(pwd == "" ) {
-                        $.toptip("密码不能为空", 'error');
-                        return false;
-                    } 
-                   
-
-                    //console.log("aa");
-                    //var id = $(this).data('id');
-                   // window.pageManager.go(id);
-                    $.ajax({
-                        url: handelUrl,
-                        type: "POST",
-                        dataType: 'json',
-                        crossDomain: true,
-                        data: {
-                            'func': "submitBasic1",
-                            'cardno': $("#basic_cardno").val(),
-                            'name': $("#basic_name").val(),
-                            'sex': $("#basic_sex").val(),
-                            'birthday': $("#basic_birthday").val(),
-                            'nation': $("#basic_nation").val(),
-                            'educational': $("#basic_educational").val(),
-                            'political': $("#basic_political").val(),
-                            'house': $("#basic_house").val(),
-                            'contractName': $("#basic_contractName").val(),
-                            'contractPhone': $("#basic_contractPhone").val()
-                        }
-                    }).done(function(data) {
-                        //验证失败
-                        
-                        if(data.type == 2) {
-                           // window.pageManager.go(id);
-                            $.toptip(buildMessage(data.message), 'error');
-                        }
-                        //已注册
-                        else if(data.type == 3) {
-                            $.toptip(buildMessage(data.message), 'error');
-                            //window.pageManager.go(id);
-                        }
-                        //注册成功
-                        else if(data.type == 1) {
-                           // window.pageManager.go(id);
-                           window.pageManager.go("basic2");
-                        }
-                       
-
-                    }).fail(function(data) {
-                        $.toptip('操作失败', 'error');;
-                    });
-                });
+                initBasic1();
             });
         </script>
     </script>
@@ -640,41 +377,7 @@
                                     <input class="weui-input" type="text" id="basic_workingAddress" value="">
                                 </div>
                             </div>
-                       
 
-                        
-
-                        
-                            <!-- <div class="weui-cell">
-                                <div class="weui-cell__hd">
-                                    <label for="" class="weui-label">个人证书技能</label>
-                                </div>
-                                <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_skill" value="">
-                                </div>
-                            </div>
-                        
-
-                       
-                            <div class="weui-cell">
-                                <div class="weui-cell__hd">
-                                    <label for="" class="weui-label">技能证书</label>
-                                </div>
-                                <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_skillPhoto" value="">
-                                </div>
-                            </div>
-                       
-                            <div class="weui-cell">
-                            
-                                <div class="weui-cell__hd">
-                                    <label for="" class="weui-label">爱好特长</label>
-                                </div>
-                                <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_hobby" value="">
-                                </div>
-                           
-                            </div> -->
 
                     <div class="weui-btn-area">
                         <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnBasic2">下一步</a>
@@ -689,82 +392,168 @@
 
         <script type="text/javascript">
             $(function(){
-                $(".commonTable").each(function() {
-                    var type = $(this).data("type").toString();
-                    var title  = $(this).parents(".weui-cell").find('label').text();
-                    //console.log(title);
-                     $(this).select({
-                         'title': "选择" + title,
-                         'items': commonTable[type]
-                     });
-                });
-                
-                $("#basic_quarters").on("click", function() {
-                    $("#quartersPopup").popup();
-                });
+                initBasic2();
+            });
+        </script>
+    </script>
 
-                $("#basic_workingAddress").cityPicker({
-                    title: "请选择现居地址"
-                });
+    <!-- 基本信息3 -->
+    <script type="text/html" id="tpl_basic3">
+        <div class="page">
+            <div class="page__hd">
+                    <p>基本信息</p>
+            </div>
 
-                $('#btnBasic2').on('click', function() {
-
-                //     var pwd = $('#login_password').val();
-                   
-                //     if(pwd == "" ) {
-                //         $.toptip("密码不能为空", 'error');
-                //         return false;
-                //     } 
-                //     // else if(pwd.length < 6) {
-                //     //     $.toptip("密码不能少于6位", 'error');
-                //     //     return false;
-                //     // }
-
-
-                //     //console.log("aa");
-                //     var id = $(this).data('id');
-                //    // window.pageManager.go(id);
-                    $.ajax({
-                        url: handelUrl,
-                        type: "POST",
-                        dataType: 'json',
-                        crossDomain: true,
-                        data: {
-                            'func': "submitBasic2",
-                            'workingYear': $("#basic_workingYear").val(),
-                            'workingStatus': $("#basic_workingStatus").val(),
-                            'joinTime': $("#basic_joinTime").val(),
-                            'workType': $("#basic_workType").val(),
-                            'industry': $("#basic_industry").val(),
-                            'quarters': $("#basic_quarters").data("value"),
-                            'salary': $("#basic_salary").val(),
-                            'workingAddress': $("#basic_workingAddress").val()
-                        }
-                    }).done(function(data) {
-                        //验证失败
+            <div class="page__bd page__bd_spacing">
+                <div class="weui-cells weui-cells_form">
                         
-                        if(data.type == 2) {
-                           // window.pageManager.go(id);
-                            $.toptip(buildMessage(data.message), 'error');
-
-                           
-                        }
-                        //已注册
-                        else if(data.type == 3) {
-                            $.toptip(buildMessage(data.message), 'error');
-                            //window.pageManager.go(id);
-                        }
-                        //注册成功
-                        else if(data.type == 4) {
-                           // window.pageManager.go(id);
-                           //window.pageManager.go("login");
-                        }
+                           <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">个人证书技能</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input commonTable" data-type="09"  type="text" id="basic_skill" value="">
+                                </div>
+                            </div>
+                        
+                            <div class="weui-cells weui-cells_form">
+                                <div class="weui-cell">
+                                    <div class="weui-cell__bd">
+                                        <div class="weui-uploader">
+                                          <div class="weui-uploader__hd">
+                                            <p class="weui-uploader__title">证书上传</p>
+                                            
+                                                <!-- <div class="weui-uploader__info">0/2</div> -->
+                                          </div>
+                                          <div class="weui-uploader__bd">
+                                            <ul class="weui-uploader__files"  >
+                                              <li class="weui-uploader__file weui-uploader__file_status" id="li_1" data-upload="0">
+                                                <div class="weui-uploader__file-content"></div>
+                                              </li>
+                                              <li class="weui-uploader__file weui-uploader__file_status" id="li_2" data-upload="0">
+                                                    <div class="weui-uploader__file-content"></div>
+                                              </li>
+                                            </ul>
+                                            <div class="weui-uploader__input-box">
+                                              <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" />
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">个人证书技能</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input commonTable" data-type="09"  type="text" id="basic_skill2" value="">
+                                </div>
+                            </div>
+                        
+                            <div class="weui-cells weui-cells_form">
+                                <div class="weui-cell">
+                                    <div class="weui-cell__bd">
+                                        <div class="weui-uploader">
+                                          <div class="weui-uploader__hd">
+                                            <p class="weui-uploader__title">证书上传</p>
+                                            
+                                                <!-- <div class="weui-uploader__info">0/2</div> -->
+                                          </div>
+                                          <div class="weui-uploader__bd">
+                                            <ul class="weui-uploader__files"  >
+                                              <li class="weui-uploader__file weui-uploader__file_status" id="li_3" data-upload="0">
+                                                <div class="weui-uploader__file-content"></div>
+                                              </li>
+                                              <li class="weui-uploader__file weui-uploader__file_status" id="li_4" data-upload="0">
+                                                    <div class="weui-uploader__file-content"></div>
+                                              </li>
+                                            </ul>
+                                            <div class="weui-uploader__input-box">
+                                              <input id="uploaderInput2" class="weui-uploader__input" type="file" accept="image/*" />
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    }).fail(function(data) {
-                        $.toptip('操作失败', 'error');;
-                    });
-                });
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">个人证书技能</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input commonTable" data-type="09"  type="text" id="basic_skill3" value="">
+                                </div>
+                            </div>
+                        
+                            <div class="weui-cells weui-cells_form">
+                                <div class="weui-cell">
+                                    <div class="weui-cell__bd">
+                                        <div class="weui-uploader">
+                                          <div class="weui-uploader__hd">
+                                            <p class="weui-uploader__title">证书上传</p>
+                                            
+                                                <!-- <div class="weui-uploader__info">0/2</div> -->
+                                          </div>
+                                          <div class="weui-uploader__bd">
+                                            <ul class="weui-uploader__files"  >
+                                              <li class="weui-uploader__file weui-uploader__file_status" id="li_5" data-upload="0">
+                                                <div class="weui-uploader__file-content"></div>
+                                              </li>
+                                              <li class="weui-uploader__file weui-uploader__file_status" id="li_6" data-upload="0">
+                                                    <div class="weui-uploader__file-content"></div>
+                                              </li>
+                                            </ul>
+                                            <div class="weui-uploader__input-box">
+                                              <input id="uploaderInput3" class="weui-uploader__input" type="file" accept="image/*" />
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="weui-gallery" style="display: none" id="gallery">
+                                <div class="weui-gallery__opt">
+                                    <a href="javascript:" class="weui-gallery__button" id="backButton">
+                                      <i class="weui-icon-back weui-icon_gallery-back"></i>
+                                    </a>
+                                  </div>
+                                <span class="weui-gallery__img" ></span>
+                                <div class="weui-gallery__opr">
+                                  <a href="javascript:" class="weui-gallery__button" id="deleteButton">
+                                    <i class="weui-icon-delete weui-icon_gallery-delete"></i>
+                                  </a>
+                                </div>
+                            </div>
+
+                            <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">爱好特长</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_hobby" value="">
+                                </div>
+                           
+                            </div>
+
+                    <div class="weui-btn-area">
+                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnBasic3">下一步</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                initBasic3();
             });
         </script>
     </script>
@@ -773,7 +562,7 @@
         <div class="weui-popup__overlay"></div>
         <div class="weui-popup__modal">
             <div class="toolbar">
-                <div class="toolbar-inner"> 
+                <div class="toolbar-inner">
                     <a href="javascript:;" class="picker-button close-select" id="btnQuarters">确定</a>
                     <h1 class="title">请选择岗位</h1>
                 </div>
@@ -828,11 +617,13 @@
     <script src="http://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
     <script src="http://cdn.staticfile.org/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
     <script src="http://cdn.staticfile.org/jquery-weui/1.2.1/js/city-picker.min.js"></script>
+    <script src="{$default_dir}static/resume/resume.js"></script>
 
     <script type="text/javascript">
         var commonTable = {$codeTable|raw};
         var resume = "";
         $(function () {
+            bindQuarter();
             //     $.ajax({
             //         url: resourceUrl,
             //         type: "GET",
@@ -849,80 +640,7 @@
             //         $.toptip('操作失败', 'error');;
             //     });
 
-            $(".level1 > a, .level2 > a").on('click', function () {
-                //console.log("aa");
-                var subId = $(this).data("id");
-                $(subId).slideToggle("normal");
 
-                $(this).find(".weui-cell__ft").toggleClass("weui-cell__ft2");
-            });
-
-            $(".level1 :checkbox").on('click', function() {
-                //alert($)
-               // var checkboxs = $(".level1:checked");
-               //console.log($(this).prop("checked"));
-               var level1Code = "";
-               var level2Code = "";
-               var level3Code = "";
-                $(".level1 :checked").each(function() {
-                    //console.log($(this).attr("id"));
-                    var tmp1 = $(this).data("level1");
-
-                    //console.log("level1Code:" + level1Code);
-                    //console.log("tmp1:" + tmp1);
-                     if(level1Code != "" && level1Code !=tmp1) {
-                       // console.log("level1Code failed");
-                         $.alert("只能选一个大类及二级分类");
-                         return false;
-                     }
-                     else {
-                        level1Code = tmp1;
-                     }
-
-                    var tmp2 = $(this).data("level2");
-
-                    //console.log("level2Code:" + level2Code);
-                    //console.log("tmp2:" + tmp1);
-
-                    if(level2Code != "" && level2Code !=tmp2) {
-                       // console.log("level2Code failed");
-                        $.alert("只能选一个大类及二级分类");
-                        return false;
-                    }
-                    else {
-                        level2Code = tmp2;
-                    }
-                     //level3Code = $(this).attr("id");
-                }); 
-            });
-
-            var quarters = new Array();
-            var quarters2 = new Array();
-            $("#btnQuarters").on("click",function() {
-                $(".level1 :checked").each(function() {
-                    var tmp1 = $(this).data("level1");
-                    var tmp2 = $(this).data("level2");
-                    var tmp3 = $(this).prop("id");
-
-                    //var title1 = $("#" + tmp1).prev("a").find("p").text();
-                    //var title2 = $("#" + tmp2).prev("a").find("p").text();
-                    var title3 = $(this).parents("label").find("p").text();
-                    
-                    //quarters.push(title1 + " " + title2 + " " + title3);
-                    quarters.push(title3);
-                    quarters2.push(tmp1 + "_" + tmp2 + "_" + tmp3);
-
-                    if(title3 == "全部") {
-                        return false;
-                    }
-                });
-
-                $.closePopup();
-
-                $("#basic_quarters").val(quarters);
-                $("#basic_quarters").attr("data-value", quarters2);
-                //console.log(quarters);
-            });
         });
     </script>
 </body>

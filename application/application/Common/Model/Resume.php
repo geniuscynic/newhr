@@ -159,7 +159,7 @@ class Resume extends Base
                 //dump($quarter);
                 $quarters = explode("_", $quarter);
                 $quartersTable[] = array(
-                    "resumentId" => $data['id'],
+                    "resumeId" => $data['id'],
                     "code1" => $quarters[0],
                     "code2" => $quarters[1],
                     "code3" => $quarters[2]
@@ -167,7 +167,7 @@ class Resume extends Base
             }
             db("quarters")
                 ->where([
-                    "resumentId" => $data['id']
+                    "resumeId" => $data['id']
                 ])
                 ->delete();
 
@@ -179,6 +179,31 @@ class Resume extends Base
             $result = db("resume")->update($data);
             
         }
+
+        return $msg;
+    }
+
+    public function submitBasic3($data) : Message {
+        $msg = new Message(Message::TYPE_SUCCESSFULLY, '');
+
+        $data2['hobby'] = $data["hobby"];
+        $data2['id'] = $data["id"];
+        unset($data['hobby']);
+        unset($data['id']);
+            
+            db("skill")
+                ->where([
+                    "resumeId" => $data2['id']
+                ])
+                ->delete();
+
+            //dump($quartersTable);
+
+//dump($data);
+            db("skill")->insertAll($data);
+            $result = db("resume")->update($data2);
+            
+        
 
         return $msg;
     }
