@@ -7,7 +7,7 @@ class IndexController extends BaseController
 {
    
     public function home() {
-        
+       
         return $this->fetch();
     }
 

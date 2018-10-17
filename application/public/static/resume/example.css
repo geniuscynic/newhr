@@ -41,7 +41,7 @@ body{font-family:-apple-system-font,Helvetica Neue,Helvetica,sans-serif}ul{list-
 }
 
 .popup-left .weui-popup__modal{
-    width:  200px;
+    width:  250px;
     right:0;
 }
 
@@ -60,9 +60,9 @@ body{font-family:-apple-system-font,Helvetica Neue,Helvetica,sans-serif}ul{list-
    
 }
 
-.popup-left .weui-cells{
+/* .popup-left .weui-cells{
     background: transparent;    
-}
+} */
 
 
 .level1 {

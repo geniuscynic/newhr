@@ -12,6 +12,11 @@ class CodeTable extends Base
     public function getCodeTable() : array {
         
         $phones = db()->Table("codeTable")
+                        ->field([
+                        'code' => 'value',
+                        'name' => 'title',
+                        'type',
+                        'parentCode'])
             //->where(["type", "<>", "11"])
             ->select();
               

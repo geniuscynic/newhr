@@ -317,7 +317,14 @@
                         //注册成功
                         else if(data.type == 1) {
                             //window.pageManager.go(id);
+                           
+                            // window.pageManager.setPageAppend(function(obj) {
+                            //         //console.log($(obj));
+                            //     obj.find("#login_Phone").text(phone);
+                            // });
+                           resume = data.resultValue[0];
                            window.pageManager.go("basic");
+                           
                         }
                        
 
@@ -329,7 +336,7 @@
         </script>
     </script>
 
-    <!-- 基本信息 -->
+    <!-- 基本信息1 -->
     <script type="text/html" id="tpl_basic">
         <div class="page">
             <div class="page__hd">
@@ -339,14 +346,7 @@
             <div class="page__bd page__bd_spacing">
                 <div class="weui-cells weui-cells_form">
                     
-                    <div class="weui-cell">
-                      <div class="weui-cell__hd"><label class="weui-label" >手机号</label></div>
-                      <div class="weui-cell__bd">
-                        <label class="weui-msg__desc" id="login_Phone"></label>
-                      </div>
-                    </div>
 
-                  
                     <div class="weui-cell">
                         <div class="weui-cell__hd">
                           <label class="weui-label">身份证号</label>
@@ -370,7 +370,7 @@
                             <label for="" class="weui-label">性别</label>
                           </div>
                           <div class="weui-cell__bd">
-                                <input class="weui-input commonTable" id="basic_sex" data-type="10" type="text" value="" readonly="">
+                                <input class="weui-input commonTable" id="basic_sex" data-type="10" type="text" value="女" readonly="">
                           </div>
                     </div>
 
@@ -417,15 +417,7 @@
                     
 
                    
-                        <div class="weui-cell">
-                            <div class="weui-cell__hd">
-                                <label for="" class="weui-label">工作年限</label>
-                            </div>
-                            <div class="weui-cell__bd">
-                                <input class="weui-input commonTable" data-type="04" type="text" id="basic_workingYear" value="">
-                            </div>
-                        </div>
-                   
+                       
 
                    
                             <div class="weui-cell ">
@@ -438,7 +430,148 @@
                             </div>
                       
                         
-                      
+                        <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">紧急联络人</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_contractName" value="">
+                                </div>
+                           
+                        </div>
+
+                        <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">紧急联系电话</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" type="text" id="basic_contractPhone" value="">
+                                </div>
+                           
+                        </div>
+
+                        
+                           
+
+                    <div class="weui-btn-area">
+                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnBasic1">下一步</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                if(resume != "") {
+                    jQuery.each(resume, function(i, val) {
+                        //text = text + " #Index:" + i + ":" + val;  
+                        //console.log(i + ":" + val);
+                        $("#basic_" + i).val(val);
+                    });  
+                }
+
+                $(".commonTable").each(function() {
+                    var type = $(this).data("type").toString();
+                    var title  = $(this).parents(".weui-cell").find('label').text();
+                    //console.log(title);
+                     $(this).select({
+                         'title': "选择" + title,
+                         'items': commonTable[type]
+                     });
+                });
+                
+                
+                $("#basic_birthday").calendar({
+                    'dateFormat': 'yyyy-mm-dd'
+                });
+
+        
+                $("#basic_house").cityPicker({
+                    title: "请选择现居地址"
+                });
+
+                $('#btnBasic1').on('click', function(){
+                   
+                    var pwd = $('#login_password').val();
+                   
+                    if(pwd == "" ) {
+                        $.toptip("密码不能为空", 'error');
+                        return false;
+                    } 
+                   
+
+                    //console.log("aa");
+                    //var id = $(this).data('id');
+                   // window.pageManager.go(id);
+                    $.ajax({
+                        url: handelUrl,
+                        type: "POST",
+                        dataType: 'json',
+                        crossDomain: true,
+                        data: {
+                            'func': "submitBasic1",
+                            'cardno': $("#basic_cardno").val(),
+                            'name': $("#basic_name").val(),
+                            'sex': $("#basic_sex").val(),
+                            'birthday': $("#basic_birthday").val(),
+                            'nation': $("#basic_nation").val(),
+                            'educational': $("#basic_educational").val(),
+                            'political': $("#basic_political").val(),
+                            'house': $("#basic_house").val(),
+                            'contractName': $("#basic_contractName").val(),
+                            'contractPhone': $("#basic_contractPhone").val()
+                        }
+                    }).done(function(data) {
+                        //验证失败
+                        
+                        if(data.type == 2) {
+                           // window.pageManager.go(id);
+                            $.toptip(buildMessage(data.message), 'error');
+                        }
+                        //已注册
+                        else if(data.type == 3) {
+                            $.toptip(buildMessage(data.message), 'error');
+                            //window.pageManager.go(id);
+                        }
+                        //注册成功
+                        else if(data.type == 1) {
+                           // window.pageManager.go(id);
+                           window.pageManager.go("basic2");
+                        }
+                       
+
+                    }).fail(function(data) {
+                        $.toptip('操作失败', 'error');;
+                    });
+                });
+            });
+        </script>
+    </script>
+
+    <!-- 基本信息2 -->
+    <script type="text/html" id="tpl_basic2">
+        <div class="page">
+            <div class="page__hd">
+                    <p>基本信息</p>
+            </div>
+
+            <div class="page__bd page__bd_spacing">
+                <div class="weui-cells weui-cells_form">
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label for="" class="weui-label">工作年限</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input commonTable" data-type="04" type="text" id="basic_workingYear" value="">
+                            </div>
+                        </div>
+                   
                             <div class="weui-cell">
                                 <div class="weui-cell__hd">
                                     <label for="" class="weui-label">求职状态</label>
@@ -448,8 +581,6 @@
                                 </div>
                             </div>
                        
-
-                        
                             <div class="weui-cell">
                                 <div class="weui-cell__hd">
                                     <label for="" class="weui-label">到岗时间</label>
@@ -458,8 +589,6 @@
                                     <input class="weui-input commonTable" data-type="06" type="text" id="basic_joinTime" value="">
                                 </div>
                             </div>
-                        
-
                         
                             <div class="weui-cell">
                                 <div class="weui-cell__hd">
@@ -470,14 +599,12 @@
                                 </div>
                             </div>
                         
-
-                        
                             <div class="weui-cell">
                                 <div class="weui-cell__hd">
                                     <label for="" class="weui-label">从事行业</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_industry" value="">
+                                    <input class="weui-input commonTable" type="text" data-type="11" id="basic_industry" value="">
                                 </div>
                             </div>
                        
@@ -515,30 +642,10 @@
                             </div>
                        
 
-                        <div class="weui-cell">
-                            
-                                <div class="weui-cell__hd">
-                                    <label for="" class="weui-label">紧急联络人</label>
-                                </div>
-                                <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_contractName" value="">
-                                </div>
-                           
-                        </div>
-
-                        <div class="weui-cell">
-                            
-                                <div class="weui-cell__hd">
-                                    <label for="" class="weui-label">紧急联系电话</label>
-                                </div>
-                                <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_contractPhone" value="">
-                                </div>
-                           
-                        </div>
+                        
 
                         
-                            <div class="weui-cell">
+                            <!-- <div class="weui-cell">
                                 <div class="weui-cell__hd">
                                     <label for="" class="weui-label">个人证书技能</label>
                                 </div>
@@ -567,10 +674,10 @@
                                     <input class="weui-input" type="text" id="basic_hobby" value="">
                                 </div>
                            
-                            </div>
+                            </div> -->
 
                     <div class="weui-btn-area">
-                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnBasic">下一步</a>
+                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnBasic2">下一步</a>
                     </div>
                 </div>
             </div>
@@ -593,57 +700,45 @@
                 });
                 
                 $("#basic_quarters").on("click", function() {
-
                     $("#quartersPopup").popup();
                 });
 
-
-                $("#basic_birthday").calendar({
-                    'dateFormat': 'yyyy-mm-dd'
-                });
-
-                // $("#basic_origo").cityPicker({
-                //     title: "请选择籍贯地址"
-                // });
-
-                $("#basic_house").cityPicker({
+                $("#basic_workingAddress").cityPicker({
                     title: "请选择现居地址"
                 });
 
-                
+                $('#btnBasic2').on('click', function() {
 
-                
-
-                
-
-
-
-                $('#btnLogin').on('click', function(){
-
-                    var pwd = $('#login_password').val();
+                //     var pwd = $('#login_password').val();
                    
-                    if(pwd == "" ) {
-                        $.toptip("密码不能为空", 'error');
-                        return false;
-                    } 
-                    // else if(pwd.length < 6) {
-                    //     $.toptip("密码不能少于6位", 'error');
-                    //     return false;
-                    // }
+                //     if(pwd == "" ) {
+                //         $.toptip("密码不能为空", 'error');
+                //         return false;
+                //     } 
+                //     // else if(pwd.length < 6) {
+                //     //     $.toptip("密码不能少于6位", 'error');
+                //     //     return false;
+                //     // }
 
 
-                    //console.log("aa");
-                    var id = $(this).data('id');
-                   // window.pageManager.go(id);
+                //     //console.log("aa");
+                //     var id = $(this).data('id');
+                //    // window.pageManager.go(id);
                     $.ajax({
                         url: handelUrl,
                         type: "POST",
                         dataType: 'json',
                         crossDomain: true,
                         data: {
-                            'func': "loginResume",
-                            'phone': $("#login_Phone").text(),
-                            'password': pwd
+                            'func': "submitBasic2",
+                            'workingYear': $("#basic_workingYear").val(),
+                            'workingStatus': $("#basic_workingStatus").val(),
+                            'joinTime': $("#basic_joinTime").val(),
+                            'workType': $("#basic_workType").val(),
+                            'industry': $("#basic_industry").val(),
+                            'quarters': $("#basic_quarters").data("value"),
+                            'salary': $("#basic_salary").val(),
+                            'workingAddress': $("#basic_workingAddress").val()
                         }
                     }).done(function(data) {
                         //验证失败
@@ -678,48 +773,50 @@
         <div class="weui-popup__overlay"></div>
         <div class="weui-popup__modal">
             <div class="toolbar">
-                <div class="toolbar-inner"> <a href="javascript:;" class="picker-button close-select">确定</a>
-                    <h1 class="title">111</h1>
+                <div class="toolbar-inner"> 
+                    <a href="javascript:;" class="picker-button close-select" id="btnQuarters">确定</a>
+                    <h1 class="title">请选择岗位</h1>
                 </div>
             </div>
             <div class="weui-cells level1">
                 {volist name="quartersCodeTable" id="vo"}
-                <a class="weui-cell weui-cell_access" href="javascript:;" data-id="#{$vo.code}">
+                <a class="weui-cell weui-cell_access" href="javascript:;" data-id="#{$vo.value}">
                     <div class="weui-cell__bd">
-                        <p>{$vo.name}</p>
+                        <p>{$vo.title}</p>
                     </div>
                     <div class="weui-cell__ft">
                     </div>
                 </a>
-                    <div class="weui-cells level2" id="{$vo.code}">
-                        {volist name="vo['sub']" id="sub1"}
-                        <a class="weui-cell weui-cell_access" href="javascript:;" data-id="#{$sub1.code}">
-                            <div class="weui-cell__bd">
-                                <p>{$sub1.name}</p>
-                            </div>
-                            <div class="weui-cell__ft">
-                            </div>
-                        </a>
-                        {:dump($sub1['sub'])}
-                        {/volist}
-                            <div class="weui-cells weui-cells_checkbox level3" id="{$sub1.code}">
-                                {volist name="sub1['sub']" id="sub2"}
-                                
-                                <label class="weui-cell weui-check__label" for="{$sub2.code}">
-                                        <div class="weui-cell__hd">
-                                          <input type="checkbox" class="weui-check" name="checkbox1" id="{$sub2.code}" >
-                                          <i class="weui-icon-checked"></i>
-                                        </div>
-                                        <div class="weui-cell__bd">
-                                          <p>{$sub2.name}</p>
-                                        </div>
-                                </label>
-                                {/volist}
-                            </div>
-                    </div>
-                {/volist}
+                <div class="weui-cells level2" id="{$vo.value}">
+                    {volist name="vo['sub']" id="sub1"}
+                    <a class="weui-cell weui-cell_access" href="javascript:;" data-id="#{$sub1.value}">
+                        <div class="weui-cell__bd">
+                            <p>{$sub1.title}</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                        </div>
+                    </a>
 
+
+                    <div class="weui-cells weui-cells_checkbox level3" id="{$sub1.value}">
+                        {volist name="sub1['sub']" id="sub2"}
+                        <label class="weui-cell weui-check__label" for="{$sub2.value}">
+                            <div class="weui-cell__hd">
+                                <input type="checkbox" class="weui-check" id="{$sub2.value}" data-level1="{$vo.value}"
+                                    data-level2="{$sub1.value}">
+                                <i class="weui-icon-checked"></i>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <p>{$sub2.title}</p>
+                            </div>
+                        </label>
+                        {/volist}
+                    </div>
+                    {/volist}
+                </div>
+                {/volist}
             </div>
+
 
         </div>
     </div>
@@ -731,28 +828,28 @@
     <script src="http://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
     <script src="http://cdn.staticfile.org/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
     <script src="http://cdn.staticfile.org/jquery-weui/1.2.1/js/city-picker.min.js"></script>
-    <script src="{$default_dir}static/resume/quarters-picker.js"></script>
 
     <script type="text/javascript">
         var commonTable = {$codeTable|raw};
-         $(function () {
-        //     $.ajax({
-        //         url: resourceUrl,
-        //         type: "GET",
-        //         dataType: 'json',
-        //         crossDomain: true,
-        //         data: {
-        //             'func': "GetCommonCode",
-        //         }
-        //     }).done(function (data) {
-        //         //验证失败
-        //         commonTable = data;
+        var resume = "";
+        $(function () {
+            //     $.ajax({
+            //         url: resourceUrl,
+            //         type: "GET",
+            //         dataType: 'json',
+            //         crossDomain: true,
+            //         data: {
+            //             'func': "GetCommonCode",
+            //         }
+            //     }).done(function (data) {
+            //         //验证失败
+            //         commonTable = data;
 
-        //     }).fail(function (data) {
-        //         $.toptip('操作失败', 'error');;
-        //     });
+            //     }).fail(function (data) {
+            //         $.toptip('操作失败', 'error');;
+            //     });
 
-            $(".level1 > a, .level2 > a").on('click', function(){
+            $(".level1 > a, .level2 > a").on('click', function () {
                 //console.log("aa");
                 var subId = $(this).data("id");
                 $(subId).slideToggle("normal");
@@ -760,6 +857,72 @@
                 $(this).find(".weui-cell__ft").toggleClass("weui-cell__ft2");
             });
 
+            $(".level1 :checkbox").on('click', function() {
+                //alert($)
+               // var checkboxs = $(".level1:checked");
+               //console.log($(this).prop("checked"));
+               var level1Code = "";
+               var level2Code = "";
+               var level3Code = "";
+                $(".level1 :checked").each(function() {
+                    //console.log($(this).attr("id"));
+                    var tmp1 = $(this).data("level1");
+
+                    //console.log("level1Code:" + level1Code);
+                    //console.log("tmp1:" + tmp1);
+                     if(level1Code != "" && level1Code !=tmp1) {
+                       // console.log("level1Code failed");
+                         $.alert("只能选一个大类及二级分类");
+                         return false;
+                     }
+                     else {
+                        level1Code = tmp1;
+                     }
+
+                    var tmp2 = $(this).data("level2");
+
+                    //console.log("level2Code:" + level2Code);
+                    //console.log("tmp2:" + tmp1);
+
+                    if(level2Code != "" && level2Code !=tmp2) {
+                       // console.log("level2Code failed");
+                        $.alert("只能选一个大类及二级分类");
+                        return false;
+                    }
+                    else {
+                        level2Code = tmp2;
+                    }
+                     //level3Code = $(this).attr("id");
+                }); 
+            });
+
+            var quarters = new Array();
+            var quarters2 = new Array();
+            $("#btnQuarters").on("click",function() {
+                $(".level1 :checked").each(function() {
+                    var tmp1 = $(this).data("level1");
+                    var tmp2 = $(this).data("level2");
+                    var tmp3 = $(this).prop("id");
+
+                    //var title1 = $("#" + tmp1).prev("a").find("p").text();
+                    //var title2 = $("#" + tmp2).prev("a").find("p").text();
+                    var title3 = $(this).parents("label").find("p").text();
+                    
+                    //quarters.push(title1 + " " + title2 + " " + title3);
+                    quarters.push(title3);
+                    quarters2.push(tmp1 + "_" + tmp2 + "_" + tmp3);
+
+                    if(title3 == "全部") {
+                        return false;
+                    }
+                });
+
+                $.closePopup();
+
+                $("#basic_quarters").val(quarters);
+                $("#basic_quarters").attr("data-value", quarters2);
+                //console.log(quarters);
+            });
         });
     </script>
 </body>

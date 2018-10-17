@@ -13,9 +13,21 @@ class IndexController extends BaseController
         //$codeTableQuarters = $this->getCodeTableByType(11);
 
         $quartersCodeTable = $this->getCodeTableTree($codeTable["11"]);
-        unset($codeTable["11"]);
+        //dump($codeTable["11"]);
+        foreach($codeTable["11"] as $key=>$value) {
+            if( $value['parentCode'] != "0" ) {
+                //dump($value);
+                unset($codeTable["11"][$key]);
+            }
+            
+        }
 
-        
+        $codeTable["11"] = array_values($codeTable["11"]);
+        //$codeTable = array_values($codeTable);
+        //var_dump($codeTable);
+
+        //dump
+        //unset($codeTable["11"]);
         $this->assign('codeTable', json_encode($codeTable,JSON_UNESCAPED_UNICODE));
         $this->assign('quartersCodeTable', $quartersCodeTable);
         //dump($quartersCodeTable);
@@ -66,9 +78,9 @@ class IndexController extends BaseController
         //var_dump($msg->getMessage());
         if($msg->getType() == Message::TYPE_SUCCESSFULLY) {
             //var_dump($msg->getResultValue()[0]);
-           // var_dump($msg);
+            // var_dump($msg->getResultValue()[0]);
 
-            session("resume", $msg->getResultValue());
+            session("resume", $msg->getResultValue()[0]);
 
             //var_dump($msg);
 
@@ -78,7 +90,39 @@ class IndexController extends BaseController
         return json($msg);
     }
 
-    
+    private function submitBasic1($input) {
+        //dump(session("resume1"));
+        //dump(session("resume"));
+        if(session("resume") != null  && isset(session("resume")['id'])) {
+            $input['id'] = session("resume")['id'];
+        }
+        else {
+            $msg = new Message(Message::TYPE_FAILED, '保存失败，请稍后再试');
+            return json($msg);
+        }
+
+        $msg = model("Resume")->submitBasic1($input);
+        //var_dump($msg->getMessage());
+        
+        return json($msg);
+    }
+
+    private function submitBasic2($input) {
+        //dump(session("resume1"));
+        //dump(session("resume"));
+        if(session("resume") != null  && isset(session("resume")['id'])) {
+            $input['id'] = session("resume")['id'];
+        }
+        else {
+            $msg = new Message(Message::TYPE_FAILED, '保存失败，请稍后再试');
+            return json($msg);
+        }
+
+        $msg = model("Resume")->submitBasic2($input);
+        //var_dump($msg->getMessage());
+        
+        return json($msg);
+    }
     
     public function resource() {
         $input = input('get.');
