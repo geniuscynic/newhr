@@ -111,3 +111,10 @@ body{font-family:-apple-system-font,Helvetica Neue,Helvetica,sans-serif}ul{list-
 .weui-gallery__img {
     top: 60px;
 }
+
+.weui-btn_plain-warn {
+    color: #e64340;
+    border:1px solid #e64340;
+
+}
+

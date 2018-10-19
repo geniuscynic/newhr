@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 2018-10-15 14:33:12
+-- Generation Time: 2018-10-19 12:42:59
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.2.8
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `xzj`
 --
-CREATE DATABASE IF NOT EXISTS `xzj` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
-USE `xzj`;
 
 -- --------------------------------------------------------
 
@@ -40,8 +38,13 @@ CREATE TABLE IF NOT EXISTS `codetable` (
   `level` int(11) NOT NULL,
   `seqNum` int(11) NOT NULL,
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=960 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='01 民族, 02 学历, 03  政治面貌, 04 工作年限, 05 求职状态, 06 到岗时间, 07 期望工作性质, 08 期望薪资, 09 个人证书技能, 10 性别, 11 岗位';
+) ENGINE=InnoDB AUTO_INCREMENT=970 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='01 民族, 02 学历, 03  政治面貌, 04 工作年限, 05 求职状态, 06 到岗时间, 07 期望工作性质, 08 期望薪资, 09 个人证书技能, 10 性别, 11 岗位, 12 家庭关系';
 
+--
+-- 插入之前先把表清空（truncate） `codetable`
+--
+
+TRUNCATE TABLE `codetable`;
 --
 -- 转存表中的数据 `codetable`
 --
@@ -1004,7 +1007,72 @@ INSERT INTO `codetable` (`id`, `code`, `name`, `type`, `parentCode`, `level`, `s
 (956, '0856', '业务跟单经理/主管', '11', '0849', 3, 856),
 (957, '0857', '业务跟单专员/助理', '11', '0849', 3, 857),
 (958, '0858', '单证员', '11', '0849', 3, 858),
-(959, '0859', '报关/报检员', '11', '0849', 3, 859);
+(959, '0859', '报关/报检员', '11', '0849', 3, 859),
+(960, '01', '父亲', '12', '', 1, 100),
+(961, '02', '母亲', '12', '', 1, 101),
+(962, '03', '妻子', '12', '', 1, 102),
+(963, '04', '丈夫', '12', '', 1, 103),
+(964, '05', '哥哥', '12', '', 1, 104),
+(965, '06', '姐姐', '12', '', 1, 105),
+(966, '07', '弟弟', '12', '', 1, 106),
+(967, '08', '妹妹', '12', '', 1, 107),
+(968, '09', '儿子', '12', '', 1, 108),
+(969, '10', '女儿', '12', '', 1, 109);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `family`
+--
+
+DROP TABLE IF EXISTS `family`;
+CREATE TABLE IF NOT EXISTS `family` (
+  `resumeId` int(11) NOT NULL,
+  `name` varchar(45) COLLATE utf8_bin NOT NULL,
+  `relation` varchar(10) COLLATE utf8_bin NOT NULL,
+  `relatePhone` varchar(20) COLLATE utf8_bin NOT NULL,
+  `work` varchar(45) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- 插入之前先把表清空（truncate） `family`
+--
+
+TRUNCATE TABLE `family`;
+--
+-- 转存表中的数据 `family`
+--
+
+INSERT INTO `family` (`resumeId`, `name`, `relation`, `relatePhone`, `work`) VALUES
+(10, '东方舵手', '妻子', '二恶烷', '二恶烷v');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `quarters`
+--
+
+DROP TABLE IF EXISTS `quarters`;
+CREATE TABLE IF NOT EXISTS `quarters` (
+  `resumeId` int(11) NOT NULL,
+  `code1` varchar(45) COLLATE utf8_bin NOT NULL,
+  `code2` varchar(45) COLLATE utf8_bin NOT NULL,
+  `code3` varchar(45) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- 插入之前先把表清空（truncate） `quarters`
+--
+
+TRUNCATE TABLE `quarters`;
+--
+-- 转存表中的数据 `quarters`
+--
+
+INSERT INTO `quarters` (`resumeId`, `code1`, `code2`, `code3`) VALUES
+(50, '0065', '0068,0050', '0065'),
+(10, '0050', '0065', '0067'),
+(10, '0050', '0065', '0068');
 
 -- --------------------------------------------------------
 
@@ -1020,25 +1088,118 @@ CREATE TABLE IF NOT EXISTS `resume` (
   `createDate` datetime NOT NULL,
   `updateDate` varchar(45) COLLATE utf8_bin NOT NULL,
   `status` int(11) NOT NULL COMMENT '1: 正常， 0：删除',
+  `cardno` varchar(45) COLLATE utf8_bin NOT NULL,
+  `name` varchar(6) COLLATE utf8_bin NOT NULL,
+  `sex` varchar(1) COLLATE utf8_bin NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `nation` varchar(10) COLLATE utf8_bin NOT NULL,
+  `educational` varchar(45) COLLATE utf8_bin NOT NULL,
+  `political` varchar(45) COLLATE utf8_bin NOT NULL,
+  `house` varchar(100) COLLATE utf8_bin NOT NULL,
+  `contractName` varchar(10) COLLATE utf8_bin NOT NULL,
+  `contractPhone` varchar(20) COLLATE utf8_bin NOT NULL,
+  `hobby` varchar(45) COLLATE utf8_bin NOT NULL,
+  `workingYear` varchar(10) COLLATE utf8_bin NOT NULL,
+  `workingStatus` varchar(10) COLLATE utf8_bin NOT NULL,
+  `joinTime` varchar(10) COLLATE utf8_bin NOT NULL,
+  `workType` varchar(10) COLLATE utf8_bin NOT NULL,
+  `industry` varchar(45) COLLATE utf8_bin NOT NULL,
+  `salary` varchar(20) COLLATE utf8_bin NOT NULL,
+  `workingAddress` varchar(100) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- 插入之前先把表清空（truncate） `resume`
+--
+
+TRUNCATE TABLE `resume`;
 --
 -- 转存表中的数据 `resume`
 --
 
-INSERT INTO `resume` (`id`, `phone`, `password`, `createDate`, `updateDate`, `status`) VALUES
-(1, '13196601217', '111111', '2018-10-13 19:46:11', '2018-10-13 19-46-11', 1),
-(2, '13164856425', 'qqqqqq', '2018-10-13 19:56:25', '2018-10-13 19-56-25', 1),
-(3, '13164856475', 'qqqqqq', '2018-10-13 19:57:51', '2018-10-13 19-57-51', 1),
-(4, '13164856495', 'qqqqqq', '2018-10-13 20:00:11', '2018-10-13 20-00-11', 1),
-(5, '15684526482', 'qqqqqq', '2018-10-13 20:46:42', '2018-10-13 20-46-42', 1),
-(6, '15684521482', 'qqqqqq', '2018-10-13 20:48:22', '2018-10-13 20-48-22', 1),
-(7, '13454651456', 'qqqqqq', '2018-10-13 20:49:17', '2018-10-13 20-49-17', 1),
-(8, '15678965541', 'qqqqqq', '2018-10-13 20:51:07', '2018-10-13 20-51-07', 1),
-(9, '13652145624', 'qqqqqq', '2018-10-13 20:52:33', '2018-10-13 20-52-33', 1);
-COMMIT;
+INSERT INTO `resume` (`id`, `phone`, `password`, `createDate`, `updateDate`, `status`, `cardno`, `name`, `sex`, `birthday`, `nation`, `educational`, `political`, `house`, `contractName`, `contractPhone`, `hobby`, `workingYear`, `workingStatus`, `joinTime`, `workType`, `industry`, `salary`, `workingAddress`) VALUES
+(10, '13196601217', '111111', '2018-10-16 16:18:43', '2018-10-16 16-18-43', 1, '360203198701212515', '黑胡椒', '女', '2018-10-16', '汉族', '本科及以上', '党员', '江西省 南昌市 东湖区', '你看', '13196601216', '', '3年', '离职', '1个月之内', '小时工', '建筑/房地产', '6000-7999', '北京 北京市 东城区');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `skill`
+--
+
+DROP TABLE IF EXISTS `skill`;
+CREATE TABLE IF NOT EXISTS `skill` (
+  `resumeId` int(11) NOT NULL,
+  `name` varchar(45) COLLATE utf8_bin NOT NULL,
+  `file1` varchar(45) COLLATE utf8_bin NOT NULL,
+  `file2` varchar(45) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- 插入之前先把表清空（truncate） `skill`
+--
+
+TRUNCATE TABLE `skill`;
+--
+-- 转存表中的数据 `skill`
+--
+
+INSERT INTO `skill` (`resumeId`, `name`, `file1`, `file2`) VALUES
+(0, '厨师证', '20181017232614.jpg', ''),
+(0, '焊工证', '20181017232635.jpg', ''),
+(0, '焊工证', '20181017232644.jpg', ''),
+(10, '厨师证', '20181018213155.jpg', '');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `train`
+--
+
+DROP TABLE IF EXISTS `train`;
+CREATE TABLE IF NOT EXISTS `train` (
+  `resumeId` int(11) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  `school` varchar(45) COLLATE utf8_bin NOT NULL,
+  `career` varchar(45) COLLATE utf8_bin NOT NULL,
+  `desc` varchar(200) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- 插入之前先把表清空（truncate） `train`
+--
+
+TRUNCATE TABLE `train`;
+--
+-- 转存表中的数据 `train`
+--
+
+INSERT INTO `train` (`resumeId`, `startDate`, `endDate`, `school`, `career`, `desc`) VALUES
+(10, '2018-10-18', '2018-10-17', '热', '地方', '发的说法是 是');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `work_experience`
+--
+
+DROP TABLE IF EXISTS `work_experience`;
+CREATE TABLE IF NOT EXISTS `work_experience` (
+  `resumeId` int(11) NOT NULL,
+  `startDate` datetime NOT NULL,
+  `endDate` datetime NOT NULL,
+  `companyName` varchar(45) COLLATE utf8_bin NOT NULL,
+  `post` varchar(45) COLLATE utf8_bin NOT NULL,
+  `duty` varchar(500) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- 插入之前先把表清空（truncate） `work_experience`
+--
+
+TRUNCATE TABLE `work_experience`;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

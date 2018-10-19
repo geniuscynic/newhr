@@ -49,7 +49,7 @@
 
             <script type="text/javascript">
                 $(function(){
-                    initLogin();
+                    init();
                 });
             </script>
     </script>
@@ -352,7 +352,7 @@
                                     <label for="" class="weui-label">期望工作岗位</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_quarters" value="">
+                                    <input class="weui-input" type="text" id="basic_quarters1" value="">
                                 </div>
                             </div>
                       
@@ -558,6 +558,305 @@
         </script>
     </script>
 
+    <!-- 工作经历 -->
+    <script type="text/html" id="tpl_work">
+        <div class="page">
+            <div class="page__hd">
+                    <p>工作经历</p>
+                    
+            </div>
+
+            <div class="page__bd page__bd_spacing">
+                    <div class="work_tpl">
+                       
+                        <div class="weui-cells__title">工作经历</div>
+                       
+                       <div class="weui-cells weui-cells_form " >
+                        
+                           <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">开始时间</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input work_startDate"   type="text"  value="">
+                                </div>
+                            </div>
+                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">结束时间</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input work_endDate"  type="text"  value="">
+                                </div>
+                            </div>
+
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">公司名称</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input work_companyName"  type="text"  value="">
+                                </div>
+                            </div>
+                           
+
+                            <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">主要职位</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input work_post" type="text"  value="">
+                                </div>
+                           
+                            </div>
+
+                            <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">主要职责</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input work_duty" type="text"  value="">
+                                </div>
+                           
+                            </div>
+                        </div>
+                        <div class="weui-btn-area work_delete" style="display:none" >
+                                <a href="javascript:;" class="weui-btn weui-btn_plain-warn " >删除工作经历</a>
+                          </div>
+                    </div>
+                        
+                            <div class="weui-btn-area">
+                                  <a href="javascript:;" class="weui-btn weui-btn_default" id="work_add">新增工作经历</a>
+                            </div>
+                    <div class="weui-btn-area">
+                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnWork">下一步</a>
+                    </div>
+               
+                    
+            </div>
+
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                initWork();
+            });
+        </script>
+    </script>
+
+      <!-- 教育/培训经历 -->
+      <script type="text/html" id="tpl_train">
+        <div class="page">
+            <div class="page__hd">
+                    <p>教育/培训经历</p>
+                    
+            </div>
+
+            <div class="page__bd page__bd_spacing">
+                    <div class="train_tpl">
+                       
+                        <div class="weui-cells__title">教育/培训经历</div>
+                       
+                       <div class="weui-cells weui-cells_form " >
+                        
+                           <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">开始时间</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input train_startDate"   type="text"  value="">
+                                </div>
+                            </div>
+                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">结束时间</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input train_endDate"  type="text"  value="">
+                                </div>
+                            </div>
+
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">毕业院校/培训机构</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input train_school"  type="text"  value="">
+                                </div>
+                            </div>
+                           
+
+                            <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">专业/技能</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input train_career" type="text"  value="">
+                                </div>
+                           
+                            </div>
+
+                            <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">详细情况</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input train_desc" type="text"  value="">
+                                </div>
+                           
+                            </div>
+                        </div>
+                        <div class="weui-btn-area train_delete" style="display:none" >
+                                <a href="javascript:;" class="weui-btn weui-btn_plain-warn " >删除教育/培训经历</a>
+                          </div>
+                    </div>
+                        
+                            <div class="weui-btn-area">
+                                  <a href="javascript:;" class="weui-btn weui-btn_default" id="train_add">新增教育/培训经历</a>
+                            </div>
+                    <div class="weui-btn-area">
+                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnTrain">下一步</a>
+                    </div>
+               
+                    
+            </div>
+
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                initTrain();
+            });
+        </script>
+    </script>
+
+
+     <!-- 家庭成员 -->
+     <script type="text/html" id="tpl_family">
+        <div class="page">
+            <div class="page__hd">
+                    <p>家庭成员</p>
+                    
+            </div>
+
+            <div class="page__bd page__bd_spacing">
+                    <div class="family_tpl">
+                       
+                        <div class="weui-cells__title">家庭成员</div>
+                       
+                       <div class="weui-cells weui-cells_form " >
+                        
+                           <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">姓名</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input family_name"   type="text"  value="">
+                                </div>
+                            </div>
+                        
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">与本人关系</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input family_relation commonTable" data-type="12"  type="text" value="">
+                                </div>
+                            </div>
+
+                            <div class="weui-cell">
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">联系电话</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input family_relatePhone"  type="text"  value="">
+                                </div>
+                            </div>
+                           
+
+                            <div class="weui-cell">
+                            
+                                <div class="weui-cell__hd">
+                                    <label for="" class="weui-label">工作现状</label>
+                                </div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input family_work" type="text"  value="">
+                                </div>
+                           
+                            </div>
+
+                            
+                        </div>
+                        <div class="weui-btn-area family_delete" style="display:none" >
+                                <a href="javascript:;" class="weui-btn weui-btn_plain-warn " >删除家庭成员</a>
+                          </div>
+                    </div>
+                        
+                            <div class="weui-btn-area">
+                                  <a href="javascript:;" class="weui-btn weui-btn_default" id="family_add">新增家庭成员</a>
+                            </div>
+                    <div class="weui-btn-area">
+                        <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnFamily">下一步</a>
+                    </div>
+               
+                    
+            </div>
+
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                initFamility();
+            });
+        </script>
+    </script>
+
+
+    <!-- 流程结束，欢迎界面 -->
+    <script type="text/html" id="tpl_welcome">
+        <div class="page">
+            <div class="page__hd">
+                    <p>欢迎加入</p>
+                    
+            </div>
+
+            <div class="page__bd page__bd_spacing">
+                <div class="weui-msg">
+                    <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+                    <div class="weui-msg__text-area">
+                      <h2 class="weui-msg__title">注册成功</h2>
+                      <p class="weui-msg__desc">欢迎加入</p>
+                    </div>
+                    
+            </div>
+
+            <div class="page__ft">
+               
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                initFamility();
+            });
+        </script>
+    </script>
+
     <div id="quartersPopup" class="weui-popup__container popup-left">
         <div class="weui-popup__overlay"></div>
         <div class="weui-popup__modal">
@@ -621,7 +920,7 @@
 
     <script type="text/javascript">
         var commonTable = {$codeTable|raw};
-        var resume = "";
+        var resume = {$resume|raw};
         $(function () {
             bindQuarter();
             //     $.ajax({

@@ -95,7 +95,7 @@ function commonInit() {
   });
 }
 
-function initLogin() {
+function init() {
   $('#btnLoginValidate').on('click', function () {
     //console.log("aa");
     var phone = $.trim($("#phone").val());
@@ -276,7 +276,7 @@ function initLogin() {
         //         //console.log($(obj));
         //     obj.find("#login_Phone").text(phone);
         // });
-        resume = data.resultValue[0];
+        resume = data.resultValue;
         window.pageManager.go("basic");
 
       }
@@ -363,7 +363,19 @@ function initBasic1() {
 function initBasic2() {
   commonInit();
 
-  $("#basic_quarters").on("click", function () {
+  var code = new Array();
+  var name = new Array();
+  jQuery.each(resume.quarters, function (i, val) {
+    code.push(val.code1 + "_" + val.code2 + "_" + val.code3);
+    name.push(val.name);
+  });
+
+
+
+  $("#basic_quarters1").val(name);
+  $("#basic_quarters1").attr("data-value", code);
+
+  $("#basic_quarters1").on("click", function () {
     $("#quartersPopup").popup();
   });
 
@@ -384,7 +396,7 @@ function initBasic2() {
         'joinTime': $("#basic_joinTime").val(),
         'workType': $("#basic_workType").val(),
         'industry': $("#basic_industry").val(),
-        'quarters': $("#basic_quarters").data("value"),
+        'quarters': $("#basic_quarters1").data("value"),
         'salary': $("#basic_salary").val(),
         'workingAddress': $("#basic_workingAddress").val()
       }
@@ -422,6 +434,42 @@ function isPhotoUpload(li1, li2) {
 function initBasic3() {
   commonInit();
   initPhotoUpload();
+
+  var skillLength = resume.skill.length;
+  
+  if(skillLength >= 1) {
+    $("#basic_skill").val(resume.skill[0].name);
+    if(resume.skill[0].file1 != "") {
+      $("#li_1").css("background-image", resume.id + "/" + resume.skill[0].file1);
+    }
+
+    if(resume.skill[0].file2 != "") {
+      $("#li_2").css("background-image", resume.id + "/" + resume.skill[0].file2);
+    }
+  }
+  
+  if(skillLength >= 2) {
+    $("#basic_skill2").val(resume.skill[1].name);
+    if(resume.skill[1].file1 != "") {
+      $("#li_3").css("background-image", resume.id + "/" + resume.skill[1].file1);
+    }
+
+    if(resume.skill[1].file2 != "") {
+      $("#li_4").css("background-image", resume.id + "/" + resume.skill[1].file2);
+    }
+  }
+
+  if(skillLength >= 3) {
+    $("#basic_skill3").val(resume.skill[2].name);
+    if(resume.skill[2].file1 != "") {
+      $("#li_5").css("background-image", resume.id + "/" + resume.skill[2].file1);
+    }
+
+    if(resume.skill[2].file2 != "") {
+      $("#li_6").css("background-image", resume.id + "/" + resume.skill[2].file2);
+    }
+  }
+
   $("#btnBasic3").on('click', function () {
     
     var current_li = $("weui-uploader__file").find("li[data-upload='1']");
@@ -517,7 +565,7 @@ function initBasic3() {
       //注册成功
       else if (data.type == 1) {
         // window.pageManager.go(id);
-        window.pageManager.go("basic3");
+        window.pageManager.go("work");
       }
 
 
@@ -773,4 +821,266 @@ function initPhotoUpload() {
       }
     };
   }
+}
+
+function workDateInit() {
+  $(".work_startDate").calendar({
+    'dateFormat': 'yyyy-mm-dd'
+  });
+
+  $(".work_endDate").calendar({
+    'dateFormat': 'yyyy-mm-dd'
+  });
+
+  $(".work_delete").on("click", function() {
+
+     $(this).parents(".work_tpl").remove();
+  });
+}
+
+function initWork() {
+  workDateInit();
+
+  $("#work_add").on("click", function() {
+
+      $(".work_tpl:last").after($(".work_tpl:last").clone());
+
+      $(".work_startDate:last").val("");
+      $(".work_endDate:last").val("");
+      $(".work_companyName:last").val("");
+      $(".work_post:last").val("");
+      $(".work_duty:last").val("");
+
+      $(".work_delete:last").show();
+      workDateInit();
+  });
+
+  
+  $("#btnWork").on('click', function () {
+    var data=new Array();
+
+    $(".work_tpl").each(function() {
+      var startDate = $(this).find(".work_startDate").val();
+      var endDate = $(this).find(".work_endDate").val();
+      var companyName = $(this).find(".work_companyName").val();
+      var post = $(this).find(".work_post").val();
+      var duty = $(this).find(".work_duty").val();
+      
+      if(startDate=="") {
+        $.toptip(buildMessage(data.message), 'error');
+        return false;
+      }
+      var subData = {
+        'startDate' : startDate,
+        'endDate': endDate,
+        'companyName': companyName,
+        'post': post,
+        'duty': duty
+      }
+      data.push(subData);
+    });
+
+    $.ajax({
+      url: handelUrl,
+      type: "POST",
+      dataType: 'json',
+      crossDomain: true,
+      data: {
+        'func': "submitWork",
+        'data': data
+      }
+    }).done(function (data) {
+      //验证失败
+      if (data.type == 2) {
+        // window.pageManager.go(id);
+        $.toptip(buildMessage(data.message), 'error');
+      }
+      //已注册
+      else if (data.type == 3) {
+        $.toptip(buildMessage(data.message), 'error');
+        //window.pageManager.go(id);
+      }
+      //注册成功
+      else if (data.type == 1) {
+        // window.pageManager.go(id);
+        window.pageManager.go("train");
+      }
+
+
+    }).fail(function (data) {
+      $.toptip('操作失败', 'error');;
+    });
+  });
+}
+
+function trainDateInit() {
+  $(".train_startDate").calendar({
+    'dateFormat': 'yyyy-mm-dd'
+  });
+
+  $(".train_endDate").calendar({
+    'dateFormat': 'yyyy-mm-dd'
+  });
+
+  $(".train_delete").on("click", function() {
+
+     $(this).parents(".train_tpl").remove();
+  });
+}
+
+function initTrain() {
+  trainDateInit();
+
+  $("#train_add").on("click", function() {
+
+      $(".train_tpl:last").after($(".train_tpl:last").clone());
+
+      $(".train_startDate:last").val("");
+      $(".train_endDate:last").val("");
+      $(".train_school:last").val("");
+      $(".train_career:last").val("");
+      $(".train_desc:last").val("");
+
+      $(".train_delete:last").show();
+      trainDateInit();
+  });
+
+  
+  $("#btnTrain").on('click', function () {
+    var data=new Array();
+
+    $(".train_tpl").each(function() {
+      var startDate = $(this).find(".train_startDate").val();
+      var endDate = $(this).find(".train_endDate").val();
+      var school = $(this).find(".train_school").val();
+      var career = $(this).find(".train_career").val();
+      var desc = $(this).find(".train_desc").val();
+      
+      if(startDate=="") {
+        $.toptip(buildMessage(data.message), 'error');
+        return false;
+      }
+      var subData = {
+        'startDate' : startDate,
+        'endDate': endDate,
+        'school': school,
+        'career': career,
+        'desc': desc
+      }
+      data.push(subData);
+    });
+
+    $.ajax({
+      url: handelUrl,
+      type: "POST",
+      dataType: 'json',
+      crossDomain: true,
+      data: {
+        'func': "submitTrain",
+        'data': data
+      }
+    }).done(function (data) {
+      //验证失败
+      if (data.type == 2) {
+        // window.pageManager.go(id);
+        $.toptip(buildMessage(data.message), 'error');
+      }
+      //已注册
+      else if (data.type == 3) {
+        $.toptip(buildMessage(data.message), 'error');
+        //window.pageManager.go(id);
+      }
+      //注册成功
+      else if (data.type == 1) {
+        // window.pageManager.go(id);
+        window.pageManager.go("family");
+      }
+
+
+    }).fail(function (data) {
+      $.toptip('操作失败', 'error');;
+    });
+  });
+}
+
+function familityDateInit() {
+  commonInit();
+
+  $(".family_delete").on("click", function() {
+     $(this).parents(".family_tpl").remove();
+  });
+}
+
+function initFamility() {
+  familityDateInit();
+
+  $("#family_add").on("click", function() {
+
+      $(".family_tpl:last").after($(".family_tpl:last").clone());
+
+      $(".family_name:last").val("");
+      $(".family_relation:last").val("");
+      $(".family_relatePhone:last").val("");
+      $(".family_work:last").val("");
+     
+
+      $(".family_delete:last").show();
+      familityDateInit();
+  });
+
+  
+  $("#btnFamily").on('click', function () {
+    var data=new Array();
+
+    $(".family_tpl").each(function() {
+      var name = $(this).find(".family_name").val();
+      var relation = $(this).find(".family_relation").val();
+      var relatePhone = $(this).find(".family_relatePhone").val();
+      var work = $(this).find(".family_work").val();
+    
+      
+      if(name=="") {
+        $.toptip(buildMessage(data.message), 'error');
+        return false;
+      }
+      var subData = {
+        'name' : name,
+        'relation': relation,
+        'relatePhone': relatePhone,
+        'work': work
+      }
+      data.push(subData);
+    });
+
+    $.ajax({
+      url: handelUrl,
+      type: "POST",
+      dataType: 'json',
+      crossDomain: true,
+      data: {
+        'func': "submitFamily",
+        'data': data
+      }
+    }).done(function (data) {
+      //验证失败
+      if (data.type == 2) {
+        // window.pageManager.go(id);
+        $.toptip(buildMessage(data.message), 'error');
+      }
+      //已注册
+      else if (data.type == 3) {
+        $.toptip(buildMessage(data.message), 'error');
+        //window.pageManager.go(id);
+      }
+      //注册成功
+      else if (data.type == 1) {
+        // window.pageManager.go(id);
+        window.pageManager.go("welcome");
+      }
+
+
+    }).fail(function (data) {
+      $.toptip('操作失败', 'error');;
+    });
+  });
 }

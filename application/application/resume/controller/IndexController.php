@@ -30,6 +30,13 @@ class IndexController extends BaseController
         //unset($codeTable["11"]);
         $this->assign('codeTable', json_encode($codeTable,JSON_UNESCAPED_UNICODE));
         $this->assign('quartersCodeTable', $quartersCodeTable);
+
+        if(session("resume") != null  && isset(session("resume")['id'])) {
+            $this->assign('resume', json_encode(session("resume"),JSON_UNESCAPED_UNICODE));
+        }
+        else {
+            $this->assign('resume', "");
+        }
         //dump($quartersCodeTable);
         //var_dump(json_encode($quartersCodeTable,JSON_UNESCAPED_UNICODE));
         return $this->fetch();
@@ -80,7 +87,7 @@ class IndexController extends BaseController
             //var_dump($msg->getResultValue()[0]);
             // var_dump($msg->getResultValue()[0]);
 
-            session("resume", $msg->getResultValue()[0]);
+            session("resume", $msg->getResultValue());
 
             //var_dump($msg);
 
@@ -138,13 +145,16 @@ class IndexController extends BaseController
             //return json($msg);
         }
 
+        
+        $file = array();
+
         $data = array();
         if($input["skill"] != "" && $input["skill"] != "无") {
             $data[] = array(
                 'resumeId' =>$resuemId,
                 "name" => $input["skill"],
-                "file1" => $this->parseFileName($input["li1"]),
-                "file2" => $this->parseFileName($input["li2"])
+                "file1" => $this->parseFileName($input["li1"], $file),
+                "file2" => $this->parseFileName($input["li2"], $file)
             );
         }
 
@@ -152,8 +162,8 @@ class IndexController extends BaseController
             $data[] = array(
                 'resumeId' =>$resuemId,
                 "name" => $input["skill2"],
-                "file1" => $this->parseFileName($input["li3"]),
-                "file2" => $this->parseFileName($input["li4"])
+                "file1" => $this->parseFileName($input["li3"], $file),
+                "file2" => $this->parseFileName($input["li4"], $file)
             );
         }
 
@@ -161,11 +171,25 @@ class IndexController extends BaseController
             $data[] = array(
                 'resumeId' =>$resuemId,
                 "name" => $input["skill2"],
-                "file1" => $this->parseFileName($input["li5"]),
-                "file2" => $this->parseFileName($input["li6"])
+                "file1" => $this->parseFileName($input["li5"], $file),
+                "file2" => $this->parseFileName($input["li6"], $file)
             );
         }
 
+        $folder = scandir(UPLOAD_FOLDER . "/" . $resuemId);
+        //foreach
+        //dump($folder);
+        //dump($file);
+
+        $folder = array_diff($folder, $file);
+        foreach($folder as $value) {
+            if($value != "." && $value != "..") {
+                unlink(UPLOAD_FOLDER . "/" . $resuemId . "/" . $value);
+                //dump(UPLOAD_FOLDER . "/" . $resuemId . "/" . $value);
+            }
+        }
+        //dump($folder);
+        
         $data['hobby'] = $input["hobby"];
         $data['id'] = $resuemId;
         //dump($data);
@@ -175,7 +199,91 @@ class IndexController extends BaseController
         return json($msg);
     }
 
-    private function parseFileName($url) {
+    private function submitWork($input) {
+        //dump($input);
+        $resuemId = 0;
+
+        if(session("resume") != null  && isset(session("resume")['id'])) {
+            $input['id'] = session("resume")['id'];
+            $resuemId = $input['id'];
+        }
+        else {
+            $msg = new Message(Message::TYPE_FAILED, '保存失败，请稍后再试');
+            return json($msg);
+        }
+
+        $data = $input['data'];
+        foreach($data as $key => $value) {
+            $data[$key]['resumeId'] = $resuemId;  
+            //dump($value);
+        }
+
+        //dump($data);
+        //$data['id'] = $input['id'];
+
+        $msg = model("Resume")->submitWork($data);
+        //var_dump($msg->getMessage());
+        
+        return json($msg);
+    }
+
+    private function submitTrain($input) {
+        //dump($input);
+        $resuemId = 0;
+
+        if(session("resume") != null  && isset(session("resume")['id'])) {
+            $input['id'] = session("resume")['id'];
+            $resuemId = $input['id'];
+        }
+        else {
+            $msg = new Message(Message::TYPE_FAILED, '保存失败，请稍后再试');
+            return json($msg);
+        }
+
+        $data = $input['data'];
+        foreach($data as $key => $value) {
+            $data[$key]['resumeId'] = $resuemId;  
+            //dump($value);
+        }
+
+        //dump($data);
+        //$data['id'] = $input['id'];
+
+        $msg = model("Resume")->submitTrain($data);
+        //var_dump($msg->getMessage());
+        
+        return json($msg);
+    }
+
+    private function submitFamily($input) {
+        //dump($input);
+        $resuemId = 0;
+
+        if(session("resume") != null  && isset(session("resume")['id'])) {
+            $input['id'] = session("resume")['id'];
+            $resuemId = $input['id'];
+        }
+        else {
+            $msg = new Message(Message::TYPE_FAILED, '保存失败，请稍后再试');
+            return json($msg);
+        }
+
+        $data = $input['data'];
+        foreach($data as $key => $value) {
+            $data[$key]['resumeId'] = $resuemId;  
+            //dump($value);
+        }
+
+        //dump($data);
+        //$data['id'] = $input['id'];
+
+        $msg = model("Resume")->submitFamily($data);
+        //var_dump($msg->getMessage());
+        
+        return json($msg);
+    }
+
+    private function parseFileName($url,& $file) {
         if($url == "none") {
             return "";
         }
@@ -183,10 +291,14 @@ class IndexController extends BaseController
         $url = str_replace("\")", "", $url);
         $urls = explode("/", $url);
 
-        return array_pop($urls);
+        $uploadFile = array_pop($urls);
+        $file[] = $uploadFile;
+
+        //dump($file);
+        return $uploadFile;
     }
 
-    public function uploadPhoto($input) {
+    private function uploadPhoto($input) {
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('image');
         
@@ -216,6 +328,8 @@ class IndexController extends BaseController
             // 上传失败获取错误信息
             echo $file->getError();
         }
+
+
     }
 
    

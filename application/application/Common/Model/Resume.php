@@ -104,13 +104,14 @@ class Resume extends Base
             $resume = db("resume")
                 ->field(['password'],true)
                 ->where($data)
-                ->select();
-
-            
+                ->find();
 
             if($resume != null) {
-               unset($resume['password']);
+               //unset($resume['password']);
                // $msg = new Message(Message::TYPE_EXIST, '手机号已经注册过');
+               //dump($resume);
+               $resume = $this->getResumetDetail($resume);
+              // dump($resume);
                $msg->SetResultValue($resume);
             }
             else {
@@ -121,7 +122,34 @@ class Resume extends Base
         return $msg;
     }
 
-    
+    private function getResumetDetail($resume) {
+        //dump($resume);
+
+        $quarters = db("quarters")
+                    ->alias('q')
+                    ->join("codetable c", "q.code3 = c.code and c.type = '11' and c.level = 3")
+                    ->field(['code1','code2','code3', 'c.name'])
+                    ->where([
+                        "resumeId" => $resume['id']
+                    ])
+                    ->select();
+
+        $resume['quarters'] = $quarters;
+        //dump($resume);
+
+
+        $skill = db("skill")
+                    ->alias('s')
+                    ->field(['s.name','s.file1','s.file2'])
+                    ->where([
+                        "resumeId" => $resume['id']
+                    ])
+                    ->select();
+
+        $resume['skill'] = $skill;
+        return $resume;
+    }
+
     public function submitBasic1($data) : Message {
         $validate = validate("ResumeValidate");
         $msg = new Message(Message::TYPE_SUCCESSFULLY, '');
@@ -202,6 +230,66 @@ class Resume extends Base
 //dump($data);
             db("skill")->insertAll($data);
             $result = db("resume")->update($data2);
+            
+        
+
+        return $msg;
+    }
+
+    function submitWork($data) : Message {
+        $msg = new Message(Message::TYPE_SUCCESSFULLY, '');
+
+        //dump($data);
+    
+            db("work_experience")
+                ->where([
+                    "resumeId" => $data[0]['resumeId']
+                ])
+                ->delete();
+
+
+            db("work_experience")->insertAll($data);
+           // $result = db("resume")->update($data2);
+            
+        
+
+        return $msg;
+    }
+
+    function submitTrain($data) : Message {
+        $msg = new Message(Message::TYPE_SUCCESSFULLY, '');
+
+        //dump($data);
+    
+            db("train")
+                ->where([
+                    "resumeId" => $data[0]['resumeId']
+                ])
+                ->delete();
+
+
+            db("train")->insertAll($data);
+           // $result = db("resume")->update($data2);
+            
+        
+
+        return $msg;
+    }
+
+    function submitFamily($data) : Message {
+        $msg = new Message(Message::TYPE_SUCCESSFULLY, '');
+
+        //dump($data);
+    
+            db("family")
+                ->where([
+                    "resumeId" => $data[0]['resumeId']
+                ])
+                ->delete();
+
+
+            db("family")->insertAll($data);
+           // $result = db("resume")->update($data2);
             
         
 

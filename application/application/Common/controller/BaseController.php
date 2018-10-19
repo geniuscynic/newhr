@@ -80,7 +80,7 @@ class BaseController extends Controller
     }
 
     protected function getCodeTable() : array {
-        cache('codeTable', null);
+        //cache('codeTable', null);
         if(!cache('codeTable')) {
             $codeTable = model("CodeTable")->getCodeTable();
             cache('codeTable', $codeTable, 36000);
