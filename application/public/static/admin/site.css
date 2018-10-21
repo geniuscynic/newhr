@@ -1,0 +1,106 @@
+body {
+    background: #ecf0f5;
+}
+
+header.navbar {
+    background: #3c8dbc;
+    
+}
+
+
+header.navbar a, header.navbar a.navbar-brand {
+    
+    color: #ffffff;
+}
+
+.login{
+    justify-content:center;
+   
+   align-items: center;
+
+   min-height: 40rem;
+
+   
+}
+
+.login .card-title {
+    text-align: center;
+}
+
+.lefsitebar {
+    max-width: 14rem;
+    background: #222d32;
+    padding-left: 0;
+    padding-right: 0;
+    min-height: 60rem;
+
+    padding-top:1rem;
+}
+
+
+
+.lefsitebar .menu a {
+    color:#b8c7ce;
+    position: relative;
+    border-left: 3px solid transparent;
+}
+
+.lefsitebar li.menu > a.active {
+    border-color:#3c8dbc;
+}
+
+.lefsitebar li.menu > a.active, .lefsitebar li.menu > a:hover {
+    color:#ffffff;
+    background: #1e282c;
+    
+}
+
+
+.lefsitebar .menu a.collapsed .pull-right-container .fa-angle-down{
+    transform: rotate(90deg);
+ }
+
+
+
+.lefsitebar .menu a .pull-right-container {
+    right: 10px;
+  
+   position: absolute;
+}
+
+.lefsitebar ul.menu {
+    padding-left:1rem;
+    background: #2c3b41;
+}
+
+.lefsitebar ul.menu li a.active, .lefsitebar ul.menu li a:hover{
+    color:#ffffff;
+}
+
+
+.maincontent form {
+    padding-left:0;
+    padding-right: 0;
+}
+
+.toolbar {
+    margin-bottom: 1rem;
+}
+
+.page {
+   
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.main-footer {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    padding-top:1rem;
+}
+
+.main-footer p {
+    margin-left: 1rem;
+}

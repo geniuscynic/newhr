@@ -32,10 +32,12 @@ class IndexController extends BaseController
         $this->assign('quartersCodeTable', $quartersCodeTable);
 
         if(session("resume") != null  && isset(session("resume")['id'])) {
+            session("resume", model("Resume")->getResumeById(session("resume")['id'])->getResultValue());
+
             $this->assign('resume', json_encode(session("resume"),JSON_UNESCAPED_UNICODE));
         }
         else {
-            $this->assign('resume', "");
+            $this->assign('resume', "''");
         }
         //dump($quartersCodeTable);
         //var_dump(json_encode($quartersCodeTable,JSON_UNESCAPED_UNICODE));
@@ -176,16 +178,18 @@ class IndexController extends BaseController
             );
         }
 
-        $folder = scandir(UPLOAD_FOLDER . "/" . $resuemId);
-        //foreach
-        //dump($folder);
-        //dump($file);
+        if(is_dir(UPLOAD_FOLDER . "/" . $resuemId)) {
+            $folder = scandir(UPLOAD_FOLDER . "/" . $resuemId);
+            //foreach
+            //dump($folder);
+            //dump($file);
 
-        $folder = array_diff($folder, $file);
-        foreach($folder as $value) {
-            if($value != "." && $value != "..") {
-                unlink(UPLOAD_FOLDER . "/" . $resuemId . "/" . $value);
-                //dump(UPLOAD_FOLDER . "/" . $resuemId . "/" . $value);
+            $folder = array_diff($folder, $file);
+            foreach($folder as $value) {
+                if($value != "." && $value != "..") {
+                    unlink(UPLOAD_FOLDER . "/" . $resuemId . "/" . $value);
+                    //dump(UPLOAD_FOLDER . "/" . $resuemId . "/" . $value);
+                }
             }
         }
         //dump($folder);
@@ -193,7 +197,7 @@ class IndexController extends BaseController
         $data['hobby'] = $input["hobby"];
         $data['id'] = $resuemId;
         //dump($data);
-        $msg = model("Resume")->submitBasic3($data);
+        $msg = model("Resume")->saveBasic3($data);
         //var_dump($msg->getMessage());
         
         return json($msg);
@@ -322,8 +326,9 @@ class IndexController extends BaseController
             // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
             //echo $info->getSaveName();
             // 输出 42a79759f284b767dfcb2a0197904287.jpg
-            //echo $info->getFilename(); 
-            echo UPLOAD_FOLDER . "/" .str_replace("\\", "/", $info->getSaveName());
+            //dump($info);
+            echo $info->getFilename(); 
+            //echo UPLOAD_FOLDER . "/" .str_replace("\\", "/", $info->getSaveName());
         }else{
             // 上传失败获取错误信息
             echo $file->getError();

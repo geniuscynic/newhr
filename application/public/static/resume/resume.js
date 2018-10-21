@@ -67,8 +67,8 @@ function bindQuarter() {
 
     $.closePopup();
 
-    $("#basic_quarters").val(quarters);
-    $("#basic_quarters").attr("data-value", quarters2);
+    $("#basic_quarters1").val(quarters);
+    $("#basic_quarters1").attr("data-value", quarters2);
     //console.log(quarters);
   });
 }
@@ -93,6 +93,23 @@ function commonInit() {
       'items': commonTable[type]
     });
   });
+}
+
+function hadValidation(obj) {
+  var validation = false;
+  var obj1 = $(obj).find(".required");
+
+  $(obj).find(".required").each(function () {
+    var val = this;
+    if ($(val).val() == "") {
+      var field = $(val).parents(".weui-cell").find("label").html();
+      $.toptip(field + "不能为空", 'error');
+      validation = true;
+      return false;
+    }
+  });
+
+  return validation;
 }
 
 function init() {
@@ -306,14 +323,45 @@ function initBasic1() {
 
   $('#btnBasic1').on('click', function () {
 
-    var pwd = $('#login_password').val();
-
-    if (pwd == "") {
-      $.toptip("密码不能为空", 'error');
-      return false;
+    var hasValidation = hadValidation("#page_basic");
+    if (hasValidation) {
+      return;
     }
+    var cardno = $("#basic_cardno").val();
+    // if(cardno=="") {
+    //   $.toptip("身份证号码不能为空", 'error');
+    //   return false;
+    // }
 
+    var name = $("#basic_name").val()
+    // if(name=="") {
+    //   $.toptip("姓名不能为空", 'error');
+    //   return false;
+    // }
 
+    var sex = $("#basic_sex").val();
+    // if(sex=="") {
+    //   $.toptip("性别不能为空", 'error');
+    //   return false;
+    // }
+
+    var birthday = $("#basic_birthday").val();
+    // if(birthday=="") {
+    //   $.toptip("出生日期不能为空", 'error');
+    //   return false;
+    // }
+
+    var nation = $("#basic_nation").val();
+    // if(nation=="") {
+    //   $.toptip("民族不能为空", 'error');
+    //   return false;
+    // }
+
+    var educational = $("#basic_educational").val();
+    // if(educational=="") {
+    //   $.toptip("最高学历不能为空", 'error');
+    //   return false;
+    // }
     //console.log("aa");
     //var id = $(this).data('id');
     // window.pageManager.go(id);
@@ -324,12 +372,12 @@ function initBasic1() {
       crossDomain: true,
       data: {
         'func': "submitBasic1",
-        'cardno': $("#basic_cardno").val(),
-        'name': $("#basic_name").val(),
-        'sex': $("#basic_sex").val(),
-        'birthday': $("#basic_birthday").val(),
-        'nation': $("#basic_nation").val(),
-        'educational': $("#basic_educational").val(),
+        'cardno': cardno,
+        'name': name,
+        'sex': sex,
+        'birthday': birthday,
+        'nation': nation,
+        'educational': educational,
         'political': $("#basic_political").val(),
         'house': $("#basic_house").val(),
         'contractName': $("#basic_contractName").val(),
@@ -370,8 +418,6 @@ function initBasic2() {
     name.push(val.name);
   });
 
-
-
   $("#basic_quarters1").val(name);
   $("#basic_quarters1").attr("data-value", code);
 
@@ -384,6 +430,11 @@ function initBasic2() {
   });
 
   $('#btnBasic2').on('click', function () {
+    var hasValidation = hadValidation("#page_basic2");
+    if (hasValidation) {
+      return;
+    }
+
     $.ajax({
       url: handelUrl,
       type: "POST",
@@ -431,49 +482,84 @@ function isSkillEmpty(skill) {
 function isPhotoUpload(li1, li2) {
   return !(li1 == "none" && li2 == "none");
 }
+
+function bindPhoto(current_li, filename) {
+  var data = "./uploads/" + resume.id + "/" + filename;
+  //var url = "url(" + data + ")";
+
+  $(current_li).attr("data-upload", "2");
+  $(current_li).children("weui-uploader__file-content").html("");
+  $(current_li).css("background-image", "url(" + data + ")");
+  $(current_li).removeClass("weui-uploader__file_status");
+
+  //return url;
+}
+
 function initBasic3() {
   commonInit();
   initPhotoUpload();
+  $(".skill2,.skill3").hide();
 
   var skillLength = resume.skill.length;
-  
-  if(skillLength >= 1) {
+
+
+  if (skillLength >= 1) {
     $("#basic_skill").val(resume.skill[0].name);
-    if(resume.skill[0].file1 != "") {
-      $("#li_1").css("background-image", resume.id + "/" + resume.skill[0].file1);
+    if (resume.skill[0].file1 != "") {
+      //$("#li_1").css("background-image", getPhotoUrl(resume.skill[0].file1));
+      bindPhoto("#li_1", resume.skill[0].file1);
     }
 
-    if(resume.skill[0].file2 != "") {
-      $("#li_2").css("background-image", resume.id + "/" + resume.skill[0].file2);
+    if (resume.skill[0].file2 != "") {
+      //$("#li_2").css("background-image", getPhotoUrl(resume.skill[0].file2));
+      bindPhoto("#li_2", resume.skill[0].file2);
     }
   }
-  
-  if(skillLength >= 2) {
+
+  if (skillLength >= 2) {
     $("#basic_skill2").val(resume.skill[1].name);
-    if(resume.skill[1].file1 != "") {
-      $("#li_3").css("background-image", resume.id + "/" + resume.skill[1].file1);
+    if (resume.skill[1].file1 != "") {
+      //$("#li_3").css("background-image", getPhotoUrl(resume.skill[1].file1));
+      bindPhoto("#li_3", resume.skill[1].file1);
     }
 
-    if(resume.skill[1].file2 != "") {
-      $("#li_4").css("background-image", resume.id + "/" + resume.skill[1].file2);
+    if (resume.skill[1].file2 != "") {
+      //$("#li_4").css("background-image", getPhotoUrl(resume.skill[1].file2));
+      bindPhoto("#li_4", resume.skill[1].file2);
     }
+
+    $(".skill2").show();
   }
 
-  if(skillLength >= 3) {
+  if (skillLength >= 3) {
     $("#basic_skill3").val(resume.skill[2].name);
-    if(resume.skill[2].file1 != "") {
-      $("#li_5").css("background-image", resume.id + "/" + resume.skill[2].file1);
+    if (resume.skill[2].file1 != "") {
+      //$("#li_5").css("background-image", getPhotoUrl(resume.skill[2].file1));
+      bindPhoto("#li_5", resume.skill[2].file1);
     }
 
-    if(resume.skill[2].file2 != "") {
-      $("#li_6").css("background-image", resume.id + "/" + resume.skill[2].file2);
+    if (resume.skill[2].file2 != "") {
+      bindPhoto("#li_6", resume.skill[2].file2);
+      //$("#li_6").css("background-image", getPhotoUrl(resume.skill[2].file2));
     }
+
+    $(".skill3").show();
   }
+
+  $("#skill_add").on("click", function () {
+    if (!$(".skill2").is(':visible')) {
+      $(".skill2").show();
+    } else {
+      $(".skill3").show();
+
+      $("#skill_add").hide();
+    }
+  });
 
   $("#btnBasic3").on('click', function () {
-    
+
     var current_li = $("weui-uploader__file").find("li[data-upload='1']");
-    if(current_li.length > 0) {
+    if (current_li.length > 0) {
       $.toptip("有图片未上传玩，请等待", 'error');
       return;
     }
@@ -481,7 +567,7 @@ function initBasic3() {
     var skill1 = $("#basic_skill").val();
     var li1 = $("#li_1").css("background-image");
     var li2 = $("#li_2").css("background-image");
-    if(!isSkillEmpty(skill1) && !isPhotoUpload(li1,li2)) {
+    if (!isSkillEmpty(skill1) && !isPhotoUpload(li1, li2)) {
       $.toptip("技能证书照片未上传", 'error');
       return;
     }
@@ -489,7 +575,7 @@ function initBasic3() {
     var skill2 = $("#basic_skill2").val();
     var li3 = $("#li_3").css("background-image");
     var li4 = $("#li_4").css("background-image");
-    if(!isSkillEmpty(skill2) && !isPhotoUpload(li3,li4)) {
+    if (!isSkillEmpty(skill2) && !isPhotoUpload(li3, li4)) {
       $.toptip("技能证书照片未上传", 'error');
       return;
     }
@@ -497,39 +583,44 @@ function initBasic3() {
     var skill3 = $("#basic_skill3").val();
     var li5 = $("#li_5").css("background-image");
     var li6 = $("#li_6").css("background-image");
-    if(!isSkillEmpty(skill3) && !isPhotoUpload(li5,li6)) {
+    if (!isSkillEmpty(skill3) && !isPhotoUpload(li5, li6)) {
       $.toptip("技能证书照片未上传", 'error');
       return;
     }
 
     //if(skill1 == skill2 || skill1 == skill3 || skill2 == skill3) {
-    if(!isSkillEmpty(skill1) && !isSkillEmpty(skill2) && skill1 == skill2){
+    if (!isSkillEmpty(skill1) && !isSkillEmpty(skill2) && skill1 == skill2) {
       $.toptip("技能选择重复", 'error');
       return;
     }
 
-    if(!isSkillEmpty(skill1) && !isSkillEmpty(skill3) && skill1 == skill3) {
+    if (!isSkillEmpty(skill1) && !isSkillEmpty(skill3) && skill1 == skill3) {
       $.toptip("技能选择重复", 'error');
       return;
     }
 
-    if(!isSkillEmpty(skill2) && !isSkillEmpty(skill3) && skill2 == skill3){
+    if (!isSkillEmpty(skill2) && !isSkillEmpty(skill3) && skill2 == skill3) {
       $.toptip("技能选择重复", 'error');
       return;
     }
 
-    if(isSkillEmpty(skill1) && isPhotoUpload(li1,li2)) {
+    if (isSkillEmpty(skill1) && isPhotoUpload(li1, li2)) {
       $.toptip("请选择对应技能", 'error');
       return;
     }
 
-    if(isSkillEmpty(skill2) && isPhotoUpload(li3,li4)) {
+    if (isSkillEmpty(skill2) && isPhotoUpload(li3, li4)) {
       $.toptip("请选择对应技能", 'error');
       return;
     }
 
-    if(isSkillEmpty(skill3) && isPhotoUpload(li5,li6)) {
+    if (isSkillEmpty(skill3) && isPhotoUpload(li5, li6)) {
       $.toptip("请选择对应技能", 'error');
+      return;
+    }
+
+    if (skill1 == "") {
+      $.toptip("个人证书技能不能为空", 'error');
       return;
     }
 
@@ -573,7 +664,7 @@ function initBasic3() {
       $.toptip('操作失败', 'error');;
     });
   });
-  
+
 }
 
 function initPhotoUpload() {
@@ -600,10 +691,10 @@ function initPhotoUpload() {
 
 
   $("#deleteButton").on("click", function () {
-   
+
     var souceId = $(this).parents(".weui-gallery").attr("data-id");
     $(souceId).attr("data-upload", "0");
-    $(souceId).css("background-image","");
+    $(souceId).css("background-image", "");
     $("#gallery").hide();
   });
 
@@ -676,11 +767,12 @@ function initPhotoUpload() {
         $(current_li).children("weui-uploader__file-content").html("0%");
       },
       success: function (data) {
+        bindPhoto(current_li, data);
         //alert(data)
-        $(current_li).attr("data-upload", "2");
-        $(current_li).children("weui-uploader__file-content").html("");
-        $(current_li).css("background-image", "url(" + data + ")");
-        $(current_li).removeClass("weui-uploader__file_status");
+        // $(current_li).attr("data-upload", "2");
+        // $(current_li).children("weui-uploader__file-content").html("");
+        // $(current_li).css("background-image", "url(" + data + ")");
+        // $(current_li).removeClass("weui-uploader__file_status");
 
 
         // $info = $(current_li).parents(".weui-uploader").find(".weui-uploader__info");
@@ -832,46 +924,84 @@ function workDateInit() {
     'dateFormat': 'yyyy-mm-dd'
   });
 
-  $(".work_delete").on("click", function() {
+  $(".work_delete").on("click", function () {
 
-     $(this).parents(".work_tpl").remove();
+    $(this).parents(".work_tpl").remove();
   });
 }
+
+
+function compareStrDate(str1, str2) {
+  if (new Date(Date.parse(str1.replace(/-/g, "/"))) >= new Date(Date.parse(str2.replace(/-/g, "/")))) {
+    $.toptip("开始时间要小于结束时间", 'error');
+    return false;
+  }
+
+  return true;
+}
+
 
 function initWork() {
   workDateInit();
 
-  $("#work_add").on("click", function() {
 
-      $(".work_tpl:last").after($(".work_tpl:last").clone());
+  $("#work_add").on("click", function () {
 
-      $(".work_startDate:last").val("");
-      $(".work_endDate:last").val("");
-      $(".work_companyName:last").val("");
-      $(".work_post:last").val("");
-      $(".work_duty:last").val("");
 
-      $(".work_delete:last").show();
-      workDateInit();
+
+    $(".work_tpl:last").after($(".work_tpl:last").clone());
+
+    $(".work_startDate:last").val("");
+    $(".work_endDate:last").val("");
+    $(".work_companyName:last").val("");
+    $(".work_post:last").val("");
+    $(".work_duty:last").val("");
+
+    $(".work_delete:last").show();
+    workDateInit();
   });
 
-  
-  $("#btnWork").on('click', function () {
-    var data=new Array();
 
-    $(".work_tpl").each(function() {
+
+  jQuery.each(resume.workExperience, function (i, val) {
+    //text = text + " #Index:" + i + ":" + val;  
+    //console.log(i + ":" + val);
+    if (i > 0) {
+      $("#work_add").trigger("click");
+    }
+
+    jQuery.each(val, function (i2, val2) {
+      $(".work_" + i2).eq(i).val(val2);
+    });
+
+  });
+
+  $("#btnWork").on('click', function () {
+    var hasValidation = hadValidation("#page_work");
+    if (hasValidation) {
+      return;
+    }
+
+
+    var data = new Array();
+    var hasValidation = false;
+
+    $(".work_tpl").each(function () {
       var startDate = $(this).find(".work_startDate").val();
       var endDate = $(this).find(".work_endDate").val();
       var companyName = $(this).find(".work_companyName").val();
       var post = $(this).find(".work_post").val();
       var duty = $(this).find(".work_duty").val();
-      
-      if(startDate=="") {
-        $.toptip(buildMessage(data.message), 'error');
+
+
+      if (!compareStrDate(startDate, endDate)) {
+        //$.toptip("开始时间要小于结束时间", 'error');
+        hasValidation = true;
         return false;
       }
+
       var subData = {
-        'startDate' : startDate,
+        'startDate': startDate,
         'endDate': endDate,
         'companyName': companyName,
         'post': post,
@@ -879,6 +1009,11 @@ function initWork() {
       }
       data.push(subData);
     });
+
+    if (hasValidation) {
+      return;
+    }
+
 
     $.ajax({
       url: handelUrl,
@@ -922,46 +1057,66 @@ function trainDateInit() {
     'dateFormat': 'yyyy-mm-dd'
   });
 
-  $(".train_delete").on("click", function() {
+  $(".train_delete").on("click", function () {
 
-     $(this).parents(".train_tpl").remove();
+    $(this).parents(".train_tpl").remove();
   });
 }
 
 function initTrain() {
   trainDateInit();
 
-  $("#train_add").on("click", function() {
+  $("#train_add").on("click", function () {
 
-      $(".train_tpl:last").after($(".train_tpl:last").clone());
+    $(".train_tpl:last").after($(".train_tpl:last").clone());
 
-      $(".train_startDate:last").val("");
-      $(".train_endDate:last").val("");
-      $(".train_school:last").val("");
-      $(".train_career:last").val("");
-      $(".train_desc:last").val("");
+    $(".train_startDate:last").val("");
+    $(".train_endDate:last").val("");
+    $(".train_school:last").val("");
+    $(".train_career:last").val("");
+    $(".train_desc:last").val("");
 
-      $(".train_delete:last").show();
-      trainDateInit();
+    $(".train_delete:last").show();
+    trainDateInit();
   });
 
-  
-  $("#btnTrain").on('click', function () {
-    var data=new Array();
 
-    $(".train_tpl").each(function() {
+  jQuery.each(resume.train, function (i, val) {
+    //text = text + " #Index:" + i + ":" + val;  
+    //console.log(i + ":" + val);
+    if (i > 0) {
+      $("#train_add").trigger("click");
+    }
+
+    jQuery.each(val, function (i2, val2) {
+      $(".train_" + i2).eq(i).val(val2);
+    });
+
+  });
+
+  $("#btnTrain").on('click', function () {
+    var hasValidation = hadValidation("#page_train");
+    if (hasValidation) {
+      return;
+    }
+
+    var data = new Array();
+    var hasValidation = false; 
+    $(".train_tpl").each(function () {
       var startDate = $(this).find(".train_startDate").val();
       var endDate = $(this).find(".train_endDate").val();
       var school = $(this).find(".train_school").val();
       var career = $(this).find(".train_career").val();
       var desc = $(this).find(".train_desc").val();
-      
-      if(startDate=="") {
-        $.toptip(buildMessage(data.message), 'error');
+
+      if (!compareStrDate(startDate, endDate)) {
+        //$.toptip("开始时间要小于结束时间", 'error');
+        hasValidation = true;
         return false;
       }
+
       var subData = {
-        'startDate' : startDate,
+        'startDate': startDate,
         'endDate': endDate,
         'school': school,
         'career': career,
@@ -969,6 +1124,10 @@ function initTrain() {
       }
       data.push(subData);
     });
+
+    if(hasValidation) {
+      return;
+    }
 
     $.ajax({
       url: handelUrl,
@@ -1006,45 +1165,62 @@ function initTrain() {
 function familityDateInit() {
   commonInit();
 
-  $(".family_delete").on("click", function() {
-     $(this).parents(".family_tpl").remove();
+  $(".family_delete").on("click", function () {
+    $(this).parents(".family_tpl").remove();
   });
 }
 
 function initFamility() {
   familityDateInit();
 
-  $("#family_add").on("click", function() {
+  $("#family_add").on("click", function () {
 
-      $(".family_tpl:last").after($(".family_tpl:last").clone());
+    $(".family_tpl:last").after($(".family_tpl:last").clone());
 
-      $(".family_name:last").val("");
-      $(".family_relation:last").val("");
-      $(".family_relatePhone:last").val("");
-      $(".family_work:last").val("");
-     
+    $(".family_name:last").val("");
+    $(".family_relation:last").val("");
+    $(".family_relatePhone:last").val("");
+    $(".family_work:last").val("");
 
-      $(".family_delete:last").show();
-      familityDateInit();
+
+    $(".family_delete:last").show();
+    familityDateInit();
   });
 
-  
-  $("#btnFamily").on('click', function () {
-    var data=new Array();
+  jQuery.each(resume.family, function (i, val) {
+    //text = text + " #Index:" + i + ":" + val;  
+    //console.log(i + ":" + val);
+    if (i > 0) {
+      $("#family_add").trigger("click");
+    }
 
-    $(".family_tpl").each(function() {
+    jQuery.each(val, function (i2, val2) {
+      $(".family_" + i2).eq(i).val(val2);
+    });
+
+  });
+
+  $("#btnFamily").on('click', function () {
+    var hasValidation = hadValidation("#page_family");
+    if (hasValidation) {
+      return;
+    }
+
+    var data = new Array();
+
+    $(".family_tpl").each(function () {
       var name = $(this).find(".family_name").val();
       var relation = $(this).find(".family_relation").val();
       var relatePhone = $(this).find(".family_relatePhone").val();
       var work = $(this).find(".family_work").val();
-    
-      
-      if(name=="") {
+
+
+      if (name == "") {
         $.toptip(buildMessage(data.message), 'error');
         return false;
       }
       var subData = {
-        'name' : name,
+        'name': name,
         'relation': relation,
         'relatePhone': relatePhone,
         'work': work

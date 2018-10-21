@@ -14,19 +14,24 @@ Route::rule("/", "Index/Index/Index", "POST|GET");
 
 
 Route::group('admin', function () {
-    Route::rule("/home", "admin/index/home", "GET");
+    Route::rule("/", "admin/index/home", "GET");
 
     Route::rule("/login", "admin/user/login", "POST|GET");
-    Route::rule("/register", "admin/user/register", "POST|GET");
 
-    Route::rule("/user/list", "admin/user/list", "GET");
+    Route::rule("/resume/list", "admin/resume/list", "GET");
 
-    Route::rule("/category/add", "admin/category/add", "POST|GET");
-    Route::rule("/category/list", "admin/category/list", "GET");
-    Route::rule("/category/save", "admin/category/save", "POST");
+    Route::rule("/resume/exportExcel", "admin/resume/exportExcel", "GET");
+    
+    // Route::rule("/register", "admin/user/register", "POST|GET");
 
-    Route::rule("/blog/add", "admin/blog/add", "POST|GET");
-    Route::rule("/blog/list", "admin/blog/list", "GET");
+    // Route::rule("/user/list", "admin/user/list", "GET");
+
+    // Route::rule("/category/add", "admin/category/add", "POST|GET");
+    // Route::rule("/category/list", "admin/category/list", "GET");
+    // Route::rule("/category/save", "admin/category/save", "POST");
+
+    // Route::rule("/blog/add", "admin/blog/add", "POST|GET");
+    // Route::rule("/blog/list", "admin/blog/list", "GET");
 });
 
 Route::group('hire', function () {

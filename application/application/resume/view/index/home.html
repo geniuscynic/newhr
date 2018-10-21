@@ -156,7 +156,7 @@
 
     <!-- 基本信息1 -->
     <script type="text/html" id="tpl_basic">
-        <div class="page">
+        <div class="page" id="page_basic">
             <div class="page__hd">
                     <p>基本信息</p>
             </div>
@@ -170,7 +170,7 @@
                           <label class="weui-label">身份证号</label>
                         </div>
                         <div class="weui-cell__bd">
-                          <input class="weui-input" type="text" id="basic_cardno"  placeholder="请输入身份证号" />
+                          <input class="weui-input required" type="text" id="basic_cardno"  placeholder="请输入身份证号" />
                         </div>
                     </div>
 
@@ -179,7 +179,7 @@
                           <label class="weui-label">姓名</label>
                         </div>
                         <div class="weui-cell__bd">
-                          <input class="weui-input" type="text" id="basic_name"  placeholder="请输入姓名" />
+                          <input class="weui-input required" type="text" id="basic_name"  placeholder="请输入姓名" />
                         </div>
                     </div>
 
@@ -188,14 +188,14 @@
                             <label for="" class="weui-label">性别</label>
                           </div>
                           <div class="weui-cell__bd">
-                                <input class="weui-input commonTable" id="basic_sex" data-type="10" type="text" value="女" readonly="">
+                                <input class="weui-input commonTable required" id="basic_sex" data-type="10" type="text" value="女" readonly="">
                           </div>
                     </div>
 
                     <div class="weui-cell">
                         <div class="weui-cell__hd"><label for="" class="weui-label">出生日期</label></div>
                         <div class="weui-cell__bd">
-                          <input class="weui-input" type="text" id="basic_birthday" value="">
+                          <input class="weui-input required" type="text" id="basic_birthday" value="">
                         </div>
                     </div>
 
@@ -207,7 +207,7 @@
                                 <label for="" class="weui-label">民族</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input commonTable" data-type="01" type="text" id="basic_nation" value="">
+                                <input class="weui-input commonTable required" data-type="01" type="text" id="basic_nation" value="">
                             </div>
                         
                     </div>
@@ -218,7 +218,7 @@
                                 <label for="" class="weui-label">最高学历</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input commonTable" data-type="02" type="text" id="basic_educational" value="">
+                                <input class="weui-input commonTable required" data-type="02" type="text" id="basic_educational" value="">
                             </div>
                         </div>
                    
@@ -229,7 +229,7 @@
                                 <label for="" class="weui-label">政治面貌</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input commonTable" data-type="03" type="text" id="basic_political" value="">
+                                <input class="weui-input commonTable required" data-type="03" type="text" id="basic_political" value="">
                             </div>
                         </div>
                     
@@ -243,7 +243,7 @@
                                     <label for="" class="weui-label">现居地址</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_house" value="江西省 南昌市 东湖区">
+                                    <input class="weui-input required" type="text" id="basic_house" value="江西省 南昌市 东湖区">
                                 </div>
                             </div>
                       
@@ -254,7 +254,7 @@
                                     <label for="" class="weui-label">紧急联络人</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_contractName" value="">
+                                    <input class="weui-input required" type="text" id="basic_contractName" value="">
                                 </div>
                            
                         </div>
@@ -265,7 +265,7 @@
                                     <label for="" class="weui-label">紧急联系电话</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_contractPhone" value="">
+                                    <input class="weui-input required" type="text" id="basic_contractPhone" value="">
                                 </div>
                            
                         </div>
@@ -293,7 +293,7 @@
 
     <!-- 基本信息2 -->
     <script type="text/html" id="tpl_basic2">
-        <div class="page">
+        <div class="page" id="page_basic2">
             <div class="page__hd">
                     <p>基本信息</p>
             </div>
@@ -305,7 +305,7 @@
                                 <label for="" class="weui-label">工作年限</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <input class="weui-input commonTable" data-type="04" type="text" id="basic_workingYear" value="">
+                                <input class="weui-input commonTable required" data-type="04" type="text" id="basic_workingYear" value="">
                             </div>
                         </div>
                    
@@ -314,7 +314,7 @@
                                     <label for="" class="weui-label">求职状态</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input commonTable" data-type="05" type="text" id="basic_workingStatus" value="">
+                                    <input class="weui-input commonTable required" data-type="05" type="text" id="basic_workingStatus" value="">
                                 </div>
                             </div>
                        
@@ -323,7 +323,7 @@
                                     <label for="" class="weui-label">到岗时间</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input commonTable" data-type="06" type="text" id="basic_joinTime" value="">
+                                    <input class="weui-input commonTable required" data-type="06" type="text" id="basic_joinTime" value="">
                                 </div>
                             </div>
                         
@@ -332,7 +332,7 @@
                                     <label for="" class="weui-label">期望工作性质</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input commonTable" data-type="07" type="text" id="basic_workType" value="">
+                                    <input class="weui-input commonTable required" data-type="07" type="text" id="basic_workType" value="">
                                 </div>
                             </div>
                         
@@ -341,7 +341,7 @@
                                     <label for="" class="weui-label">从事行业</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input commonTable" type="text" data-type="11" id="basic_industry" value="">
+                                    <input class="weui-input commonTable required" type="text" data-type="11" id="basic_industry" value="">
                                 </div>
                             </div>
                        
@@ -352,7 +352,7 @@
                                     <label for="" class="weui-label">期望工作岗位</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_quarters1" value="">
+                                    <input class="weui-input required" type="text" id="basic_quarters1" value="">
                                 </div>
                             </div>
                       
@@ -363,7 +363,7 @@
                                     <label for="" class="weui-label">期望薪资</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input commonTable" data-type="08" type="text" id="basic_salary" value="">
+                                    <input class="weui-input commonTable required" data-type="08" type="text" id="basic_salary" value="">
                                 </div>
                             </div>
                        
@@ -374,7 +374,7 @@
                                     <label for="" class="weui-label">期望工作地点</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input" type="text" id="basic_workingAddress" value="">
+                                    <input class="weui-input required" type="text" id="basic_workingAddress" value="">
                                 </div>
                             </div>
 
@@ -397,17 +397,17 @@
         </script>
     </script>
 
-    <!-- 基本信息3 -->
+    <!-- 职业技能 -->
     <script type="text/html" id="tpl_basic3">
         <div class="page">
             <div class="page__hd">
-                    <p>基本信息</p>
+                    <p>职业技能</p>
             </div>
 
             <div class="page__bd page__bd_spacing">
                 <div class="weui-cells weui-cells_form">
                         
-                           <div class="weui-cell">
+                           <div class="weui-cell skill1">
                                 <div class="weui-cell__hd">
                                     <label for="" class="weui-label">个人证书技能</label>
                                 </div>
@@ -416,7 +416,7 @@
                                 </div>
                             </div>
                         
-                            <div class="weui-cells weui-cells_form">
+                            <div class="weui-cells weui-cells_form skill1">
                                 <div class="weui-cell">
                                     <div class="weui-cell__bd">
                                         <div class="weui-uploader">
@@ -443,7 +443,7 @@
                                 </div>
                             </div>
                        
-                            <div class="weui-cell">
+                            <div class="weui-cell skill2">
                                 <div class="weui-cell__hd">
                                     <label for="" class="weui-label">个人证书技能</label>
                                 </div>
@@ -452,7 +452,7 @@
                                 </div>
                             </div>
                         
-                            <div class="weui-cells weui-cells_form">
+                            <div class="weui-cells weui-cells_form skill2">
                                 <div class="weui-cell">
                                     <div class="weui-cell__bd">
                                         <div class="weui-uploader">
@@ -479,7 +479,7 @@
                                 </div>
                             </div>
 
-                            <div class="weui-cell">
+                            <div class="weui-cell skill3">
                                 <div class="weui-cell__hd">
                                     <label for="" class="weui-label">个人证书技能</label>
                                 </div>
@@ -488,7 +488,7 @@
                                 </div>
                             </div>
                         
-                            <div class="weui-cells weui-cells_form">
+                            <div class="weui-cells weui-cells_form skill3">
                                 <div class="weui-cell">
                                     <div class="weui-cell__bd">
                                         <div class="weui-uploader">
@@ -529,6 +529,9 @@
                                 </div>
                             </div>
 
+                            <div class="weui-btn-area">
+                                <a href="javascript:;" class="weui-btn weui-btn_default" id="skill_add">新增职业技能</a>
+                          </div>
                             <div class="weui-cell">
                             
                                 <div class="weui-cell__hd">
@@ -560,13 +563,13 @@
 
     <!-- 工作经历 -->
     <script type="text/html" id="tpl_work">
-        <div class="page">
+        <div class="page" id="page_work">
             <div class="page__hd">
                     <p>工作经历</p>
                     
             </div>
 
-            <div class="page__bd page__bd_spacing">
+                <div class="page__bd page__bd_spacing">
                     <div class="work_tpl">
                        
                         <div class="weui-cells__title">工作经历</div>
@@ -578,7 +581,7 @@
                                     <label for="" class="weui-label">开始时间</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input work_startDate"   type="text"  value="">
+                                    <input class="weui-input work_startDate required"   type="text"  value="">
                                 </div>
                             </div>
                         
@@ -587,7 +590,7 @@
                                     <label for="" class="weui-label">结束时间</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input work_endDate"  type="text"  value="">
+                                    <input class="weui-input work_endDate required"  type="text"  value="">
                                 </div>
                             </div>
 
@@ -596,7 +599,7 @@
                                     <label for="" class="weui-label">公司名称</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input work_companyName"  type="text"  value="">
+                                    <input class="weui-input work_companyName required"  type="text"  value="">
                                 </div>
                             </div>
                            
@@ -607,7 +610,7 @@
                                     <label for="" class="weui-label">主要职位</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input work_post" type="text"  value="">
+                                    <input class="weui-input work_post required" type="text"  value="">
                                 </div>
                            
                             </div>
@@ -618,7 +621,7 @@
                                     <label for="" class="weui-label">主要职责</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input work_duty" type="text"  value="">
+                                    <input class="weui-input work_duty required" type="text"  value="">
                                 </div>
                            
                             </div>
@@ -633,10 +636,8 @@
                             </div>
                     <div class="weui-btn-area">
                         <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnWork">下一步</a>
-                    </div>
-               
-                    
-            </div>
+                    </div>    
+                </div>
 
             <div class="page__ft">
                
@@ -652,7 +653,7 @@
 
       <!-- 教育/培训经历 -->
       <script type="text/html" id="tpl_train">
-        <div class="page">
+        <div class="page" id="page_train">
             <div class="page__hd">
                     <p>教育/培训经历</p>
                     
@@ -670,7 +671,7 @@
                                     <label for="" class="weui-label">开始时间</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input train_startDate"   type="text"  value="">
+                                    <input class="weui-input train_startDate required"   type="text"  value="">
                                 </div>
                             </div>
                         
@@ -679,7 +680,7 @@
                                     <label for="" class="weui-label">结束时间</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input train_endDate"  type="text"  value="">
+                                    <input class="weui-input train_endDate required"  type="text"  value="">
                                 </div>
                             </div>
 
@@ -688,7 +689,7 @@
                                     <label for="" class="weui-label">毕业院校/培训机构</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input train_school"  type="text"  value="">
+                                    <input class="weui-input train_school required"  type="text"  value="">
                                 </div>
                             </div>
                            
@@ -699,7 +700,7 @@
                                     <label for="" class="weui-label">专业/技能</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input train_career" type="text"  value="">
+                                    <input class="weui-input train_career required" type="text"  value="">
                                 </div>
                            
                             </div>
@@ -710,7 +711,7 @@
                                     <label for="" class="weui-label">详细情况</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input train_desc" type="text"  value="">
+                                    <input class="weui-input train_desc required" type="text"  value="">
                                 </div>
                            
                             </div>
@@ -745,7 +746,7 @@
 
      <!-- 家庭成员 -->
      <script type="text/html" id="tpl_family">
-        <div class="page">
+        <div class="page" id = "page_family">
             <div class="page__hd">
                     <p>家庭成员</p>
                     
@@ -763,7 +764,7 @@
                                     <label for="" class="weui-label">姓名</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input family_name"   type="text"  value="">
+                                    <input class="weui-input family_name required"   type="text"  value="">
                                 </div>
                             </div>
                         
@@ -772,7 +773,7 @@
                                     <label for="" class="weui-label">与本人关系</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input family_relation commonTable" data-type="12"  type="text" value="">
+                                    <input class="weui-input family_relation commonTable required" data-type="12"  type="text" value="">
                                 </div>
                             </div>
 
@@ -781,7 +782,7 @@
                                     <label for="" class="weui-label">联系电话</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input family_relatePhone"  type="text"  value="">
+                                    <input class="weui-input family_relatePhone required"  type="text"  value="">
                                 </div>
                             </div>
                            
@@ -792,7 +793,7 @@
                                     <label for="" class="weui-label">工作现状</label>
                                 </div>
                                 <div class="weui-cell__bd">
-                                    <input class="weui-input family_work" type="text"  value="">
+                                    <input class="weui-input family_work required" type="text"  value="">
                                 </div>
                            
                             </div>

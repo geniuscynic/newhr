@@ -298,6 +298,11 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
      */
     abstract public function render();
 
+    public function set($item)
+    {
+        $this->items->set($item);
+    }
+
     public function items()
     {
         return $this->items->all();

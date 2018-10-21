@@ -1,0 +1,144 @@
+{extend name="Public:base" /} {block name="main"}
+
+<div class="card">
+  <div class="card-body">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">主页</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="#">简历管理</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">简历列表</li>
+      </ol>
+    </nav>
+    <div class="toolbar"> 
+        <button class="btn btn-link dropdown-toggle" type="button" id="exportMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-file-export"></i>
+             导出
+          </button>
+          <div class="dropdown-menu" aria-labelledby="exportMenuButton">
+            <a class="dropdown-item" href="#">excel</a>
+            <a class="dropdown-item" href="#">doc</a>
+          </div>
+    </div>
+    
+    <div id="message"></div>
+    <form>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">
+                <input type="checkbox" class="checkAll" />
+            </th>
+            <th scope="col">简历ID</th>
+            <th scope="col">用户名</th>
+            <th scope="col">性别</th>
+            <th scope="col">期望岗位</th>
+            <th scope="col">期望工作地点</th>
+            <th scope="col">期望工作性质</th>
+            <th scope="col">期望薪资</th>
+            <th scope="col">到岗时间</th>
+            <th scope="col">更新时间</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          {volist name="resumeList" id="vo"}
+          <tr>
+              <td>
+                  <input type="checkbox" class="resumeCheck" data-id="{$vo.id}" />
+                </td>
+
+            <td scope="row" class="tableId">{$vo.id}</td>
+            <td>
+              {$vo.name}
+            </td>
+            <td>
+              {$vo.sex}
+            </td>
+
+            <td>
+              <ul class="nav flex-column">
+                {volist name="vo['quarters']" id="quarters"}
+
+                <li>{$quarters.name1} =>
+                  {$quarters.name2} =>
+                  {$quarters.name3}
+                </li>
+
+                {/volist}
+              </ul>
+            </td>
+
+
+            <td>
+              {$vo.workingAddress}
+            </td>
+            <td>
+              {$vo.workType}
+            </td>
+            <td> {$vo.salary}</td>
+            <td>
+              {$vo.joinTime}
+            </td>
+            <td>
+              {$vo.updateDate}
+            </td>
+            
+          </tr>
+          {/volist}
+        </tbody>
+      </table>
+    </form>
+    <div class="btn-group page" role="group">
+    {$resumeList|raw}
+    </div>
+  </div>
+</div>
+
+{/block} {block name="footerscript"} {__block__}
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+
+    $(".btnEdit").on("click", function () {
+      var id = $(this).attr("data-id");
+    });
+
+    $(".checkAll").on("click", function() {
+      $(":checkbox").prop("checked", $(this).prop("checked"));
+    });  
+
+    $(".btn-group").find("a,span").each(function() {
+      $(this).addClass("btn btn-light");
+    });
+
+    $("$btnExcel").on("click",function() {
+      var url="{:url('/admin/resume/exportExcel')}";
+      var checkIds = new Array();
+      $(".resumeCheck:checked").each(function() {
+        $checkId = $(this).data("id");
+        checkIds.push($checkId);
+      });
+      
+          $.ajax({
+                    url: url,
+                    type: "POST",
+                    dataType: 'json',
+                    crossDomain: true,
+                    data: checkIds
+                }).done(function (data) {
+                    //验证失败
+                    //commonTable = data;
+
+                }).fail(function (data) {
+                    //$.toptip('操作失败', 'error');;
+                });
+
+    });
+  });
+</script> {/block}

@@ -30,7 +30,7 @@ class ResumeEntity
     public $workingAddress = "";
 
     function __construct() {
-        $this->createDate = date('Y-m-d H-i-s');
-        $this->updateDate = date('Y-m-d H-i-s');
+        $this->createDate = date('Y-m-d H:i:s');
+        $this->updateDate = date('Y-m-d H:i:s');
     }
 }
