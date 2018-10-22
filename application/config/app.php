@@ -13,7 +13,7 @@
 // | 应用设置
 // +----------------------------------------------------------------------
 
-define("APPLICATION_FOLDER", "/hr/newhr");
+define("APPLICATION_FOLDER", "/newhr1");
 define("RESOURCE_FOLDER", APPLICATION_FOLDER."/application/public/");
 define("UPLOAD_FOLDER", "./uploads");
 

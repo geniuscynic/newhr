@@ -20,8 +20,10 @@ Route::group('admin', function () {
 
     Route::rule("/resume/list", "admin/resume/list", "GET");
 
-    Route::rule("/resume/exportExcel", "admin/resume/exportExcel", "GET");
+    Route::rule("/resume/exportExcel", "admin/resume/exportExcel", "POST");
     
+    Route::rule("/resume/detail", "admin/resume/detail", "GET");
+
     // Route::rule("/register", "admin/user/register", "POST|GET");
 
     // Route::rule("/user/list", "admin/user/list", "GET");

@@ -13,7 +13,7 @@ class ResumeController extends BaseController
 
     public function List() {
        
-        $resume = model("Resume")->searchResume();
+        $resume = model("Resume")->getResumeList();
 
         $this->assign('resumeList', $resume);
 
@@ -24,9 +24,10 @@ class ResumeController extends BaseController
    public function exportExcel()
    {
        $input = input("post.");
-       dump($input);
+       $data = explode(',', $input['data']);
+       //dump($data);
        
-        $resumeList = model("Resume")->searchResume();
+        $resumeList = model("Resume")->searchResume($data);
 
         //$html = __DIR__ . '/../view/resume/list.html';
         //$objReader = IOFactory::createReader('Html');
@@ -117,5 +118,12 @@ class ResumeController extends BaseController
         $writer->save('php://output');
         
         exit;
+   }
+
+   public function detail() {
+   
+    $resume = model("Resume")->getResumeById(input("id"));
+    $this->assign('resume', $resume->getResultValue());
+    return $this->fetch();
    }
 }

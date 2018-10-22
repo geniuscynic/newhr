@@ -96,7 +96,7 @@ class Resume extends Base
             $resume = db("resume")
                 ->field(['password'],true)
                 ->where($data)
-                ->find();
+                ->select();
 
             if($resume != null) {
                //unset($resume['password']);
@@ -104,7 +104,7 @@ class Resume extends Base
                //dump($resume);
                $resume = $this->getResumetDetail($resume);
               // dump($resume);
-               $msg->SetResultValue($resume);
+               $msg->SetResultValue($resume[0]);
             }
             else {
                 $msg = new Message(Message::TYPE_FAILED, 'resume 不存在');
@@ -252,7 +252,7 @@ class Resume extends Base
         return $resumeList;
     }
 
-    public function searchResume() {
+    public function getResumeList() {
         // '简历ID',
         //     '姓名',
         //     '性别',
@@ -289,17 +289,74 @@ class Resume extends Base
                      contractPhone, '' as skill,
                      updateDate"
                 )
-                ->order('updateDate', 'desc')
+                ->order(['updateDate' => 'desc', 'id' => 'desc'])
                 ->paginate(15);
 
        // dump($resumeList->items());
         //dump($resumeList);
-        $ids = array_column($resumeList->items(), "id");
+       // $ids = array_column($resumeList->items(), "id");
         //dump($ids);
         //$item = $resumeList->items();
 
         $item = $this->getResumetDetail($resumeList->items());
         $resumeList->set($item);
+        //$resumeList->items()
+        //dump(Db::getLastSql());
+        //dump($resumeList);
+        return $resumeList;
+    }
+
+    public function searchResume($data) {
+        // '简历ID',
+        //     '姓名',
+        //     '性别',
+        //     '电话',
+        //     '身份证号',
+        //     '出生日期',
+        //     '民族',
+        //     '最高学历',
+        //     '政治面貌',
+        //     '工作年限',
+        //     '现居地址',
+        //     '求职状态',
+        //     '到岗时间',
+        //     '从事行业',
+        //     '期望工作性质',
+        //     '期望岗位',
+        //     '期望薪资',
+        //     '期望工作地点',
+        //     '紧急联络人',
+        //     '紧急联系电话',
+        //     '个人证书技能',
+        //     '最后更新时间'
+        $resumeList = db("resume")
+                ->field(
+                    "id,name,sex,phone,cardno,birthday,
+                     nation,educational,political,workingYear,
+                     house,workingStatus,joinTime,industry,
+                     workType, 
+                     '' as quarter1,
+                     '' as quarter2,
+                     '' as quarter3,
+
+                     salary,workingAddress,contractName,
+                     contractPhone, '' as skill,
+                     updateDate"
+                )
+                ->where([
+                    "id" => $data
+                ])
+                ->order('updateDate', 'desc')
+                ->select();
+
+       // dump($resumeList->items());
+        //dump($resumeList);
+        //$ids = array_column($resumeList, "id");
+        //dump($ids);
+        //$item = $resumeList->items();
+
+        $resumeList = $this->getResumetDetail($resumeList);
+       
         //$resumeList->items()
         //dump(Db::getLastSql());
         //dump($resumeList);

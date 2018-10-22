@@ -19,7 +19,7 @@
              导出
           </button>
           <div class="dropdown-menu" aria-labelledby="exportMenuButton">
-            <a class="dropdown-item" href="#">excel</a>
+            <a class="dropdown-item" href="#" id="btnExcel">excel</a>
             <a class="dropdown-item" href="#">doc</a>
           </div>
     </div>
@@ -51,7 +51,7 @@
                   <input type="checkbox" class="resumeCheck" data-id="{$vo.id}" />
                 </td>
 
-            <td scope="row" class="tableId">{$vo.id}</td>
+            <td scope="row" class="tableId"><a href='{:url("/admin/resume/detail", ["id" => $vo.id])}'>{$vo.id}</a></td>
             <td>
               {$vo.name}
             </td>
@@ -98,6 +98,9 @@
   </div>
 </div>
 
+<form id="exportForm" action="{:url('/admin/resume/exportExcel')}" method="POST" style="display:none">
+  <input type="text" id="txtId" name="data" />
+</form>
 {/block} {block name="footerscript"} {__block__}
 
 
@@ -117,27 +120,32 @@
       $(this).addClass("btn btn-light");
     });
 
-    $("$btnExcel").on("click",function() {
-      var url="{:url('/admin/resume/exportExcel')}";
+    $("#btnExcel").on("click",function() {
+      var urls="{:url('/admin/resume/exportExcel')}";
       var checkIds = new Array();
       $(".resumeCheck:checked").each(function() {
-        $checkId = $(this).data("id");
-        checkIds.push($checkId);
+        var checkId = $(this).data("id");
+        checkIds.push(checkId);
       });
       
-          $.ajax({
-                    url: url,
-                    type: "POST",
-                    dataType: 'json',
-                    crossDomain: true,
-                    data: checkIds
-                }).done(function (data) {
-                    //验证失败
-                    //commonTable = data;
+      $("#txtId").val(checkIds);
+      $("#exportForm").trigger("submit");
+          // $.ajax({
+          //           url: urls,
+          //           type: "POST",
+          //           dataType: 'json',
+          //           crossDomain: true,
+          //           data: {
+          //             'func': 'export',
+          //             'data': checkIds
+          //           }
+          //       }).done(function (data) {
+          //           //验证失败
+          //           //commonTable = data;
 
-                }).fail(function (data) {
-                    //$.toptip('操作失败', 'error');;
-                });
+          //       }).fail(function (data) {
+          //           //$.toptip('操作失败', 'error');;
+          //       });
 
     });
   });
