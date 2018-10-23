@@ -124,6 +124,40 @@ class ResumeController extends BaseController
    
     $resume = model("Resume")->getResumeById(input("id"));
     $this->assign('resume', $resume->getResultValue());
+    
+    $this->assign('uploadFolder', domain . RESOURCE_FOLDER2 . "/" . input("id") . "/");
+    
+   
     return $this->fetch();
+   }
+
+   public function exportWord()
+   {
+       $input = input("post.");
+       $data = explode(',', $input['data']);
+
+       $html = "";
+       foreach($data as $id) {
+            $resume = model("Resume")->getResumeById($id);
+            $this->assign('resume', $resume->getResultValue());
+            $this->assign('uploadFolder', domain . RESOURCE_FOLDER2 . "/" . $id . "/");
+
+            $html = $this->fetch("detail");
+
+            break;
+       }
+       $html = iconv("UTF-8","gbk//TRANSLIT",$html);
+       //dump($data);
+       ob_start(); //打开缓冲区 
+        echo $html; 
+        header("Cache-Control: no-store"); //所有缓存机制在整个请求/响应链中必须服从的指令 
+        header("Content-type: application/octet-stream");  //用于定义网络文件的类型和网页的编码，决定文件接收方将以什么形式、什么编码读取这个文件
+        header("Accept-Ranges: bytes");  //Range防止断网重新请求 。 
+        header('Content-Disposition: attachment; filename=test.doc');  
+        header("Pragma:no-cache"); //不能被浏览器缓存 
+        header("Expires:0");  //页面从浏览器高速缓存到期的时间分钟数，设定expires属性为0，将使对一页面的新的请求从服务器产生
+        ob_end_flush();//输出全部内容到浏览器
+
+        exit;
    }
 }

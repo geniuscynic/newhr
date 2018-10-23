@@ -12,10 +12,11 @@
 // +----------------------------------------------------------------------
 // | 应用设置
 // +----------------------------------------------------------------------
-
+define("domain", "http://localhost:81");
 define("APPLICATION_FOLDER", "/newhr1");
 define("RESOURCE_FOLDER", APPLICATION_FOLDER."/application/public/");
 define("UPLOAD_FOLDER", "./uploads");
+define("RESOURCE_FOLDER2", APPLICATION_FOLDER."/uploads");
 
 return [
     // 应用名称

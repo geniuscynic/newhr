@@ -827,7 +827,7 @@ table.MsoTableGrid
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$skill['name']}</o:p></p>
   </td>
   <td width=96 style='width:72.1pt;border-top:none;border-left:none;border-bottom:
   solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
@@ -843,9 +843,14 @@ table.MsoTableGrid
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>
+   {if $skill['file1'] != ""}
+  <img  width=94 height=129 src="{$uploadFolder . $skill['file1']}" />
+  {/if}
+
+  {if $skill['file2'] != "" }
+  <img  width=94 height=129 src="{$uploadFolder . $skill['file2']}" /></o:p></p>
+  {/if}
   </td>
  </tr>
  {/volist}
@@ -919,34 +924,34 @@ table.MsoTableGrid
   mso-hansi-theme-font:minor-latin'>主要职责</span></p>
   </td>
  </tr>
- {volist name="resume['workExperiences']" id='works'}
+ {volist name="resume['workExperiences']" id='work'}
  <tr style='mso-yfti-irow:14;height:31.05pt'>
   <td width=192 colspan=2 style='width:144.2pt;border:solid windowtext 1.0pt;
   border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
   padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$work['startDate'] . " / " . $work['endDate']}</o:p></p>
   </td>
   <td width=192 colspan=2 style='width:144.25pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$work['companyName']}</o:p></p>
   </td>
   <td width=192 colspan=2 style='width:144.2pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$work['post']}</o:p></p>
   </td>
   <td width=192 colspan=3 style='width:144.25pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$work['due']}</o:p></p>
   </td>
  </tr>
  {/volist}
@@ -1011,34 +1016,34 @@ table.MsoTableGrid
   font-family:"微软雅黑","sans-serif"'><o:p></o:p></span></p>
   </td>
  </tr>
- {volist name="resume['trains']" id='trains'}
+ {volist name="resume['trains']" id='train'}
  <tr style='mso-yfti-irow:18;height:31.05pt'>
   <td width=192 colspan=2 style='width:144.2pt;border:solid windowtext 1.0pt;
   border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
   padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$train['startDate'] . " / " . $train['endDate']}</o:p></p>
   </td>
   <td width=192 colspan=2 style='width:144.25pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$train['school']}</o:p></p>
   </td>
   <td width=192 colspan=2 style='width:144.2pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$train['career']}</o:p></p>
   </td>
   <td width=192 colspan=3 style='width:144.25pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$train['desc']}</o:p></p>
   </td>
  </tr>
  {/volist}
@@ -1102,34 +1107,34 @@ table.MsoTableGrid
 
   </td>
  </tr>
- {volist name="resume['families']" id='families'}
+ {volist name="resume['families']" id='family'}
  <tr style='mso-yfti-irow:18;height:31.05pt'>
   <td width=192 colspan=2 style='width:144.2pt;border:solid windowtext 1.0pt;
   border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
   padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$family['name']}</o:p></p>
   </td>
   <td width=192 colspan=2 style='width:144.25pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$family['relation']}</o:p></p>
   </td>
   <td width=192 colspan=2 style='width:144.2pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$family['relatePhone']}</o:p></p>
   </td>
   <td width=192 colspan=3 style='width:144.25pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:31.05pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><o:p>&nbsp;</o:p></p>
+  normal'><o:p>{$family['work']}</o:p></p>
   </td>
  </tr>
  {/volist}

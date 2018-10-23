@@ -1,0 +1,148 @@
+{extend name="Public:base" /} {block name="main"}
+
+<div class="card">
+  <div class="card-body">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">主页</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="#">简历管理</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">技能管理</li>
+      </ol>
+    </nav>
+
+    {include file="public/errormessage" /}
+    <div id="message">
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        删除成功
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+    </div>
+    <form class="form-inline" method="post">
+      <div class="form-group mb-2">
+        <label for="staticEmail2" class="sr-only">技能名</label>
+        <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="技能名">
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="inputPassword2" class="sr-only">技能名</label>
+        <input type="text" class="form-control" id="skill" name="skill" placeholder="请输入技能名">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2">添加</button>
+    </form>
+   
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">技能名</th>
+           
+            <th scope="col">动作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {volist name="codeTableList" id="vo"}
+          <tr>
+            <td>
+              {$vo.name}
+            </td>
+           
+            <td>
+              <button type="button" class="btn btn-danger" data-toggle="modal"  data-target="#alertModal" data-name="{$vo.name}">删除</button>
+            </td>
+          </tr>
+          {/volist}
+        </tbody>
+      </table>
+    
+   
+  </div>
+</div>
+
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">确认是否删除</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>删除后数据永久丢失，不可恢复，请三思</p>
+        <input type="hidden" id="deleteCode" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="btnDelete">删除</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/block} {block name="footerscript"} {__block__}
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#message").hide();
+
+    $('#alertModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var codename = button.data('name') // Extract info from data-* attributes
+      $("#deleteCode").val(codename);
+  });
+
+    $("#btnDelete").on("click",function() {
+      var urls="{:url('/admin/codetable/delete')}";
+      
+          $.ajax({
+                    url: urls,
+                    type: "POST",
+                    dataType: 'json',
+                    crossDomain: true,
+                    data: {
+                      'name':  $("#deleteCode").val()
+                    }
+                }).done(function (data) {
+                    //验证失败
+                    //commonTable = data;
+                    if(data.type == 1) {
+                      $("#message").show();
+                    }
+                    
+                    $("tr").each(function() {
+                      if($(this).text().indexOf($("#deleteCode").val()) >=0) {
+                        $(this).fadeOut();
+                        return false;
+                      }
+                    });
+
+                    $('#alertModal').modal('hide');
+
+                }).fail(function (data) {
+                    //$.toptip('操作失败', 'error');;
+                    $('#alertModal').modal('hide');
+                });
+
+    });
+  
+    $("#btnWork").on("click",function() {
+      var urls="{:url('/admin/resume/exportWord')}";
+      $("#exportForm").prop("action", urls);
+      var checkIds = new Array();
+      $(".resumeCheck:checked").each(function() {
+        var checkId = $(this).data("id");
+        checkIds.push(checkId);
+      });
+      
+      $("#txtId").val(checkIds);
+      $("#exportForm").trigger("submit");
+    });
+  
+  });
+</script> {/block}

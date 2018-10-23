@@ -20,7 +20,7 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="exportMenuButton">
             <a class="dropdown-item" href="#" id="btnExcel">excel</a>
-            <a class="dropdown-item" href="#">doc</a>
+            <a class="dropdown-item" href="#" id="btnWork">doc</a>
           </div>
     </div>
     
@@ -122,6 +122,7 @@
 
     $("#btnExcel").on("click",function() {
       var urls="{:url('/admin/resume/exportExcel')}";
+      $("#exportForm").prop("action", urls);
       var checkIds = new Array();
       $(".resumeCheck:checked").each(function() {
         var checkId = $(this).data("id");
@@ -148,5 +149,19 @@
           //       });
 
     });
+  
+    $("#btnWork").on("click",function() {
+      var urls="{:url('/admin/resume/exportWord')}";
+      $("#exportForm").prop("action", urls);
+      var checkIds = new Array();
+      $(".resumeCheck:checked").each(function() {
+        var checkId = $(this).data("id");
+        checkIds.push(checkId);
+      });
+      
+      $("#txtId").val(checkIds);
+      $("#exportForm").trigger("submit");
+    });
+  
   });
 </script> {/block}

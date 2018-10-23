@@ -21,9 +21,11 @@ Route::group('admin', function () {
     Route::rule("/resume/list", "admin/resume/list", "GET");
 
     Route::rule("/resume/exportExcel", "admin/resume/exportExcel", "POST");
-    
-    Route::rule("/resume/detail", "admin/resume/detail", "GET");
+    Route::rule("/resume/exportWord", "admin/resume/exportWord", "POST");
 
+    Route::rule("/resume/detail", "admin/resume/detail", "GET");
+    Route::rule("/codetable/list", "admin/codetable/list", "GET|POST");
+    Route::rule("/codetable/delete", "admin/codetable/delete", "POST");
     // Route::rule("/register", "admin/user/register", "POST|GET");
 
     // Route::rule("/user/list", "admin/user/list", "GET");
