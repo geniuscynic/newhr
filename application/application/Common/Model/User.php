@@ -1,10 +1,10 @@
 <?php
 
-namespace app\Common\model;
+namespace app\common\model;
 
 use think\Model;
 use think\Db;
-use app\Common\Entity\Message;
+use app\common\entity\Message;
 
 class User extends Base
 {
@@ -25,8 +25,8 @@ class User extends Base
            
             //$result['msg'] = array();
 
-            $data['status'] = 'A';
-            $msg->SetResultValue(db('user')->where($data)->select());
+            //$data['status'] = 'A';
+            $msg->SetResultValue(db('user')->where($data)->find());
 
            // dump(db('user')->where($data)->select());
            // dump( $msg->getResultValue());

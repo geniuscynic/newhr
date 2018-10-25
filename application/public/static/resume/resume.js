@@ -415,7 +415,7 @@ function initBasic2() {
   var name = new Array();
   jQuery.each(resume.quarters, function (i, val) {
     code.push(val.code1 + "_" + val.code2 + "_" + val.code3);
-    name.push(val.name);
+    name.push(val.name3);
   });
 
   $("#basic_quarters1").val(name);
@@ -500,46 +500,46 @@ function initBasic3() {
   initPhotoUpload();
   $(".skill2,.skill3").hide();
 
-  var skillLength = resume.skill.length;
+  var skillLength = resume.skills.length;
 
 
   if (skillLength >= 1) {
-    $("#basic_skill").val(resume.skill[0].name);
-    if (resume.skill[0].file1 != "") {
+    $("#basic_skill").val(resume.skills[0].name);
+    if (resume.skills[0].file1 != "") {
       //$("#li_1").css("background-image", getPhotoUrl(resume.skill[0].file1));
-      bindPhoto("#li_1", resume.skill[0].file1);
+      bindPhoto("#li_1", resume.skills[0].file1);
     }
 
-    if (resume.skill[0].file2 != "") {
+    if (resume.skills[0].file2 != "") {
       //$("#li_2").css("background-image", getPhotoUrl(resume.skill[0].file2));
-      bindPhoto("#li_2", resume.skill[0].file2);
+      bindPhoto("#li_2", resume.skills[0].file2);
     }
   }
 
   if (skillLength >= 2) {
-    $("#basic_skill2").val(resume.skill[1].name);
-    if (resume.skill[1].file1 != "") {
+    $("#basic_skill2").val(resume.skills[1].name);
+    if (resume.skills[1].file1 != "") {
       //$("#li_3").css("background-image", getPhotoUrl(resume.skill[1].file1));
-      bindPhoto("#li_3", resume.skill[1].file1);
+      bindPhoto("#li_3", resume.skills[1].file1);
     }
 
-    if (resume.skill[1].file2 != "") {
+    if (resume.skills[1].file2 != "") {
       //$("#li_4").css("background-image", getPhotoUrl(resume.skill[1].file2));
-      bindPhoto("#li_4", resume.skill[1].file2);
+      bindPhoto("#li_4", resume.skills[1].file2);
     }
 
     $(".skill2").show();
   }
 
   if (skillLength >= 3) {
-    $("#basic_skill3").val(resume.skill[2].name);
-    if (resume.skill[2].file1 != "") {
+    $("#basic_skill3").val(resume.skills[2].name);
+    if (resume.skills[2].file1 != "") {
       //$("#li_5").css("background-image", getPhotoUrl(resume.skill[2].file1));
-      bindPhoto("#li_5", resume.skill[2].file1);
+      bindPhoto("#li_5", resume.skills[2].file1);
     }
 
-    if (resume.skill[2].file2 != "") {
-      bindPhoto("#li_6", resume.skill[2].file2);
+    if (resume.skills[2].file2 != "") {
+      bindPhoto("#li_6", resume.skills[2].file2);
       //$("#li_6").css("background-image", getPhotoUrl(resume.skill[2].file2));
     }
 
@@ -715,7 +715,7 @@ function initPhotoUpload() {
       //如果图片大小小于100kb，则直接上传
       if (result.length <= maxsize) {
         img = null;
-        upload(result, file.type, current_li);
+        uploadPic(result, file.type, current_li);
         return;
       }
       //      图片加载完毕之后进行压缩，然后上传
@@ -963,7 +963,7 @@ function initWork() {
 
 
 
-  jQuery.each(resume.workExperience, function (i, val) {
+  jQuery.each(resume.workExperiences, function (i, val) {
     //text = text + " #Index:" + i + ":" + val;  
     //console.log(i + ":" + val);
     if (i > 0) {
@@ -1081,7 +1081,7 @@ function initTrain() {
   });
 
 
-  jQuery.each(resume.train, function (i, val) {
+  jQuery.each(resume.trains, function (i, val) {
     //text = text + " #Index:" + i + ":" + val;  
     //console.log(i + ":" + val);
     if (i > 0) {
@@ -1187,7 +1187,7 @@ function initFamility() {
     familityDateInit();
   });
 
-  jQuery.each(resume.family, function (i, val) {
+  jQuery.each(resume.families, function (i, val) {
     //text = text + " #Index:" + i + ":" + val;  
     //console.log(i + ":" + val);
     if (i > 0) {

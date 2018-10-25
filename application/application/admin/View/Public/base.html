@@ -15,25 +15,25 @@
 
 </head>
 <body>
-    {block name="header"}{include file="Public:header" /}{/block}
+    {block name="header"}{include file="public:header" /}{/block}
 
     <div class="container-fluid">  
 
       <div class="row">
-        {block name="left"}<div class="col-2 lefsitebar"> {include file="Public:leftmenu" /}</div>{/block}
+        {block name="left"}<div class="col-2 lefsitebar"> {include file="public:leftmenu" /}</div>{/block}
         <div class="col maincontent">  {block name="main"}主内容{/block}</div>
       </div>
      
     
-      {block name="right"}{include file="Public:sidebar" /}{/block}
+      {block name="right"}{include file="public:sidebar" /}{/block}
 
       <div class="row">
-        {block name="footer"}{include file="Public:footer" /}{/block}
+        {block name="footer"}{include file="public:footer" /}{/block}
       </div>
     </div>
 
 
-{block name="footerscript"}{include file="Public:footerscript" /}{/block}
+{block name="footerscript"}{include file="public:footerscript" /}{/block}
 
 </body>
 </html>

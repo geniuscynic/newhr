@@ -1,20 +1,20 @@
 
-{extend name="Public:base" /}
+{extend name="public:base" /}
 
 {block name="header"}{/block}
 {block name="left"}{/block}
 {block name="main"}
     <div class="row login">
-      <div class="card col-lg-3  col-md-4 col-5">
+      <div class="card col-md-4 col-5">
         <div class="card-body">
-          <h2 class="card-title">后台管理登入系统</h2>
+          <h2 class="card-title">简历管理登入系统</h2>
 
           <form method="POST">
               {include file="public/errormessage" /}
 
             <div class="form-group">
-              <label for="email" class="col-form-label">邮箱</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="输入邮箱">
+              <label for="email" class="col-form-label">帐号</label>
+              <input type="text" class="form-control" id="email" name="email" placeholder="输入邮箱">
 
             </div>
             <div class="form-group">
@@ -23,8 +23,8 @@
             </div>
 
             <button type="submit" class="btn btn-primary card-link">登入</button>
-            <a href="#" class="card-link">忘记密码</a>
-            <a href="{:url('admin/user/register')}" class="card-link">注册</a>
+            <a href="#" class="card-link" style="display:none">忘记密码</a>
+            <a href="{:url('admin/user/register')}" class="card-link"  style="display:none">注册</a>
           </form>
 
         </div>
@@ -38,17 +38,17 @@
 <script>
   $(document).ready(function() {  
    
-    $("form").validate({
-            rules: {
-              email: {
-                required: true,
-                email:true
-              },
+    // $("form").validate({
+    //         rules: {
+    //           email: {
+    //             required: true,
+    //             email:true
+    //           },
              
-              password: "required",
+    //           password: "required",
             
-        }
-    });
+    //     }
+    // });
   });
 </script>
 {/block}

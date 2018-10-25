@@ -2,14 +2,15 @@
 namespace app\Common\controller;
 
 use think\Controller;
-use app\Common\Entity\Message;
+use app\common\Entity\Message;
 
 class BaseController extends Controller
 {
     protected function initialize()
     {
-       // dump(request()->action());
+        //dump(request()->controller());
         $this->show();
+       
     }
     
     protected function show() {
@@ -34,6 +35,7 @@ class BaseController extends Controller
         $request = request();
         self::$action = $request->action();
 
+        
         if($request->controller() == $controller)  {
             self::$isActive = true;
         }

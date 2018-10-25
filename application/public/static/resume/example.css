@@ -13,16 +13,16 @@ body{font-family:-apple-system-font,Helvetica Neue,Helvetica,sans-serif}ul{list-
 .page.js_show{opacity:1}
 
 .page__hd{
-    background: #ffffff;
+    background: #1aad19;
 }
 
 .page__hd p{
-    color: #1aad19;
-    font-size: 1.5rem;
-    min-height:1.1rem;
-    padding: 1rem;
+    color: #ffffff;
+    font-size: 0.8rem;
+    min-height:0.5rem;
+    padding: 0.3rem;
     text-align:center;
-    text-shadow: 0 1px 1px #199c08;
+    font-weight: bold;
     margin: 0;
 }
 .page__bd_spacing

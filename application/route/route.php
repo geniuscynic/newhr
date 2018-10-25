@@ -10,14 +10,16 @@
 // +----------------------------------------------------------------------
 
 Route::rule("/", "Index/Index/Index", "POST|GET");
+       
 
 
+Route::rule("/user/login", "admin/user/login", "POST|GET");
+Route::rule("/user/logout", "admin/user/logout", "GET");
 
 Route::group('admin', function () {
     Route::rule("/", "admin/index/home", "GET");
 
-    Route::rule("/login", "admin/user/login", "POST|GET");
-
+    
     Route::rule("/resume/list", "admin/resume/list", "GET");
 
     Route::rule("/resume/exportExcel", "admin/resume/exportExcel", "POST");
@@ -36,7 +38,7 @@ Route::group('admin', function () {
 
     // Route::rule("/blog/add", "admin/blog/add", "POST|GET");
     // Route::rule("/blog/list", "admin/blog/list", "GET");
-});
+})->middleware('Auth');
 
 Route::group('hire', function () {
     Route::rule("/", "hire/index/home", "POST|GET");

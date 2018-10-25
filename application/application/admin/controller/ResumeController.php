@@ -1,14 +1,14 @@
 <?php
 namespace app\admin\controller;
 
-use app\common\controller\BaseController;
+use app\common\controller\BaseAdminController;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 //require_once '/verdor/HTMLPurifier/HTMLPurifier.auto.php';
 
-class ResumeController extends BaseController
+class ResumeController extends BaseAdminController
 {
 
     public function List() {
@@ -160,4 +160,6 @@ class ResumeController extends BaseController
 
         exit;
    }
+
+   
 }

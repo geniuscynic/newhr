@@ -1,11 +1,11 @@
 <?php
 namespace app\admin\controller;
 
-use app\common\controller\BaseController;
+use app\common\controller\BaseAdminController;
 
 //require_once '/verdor/HTMLPurifier/HTMLPurifier.auto.php';
 
-class CodetableController extends BaseController
+class CodetableController extends BaseAdminController
 {
 
     public function List() {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 2018-10-19 12:42:59
+-- Generation Time: 2018-10-24 13:18:17
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.2.8
 
@@ -21,6 +21,42 @@ SET time_zone = "+00:00";
 --
 -- Database: `xzj`
 --
+CREATE DATABASE IF NOT EXISTS `xzj` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `xzj`;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `actionnode`
+--
+
+DROP TABLE IF EXISTS `actionnode`;
+CREATE TABLE IF NOT EXISTS `actionnode` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `controller` varchar(45) COLLATE utf8_bin NOT NULL,
+  `action` varchar(45) COLLATE utf8_bin NOT NULL,
+  `route` varchar(45) COLLATE utf8_bin NOT NULL,
+  `type` varchar(45) COLLATE utf8_bin NOT NULL,
+  `level` varchar(45) COLLATE utf8_bin NOT NULL,
+  `parenId` int(11) NOT NULL,
+  `desc` varchar(45) COLLATE utf8_bin NOT NULL,
+  `seqNum` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- 插入之前先把表清空（truncate） `actionnode`
+--
+
+TRUNCATE TABLE `actionnode`;
+--
+-- 转存表中的数据 `actionnode`
+--
+
+INSERT INTO `actionnode` (`id`, `controller`, `action`, `route`, `type`, `level`, `parenId`, `desc`, `seqNum`) VALUES
+(1, '', '', '', 'menu', '1', 0, '简历管理', 1),
+(2, 'ResumeController', 'List', 'admin/codetable/list', 'menu', '2', 1, '简历列表', 1),
+(3, 'CodetableController', 'List', '/codetable/list', 'menu', '2', 1, '技能管理', 2);
 
 -- --------------------------------------------------------
 
@@ -1039,13 +1075,6 @@ CREATE TABLE IF NOT EXISTS `family` (
 --
 
 TRUNCATE TABLE `family`;
---
--- 转存表中的数据 `family`
---
-
-INSERT INTO `family` (`resumeId`, `name`, `relation`, `relatePhone`, `work`) VALUES
-(10, '东方舵手', '妻子', '二恶烷', '二恶烷v');
-
 -- --------------------------------------------------------
 
 --
@@ -1065,15 +1094,6 @@ CREATE TABLE IF NOT EXISTS `quarters` (
 --
 
 TRUNCATE TABLE `quarters`;
---
--- 转存表中的数据 `quarters`
---
-
-INSERT INTO `quarters` (`resumeId`, `code1`, `code2`, `code3`) VALUES
-(50, '0065', '0068,0050', '0065'),
-(10, '0050', '0065', '0067'),
-(10, '0050', '0065', '0068');
-
 -- --------------------------------------------------------
 
 --
@@ -1108,20 +1128,13 @@ CREATE TABLE IF NOT EXISTS `resume` (
   `workingAddress` varchar(100) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=458782 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- 插入之前先把表清空（truncate） `resume`
 --
 
 TRUNCATE TABLE `resume`;
---
--- 转存表中的数据 `resume`
---
-
-INSERT INTO `resume` (`id`, `phone`, `password`, `createDate`, `updateDate`, `status`, `cardno`, `name`, `sex`, `birthday`, `nation`, `educational`, `political`, `house`, `contractName`, `contractPhone`, `hobby`, `workingYear`, `workingStatus`, `joinTime`, `workType`, `industry`, `salary`, `workingAddress`) VALUES
-(10, '13196601217', '111111', '2018-10-16 16:18:43', '2018-10-16 16-18-43', 1, '360203198701212515', '黑胡椒', '女', '2018-10-16', '汉族', '本科及以上', '党员', '江西省 南昌市 东湖区', '你看', '13196601216', '', '3年', '离职', '1个月之内', '小时工', '建筑/房地产', '6000-7999', '北京 北京市 东城区');
-
 -- --------------------------------------------------------
 
 --
@@ -1141,16 +1154,6 @@ CREATE TABLE IF NOT EXISTS `skill` (
 --
 
 TRUNCATE TABLE `skill`;
---
--- 转存表中的数据 `skill`
---
-
-INSERT INTO `skill` (`resumeId`, `name`, `file1`, `file2`) VALUES
-(0, '厨师证', '20181017232614.jpg', ''),
-(0, '焊工证', '20181017232635.jpg', ''),
-(0, '焊工证', '20181017232644.jpg', ''),
-(10, '厨师证', '20181018213155.jpg', '');
-
 -- --------------------------------------------------------
 
 --
@@ -1172,12 +1175,35 @@ CREATE TABLE IF NOT EXISTS `train` (
 --
 
 TRUNCATE TABLE `train`;
+-- --------------------------------------------------------
+
 --
--- 转存表中的数据 `train`
+-- 表的结构 `user`
 --
 
-INSERT INTO `train` (`resumeId`, `startDate`, `endDate`, `school`, `career`, `desc`) VALUES
-(10, '2018-10-18', '2018-10-17', '热', '地方', '发的说法是 是');
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(10) COLLATE utf8_bin NOT NULL,
+  `nickname` varchar(10) COLLATE utf8_bin NOT NULL,
+  `password` varchar(45) COLLATE utf8_bin NOT NULL,
+  `createDate` datetime NOT NULL,
+  `updateDate` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- 插入之前先把表清空（truncate） `user`
+--
+
+TRUNCATE TABLE `user`;
+--
+-- 转存表中的数据 `user`
+--
+
+INSERT INTO `user` (`id`, `login`, `nickname`, `password`, `createDate`, `updateDate`) VALUES
+(1, 'admin', '管理员', 'admin', '2018-10-24 00:00:00', '2018-10-24 00:00:00');
 
 -- --------------------------------------------------------
 

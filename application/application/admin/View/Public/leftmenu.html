@@ -5,28 +5,39 @@
 
       
       <li class="nav-item menu ">
-        <a  class="nav-link active" data-toggle="collapse" href="#collapseBlog"  aria-expanded="false" aria-controls="collapseBlog">
+        <a  class="nav-link {:$baseController::setMenuActive('Resume')}" data-toggle="collapse" href="#collapseResume"  aria-expanded="false" aria-controls="collapseBlog">
           <i class="fas fa-edit"></i>
           <span>简历管理</span>
           <span class="pull-right-container">
             <i class="fas fa-angle-down"></i>
           </span>
         </a>
-        <ul class="sidebar-menu nav flex-colum collapse menu show"  id="collapseBlog" data-parent="#sitebar">
+        <ul class="sidebar-menu nav flex-colum collapse menu {:$baseController::setSubMenuShow()}"  id="collapseResume" data-parent="#sitebar">
          
           <li class="nav-item">
-            <a href="{:url('admin/resume/list')}" class="nav-link active">
+            <a href="{:url('admin/resume/list')}" class="nav-link {:$baseController::setSubMenuActive('list')}">
               <i class="fa fa-pen"></i> 简历列表</a>
           </li>
 
+         
+        </ul>
+      </li>
+      <li class="nav-item menu ">
+        <a  class="nav-link {:$baseController::setMenuActive('Codetable')}" data-toggle="collapse" href="#collapseBlog"  aria-expanded="false" aria-controls="collapseBlog">
+          <i class="fas fa-edit"></i>
+          <span>证书管理</span>
+          <span class="pull-right-container">
+            <i class="fas fa-angle-down"></i>
+          </span>
+        </a>
+        <ul class="sidebar-menu nav flex-colum collapse menu {:$baseController::setSubMenuShow()}"  id="collapseBlog" data-parent="#sitebar">
           <li class="nav-item">
-            <a href="{:url('admin/codetable/list')}" class="nav-link active">
+            <a href="{:url('admin/codetable/list')}" class="nav-link {:$baseController::setSubMenuActive('list')}" >
               <i class="fa fa-pen"></i> 技能管理</a>
           </li>
 
         </ul>
       </li>
-
      
     </ul>
 </aside>

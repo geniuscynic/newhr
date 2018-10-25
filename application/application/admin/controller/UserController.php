@@ -1,8 +1,8 @@
 <?php
 namespace app\admin\controller;
 
-use app\Common\controller\BaseController;
-use app\Common\Entity\Message;
+use app\common\controller\BaseController;
+use app\common\entity\Message;
 
 class UserController extends BaseController
 {
@@ -15,7 +15,7 @@ class UserController extends BaseController
         if(count($input) > 0) {
             $form = array(
                
-                'email' => $input['email'],
+                'login' => $input['email'],
                 'password' => $input['password']
              );
 
@@ -25,7 +25,7 @@ class UserController extends BaseController
              }
              else {
                 session('user', $result->getResultValue());
-                $this->redirect(url('admin/index/home'));
+                $this->redirect(url('admin/resume/list'));
              }
             // if(count($result['msg']) > 0) {
             //     $msg = new Message(Message::TYPE_FAILED, $result['msg']);
@@ -40,7 +40,7 @@ class UserController extends BaseController
             // } 
         }
 
-        url('admin/index/home');
+        //url('admin/index/home');
         return $this->fetch();
     }
 
@@ -89,5 +89,13 @@ class UserController extends BaseController
 
     public function list() {
         return $this->fetch();
+    }
+
+    public function logout()
+    {
+  
+        session('user', null);
+         $this->redirect(url('/user/login'));
+
     }
 }
