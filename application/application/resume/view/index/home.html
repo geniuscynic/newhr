@@ -24,7 +24,7 @@
     <script type="text/html" id="tpl_home">
         <div class="page">
                 <div class="page__hd">
-                        <p>个人简历注册</p>
+                        <p>简历登入</p>
                 </div>
 
                 <div class="page__bd page__bd_spacing">
@@ -58,7 +58,7 @@
     <script type="text/html" id="tpl_register">
         <div class="page">
             <div class="page__hd">
-                    <p>个人简历注册</p>
+                    <p>简历注册</p>
             </div>
 
             <div class="page__bd page__bd_spacing">
@@ -89,7 +89,7 @@
                           <input class="weui-input" type="password" id="password2" placeholder="请确认密码" />
                         </div>
                     </div>
-
+                    <input type="hidden" id="referee" value="{$referee}" />
                     <div class="weui-btn-area">
                         <a class="weui-btn weui-btn_primary" href="javascript:" data-id="register" id="btnRegister">注册</a>
                     </div>
@@ -841,7 +841,7 @@
                     <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
                     <div class="weui-msg__text-area">
                       <h2 class="weui-msg__title">注册成功</h2>
-                      <p class="weui-msg__desc">欢迎加入</p>
+                      <a class="weui-msg__desc" href="javascript:window.pageManager.go('user')">点击获得专属二维码</a>
                     </div>
                     
             </div>
@@ -851,19 +851,74 @@
             </div>
         </div>
 
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             $(function(){
-                initFamility();
+                //initFamility();
             });
-        </script>
+        </script> -->
     </script>
+
+        <!-- 流程结束，欢迎界面 -->
+        <script type="text/html" id="tpl_user">
+            <div class="page">
+                <div class="page__hd">
+                        <p>您的专属二维码</p>
+                        
+                </div>
+    
+                <div class="page__bd page__bd_spacing">
+                    <div class="weui-msg">
+                        <div class="weui-msg__icon-area">
+                            <img src="{:url('/resume/referralCode')}"  />
+                        </div>
+                        <div class="weui-msg__text-area">
+                          <h2 class="weui-msg__title">一起邀请好友来加入吧</h2>
+                         
+                        </div>
+                        
+                </div>
+    
+                <div class="page__ft">
+                   
+                </div>
+            </div>
+    
+            <!-- <script type="text/javascript">
+                $(function(){
+                    initFamility();
+                });
+            </script> -->
+        </script>
+
+    <div class="weui-tabbar">
+        <a href="javascript:window.pageManager.go('basic');" class="weui-tabbar__item weui-bar__item">
+         
+          <div class="weui-tabbar__icon">
+            <img src="{$default_dir}static/resume/icons8-home-filled-50.png" alt="">
+          </div>
+          <p class="weui-tabbar__label">主页</p>
+        </a>
+     
+        <a href="javascript:window.pageManager.go('user')" class="weui-tabbar__item">
+          <div class="weui-tabbar__icon">
+            <img src="{$default_dir}static/resume/icons8-user-50.png" alt="">
+          </div>
+          <p class="weui-tabbar__label">我</p>
+        </a>
+      </div>
 
     <div id="quartersPopup" class="weui-popup__container popup-left">
         <div class="weui-popup__overlay"></div>
+        <div class="toolbar iconEnter">
+            <div class="toolbar-inner">
+                <a href="javascript:;" class="picker-button close-select" id="btnQuarters">确定</a>
+                <h1 class="title">请选择岗位</h1>
+            </div>
+        </div>
         <div class="weui-popup__modal">
             <div class="toolbar">
                 <div class="toolbar-inner">
-                    <a href="javascript:;" class="picker-button close-select" id="btnQuarters">确定</a>
+                    <a href="javascript:;" class="picker-button close-select">确定</a>
                     <h1 class="title">请选择岗位</h1>
                 </div>
             </div>
@@ -908,6 +963,7 @@
 
 
         </div>
+      
     </div>
 
 

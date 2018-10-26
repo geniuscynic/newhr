@@ -13,7 +13,7 @@
 namespace think;
 
 require_once("vendor/autoload.php"); 
-
+require_once("vendor/phpqrcode/phpqrcode.php"); 
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/application/application/');
 

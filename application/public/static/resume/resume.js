@@ -1,4 +1,6 @@
 function bindQuarter() {
+  $(".weui-tabbar").hide();
+
   $(".level1 > a, .level2 > a").on('click', function () {
     //console.log("aa");
     var subId = $(this).data("id");
@@ -93,6 +95,8 @@ function commonInit() {
       'items': commonTable[type]
     });
   });
+
+  $(".weui-tabbar").show();
 }
 
 function hadValidation(obj) {
@@ -207,7 +211,8 @@ function initRegister() {
         'func': "registerResume",
         'phone': phone,
         'password': pwd,
-        'password2': pwdcon
+        'password2': pwdcon,
+        'referee' : $("#referee").val()
 
       }
     }).done(function (data) {
@@ -312,8 +317,20 @@ function initBasic1() {
 
 
 
-  $("#basic_birthday").calendar({
-    'dateFormat': 'yyyy-mm-dd'
+  $("#basic_birthday").datetimePicker({
+    times: function () {
+      return [  // 自定义的时间
+      ];
+    },
+    parse: function (str) {
+      // 把字符串转换成数组，用来解析初始值
+      // 如果你的定制的初始值格式无法被这个默认函数解析，请自定义这个函数。比如你的时间是 '子时' 那么默认情况这个'时'会被当做分隔符而导致错误，所以你需要自己定义parse函数
+      // 默认兼容的分隔符
+      //var t = str.split(this.datetimeSplit);
+      return str.split(/\D/).filter(function (d) {
+        return !!d;
+      })
+    }
   });
 
 
@@ -977,10 +994,10 @@ function initWork() {
   });
 
   $("#btnWork").on('click', function () {
-    var hasValidation = hadValidation("#page_work");
-    if (hasValidation) {
-      return;
-    }
+    //var hasValidation = hadValidation("#page_work");
+    //if (hasValidation) {
+      //return;
+    //}
 
 
     var data = new Array();
@@ -1095,10 +1112,10 @@ function initTrain() {
   });
 
   $("#btnTrain").on('click', function () {
-    var hasValidation = hadValidation("#page_train");
-    if (hasValidation) {
-      return;
-    }
+    //var hasValidation = hadValidation("#page_train");
+    //if (hasValidation) {
+      //return;
+    //}
 
     var data = new Array();
     var hasValidation = false; 
@@ -1201,10 +1218,10 @@ function initFamility() {
   });
 
   $("#btnFamily").on('click', function () {
-    var hasValidation = hadValidation("#page_family");
-    if (hasValidation) {
-      return;
-    }
+    //var hasValidation = hadValidation("#page_family");
+    //if (hasValidation) {
+      //return;
+    //}
 
     var data = new Array();
 

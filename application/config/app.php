@@ -15,8 +15,13 @@
 define("domain", "http://xjz.xjjxmm.com");
 define("APPLICATION_FOLDER", "/newhr1");
 define("RESOURCE_FOLDER", APPLICATION_FOLDER."/application/public/");
+
 define("UPLOAD_FOLDER", "./uploads");
 define("RESOURCE_FOLDER2", APPLICATION_FOLDER."/uploads");
+
+define("QRCODE", UPLOAD_FOLDER . "/qrcode");
+define("QRCODE_RESOURCE", RESOURCE_FOLDER2 . "/qrcode");
+
 
 return [
     // 应用名称

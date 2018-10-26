@@ -75,8 +75,8 @@ class CodeTable extends Base
                         'name' => 'title',
                         'type',
                         'parentCode'])
-            //->where(["type", "<>", "11"])
-            ->select();
+                    ->order("seqNum")
+                    ->select();
               
             $list = array();
             foreach ($phones as $key => $value) {

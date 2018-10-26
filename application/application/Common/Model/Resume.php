@@ -74,6 +74,10 @@ class Resume extends Base
 
            $resume = $this->object_to_array($resume);
             $id = db("resume")->insertGetId($resume);
+
+            $referee['resumeId'] = $id;
+            $referee['name'] = $data["referee"];
+            db("referee")->insert($referee);
             if($id > 0) {
                // $msg = new Message(Message::TYPE_EXIST, '手机号已经注册过');
                $msg->SetResultValue($id);
