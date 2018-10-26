@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 2018-10-24 13:18:17
+-- Generation Time: 2018-10-26 09:19:37
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.2.8
 
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `codetable` (
   `level` int(11) NOT NULL,
   `seqNum` int(11) NOT NULL,
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=970 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='01 民族, 02 学历, 03  政治面貌, 04 工作年限, 05 求职状态, 06 到岗时间, 07 期望工作性质, 08 期望薪资, 09 个人证书技能, 10 性别, 11 岗位, 12 家庭关系';
+) ENGINE=InnoDB AUTO_INCREMENT=971 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='01 民族, 02 学历, 03  政治面貌, 04 工作年限, 05 求职状态, 06 到岗时间, 07 期望工作性质, 08 期望薪资, 09 个人证书技能, 10 性别, 11 岗位, 12 家庭关系';
 
 --
 -- 插入之前先把表清空（truncate） `codetable`
@@ -168,7 +168,6 @@ INSERT INTO `codetable` (`id`, `code`, `name`, `type`, `parentCode`, `level`, `s
 (81, '03', '兼职', '07', '', 1, 81),
 (82, '04', '小时工', '07', '', 1, 82),
 (83, '05', '临时工', '07', '', 1, 83),
-(84, '06', '暑假工', '07', '', 1, 84),
 (85, '01', '面议', '08', '', 1, 85),
 (86, '02', '1000-2900', '08', '', 1, 86),
 (87, '03', '3000-4499', '08', '', 1, 87),
@@ -1053,7 +1052,8 @@ INSERT INTO `codetable` (`id`, `code`, `name`, `type`, `parentCode`, `level`, `s
 (966, '07', '弟弟', '12', '', 1, 106),
 (967, '08', '妹妹', '12', '', 1, 107),
 (968, '09', '儿子', '12', '', 1, 108),
-(969, '10', '女儿', '12', '', 1, 109);
+(969, '10', '女儿', '12', '', 1, 109),
+(970, '08', '无', '04', '', 1, 64);
 
 -- --------------------------------------------------------
 
@@ -1094,6 +1094,40 @@ CREATE TABLE IF NOT EXISTS `quarters` (
 --
 
 TRUNCATE TABLE `quarters`;
+--
+-- 转存表中的数据 `quarters`
+--
+
+INSERT INTO `quarters` (`resumeId`, `code1`, `code2`, `code3`) VALUES
+(458787, '0395', '0417', '0428'),
+(458787, '0395', '0417', '0429');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `referee`
+--
+
+DROP TABLE IF EXISTS `referee`;
+CREATE TABLE IF NOT EXISTS `referee` (
+  `resumeId` int(11) NOT NULL,
+  `name` varchar(45) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`resumeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- 插入之前先把表清空（truncate） `referee`
+--
+
+TRUNCATE TABLE `referee`;
+--
+-- 转存表中的数据 `referee`
+--
+
+INSERT INTO `referee` (`resumeId`, `name`) VALUES
+(458786, '的的'),
+(458787, '');
+
 -- --------------------------------------------------------
 
 --
@@ -1105,8 +1139,8 @@ CREATE TABLE IF NOT EXISTS `resume` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `phone` varchar(45) COLLATE utf8_bin NOT NULL,
   `password` varchar(45) COLLATE utf8_bin NOT NULL,
-  `createDate` datetime NOT NULL,
-  `updateDate` varchar(45) COLLATE utf8_bin NOT NULL,
+  `createDate` date NOT NULL,
+  `updateDate` date NOT NULL,
   `status` int(11) NOT NULL COMMENT '1: 正常， 0：删除',
   `cardno` varchar(45) COLLATE utf8_bin NOT NULL,
   `name` varchar(6) COLLATE utf8_bin NOT NULL,
@@ -1128,13 +1162,21 @@ CREATE TABLE IF NOT EXISTS `resume` (
   `workingAddress` varchar(100) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=458782 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=458788 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- 插入之前先把表清空（truncate） `resume`
 --
 
 TRUNCATE TABLE `resume`;
+--
+-- 转存表中的数据 `resume`
+--
+
+INSERT INTO `resume` (`id`, `phone`, `password`, `createDate`, `updateDate`, `status`, `cardno`, `name`, `sex`, `birthday`, `nation`, `educational`, `political`, `house`, `contractName`, `contractPhone`, `hobby`, `workingYear`, `workingStatus`, `joinTime`, `workType`, `industry`, `salary`, `workingAddress`) VALUES
+(458786, '13196601217', '111111', '2018-10-25', '2018-10-26', 1, '360203198701212515', '防非典', '女', '2018-10-19', '藏族', '大专', '党员', '北京 北京市 东城区', '6262626', '13196601217', '', '', '', '', '', '', '', ''),
+(458787, '17365362087', '111111', '2018-10-25', '2018-10-26', 1, '360203198701212515', '囧囧', '男', '2018-02-28', '汉族', '大专', '党员', '北京 北京市 东城区', '比较', '13196212321', '', '无', '在职', '随时', '全职', '计算机/互联网', '3000-4499', '北京 北京市 东城区');
+
 -- --------------------------------------------------------
 
 --
