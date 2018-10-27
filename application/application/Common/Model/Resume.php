@@ -187,17 +187,24 @@ class Resume extends Base
 
         $workExperiences = db("work_experience")
                     ->alias('s')
-                    ->field(['resumeId','s.startDate','s.endDate','s.companyName','s.post','s.duty'])
+                    ->field(['resumeId',
+                            "case when s.startDate='1700-01-01' then '' else s.startDate end" => 'startDate',
+                            "case when s.endDate='1700-01-01' then '' else s.endDate end" => 'endDate',
+                            's.companyName','s.post','s.duty'])
                     ->where([
                         "resumeId" => $ids
                     ])
                     ->select();
-
+        
+                   // dump($workExperiences);
        // $resume['workExperience'] = $workExperience;
 
         $trains = db("train")
                     ->alias('s')
-                    ->field(['resumeId','s.startDate','s.endDate','s.school','s.career','s.desc'])
+                    ->field(['resumeId',
+                             "case when s.startDate='1700-01-01' then '' else s.startDate end" => 'startDate',
+                             "case when s.endDate='1700-01-01' then '' else s.endDate end" => 'endDate',
+                             's.school','s.career','s.desc'])
                     ->where([
                         "resumeId" => $ids
                     ])

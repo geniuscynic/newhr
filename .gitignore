@@ -1,2 +1,4 @@
-
-uploads/
+uploads/*
+!uploads/qrcode
+uploads/qrcode/*
+!uploads/qrcode/logo.png

@@ -933,12 +933,36 @@ function initPhotoUpload() {
 }
 
 function workDateInit() {
-  $(".work_startDate").calendar({
-    'dateFormat': 'yyyy-mm-dd'
+  $(".work_startDate").datetimePicker({
+    times: function () {
+      return [  // 自定义的时间
+      ];
+    },
+    parse: function (str) {
+      // 把字符串转换成数组，用来解析初始值
+      // 如果你的定制的初始值格式无法被这个默认函数解析，请自定义这个函数。比如你的时间是 '子时' 那么默认情况这个'时'会被当做分隔符而导致错误，所以你需要自己定义parse函数
+      // 默认兼容的分隔符
+      //var t = str.split(this.datetimeSplit);
+      return str.split(/\D/).filter(function (d) {
+        return !!d;
+      })
+    }
   });
 
-  $(".work_endDate").calendar({
-    'dateFormat': 'yyyy-mm-dd'
+  $(".work_endDate").datetimePicker({
+    times: function () {
+      return [  // 自定义的时间
+      ];
+    },
+    parse: function (str) {
+      // 把字符串转换成数组，用来解析初始值
+      // 如果你的定制的初始值格式无法被这个默认函数解析，请自定义这个函数。比如你的时间是 '子时' 那么默认情况这个'时'会被当做分隔符而导致错误，所以你需要自己定义parse函数
+      // 默认兼容的分隔符
+      //var t = str.split(this.datetimeSplit);
+      return str.split(/\D/).filter(function (d) {
+        return !!d;
+      })
+    }
   });
 
   $(".work_delete").on("click", function () {
@@ -1066,12 +1090,36 @@ function initWork() {
 }
 
 function trainDateInit() {
-  $(".train_startDate").calendar({
-    'dateFormat': 'yyyy-mm-dd'
+  $(".train_startDate").datetimePicker({
+    times: function () {
+      return [  // 自定义的时间
+      ];
+    },
+    parse: function (str) {
+      // 把字符串转换成数组，用来解析初始值
+      // 如果你的定制的初始值格式无法被这个默认函数解析，请自定义这个函数。比如你的时间是 '子时' 那么默认情况这个'时'会被当做分隔符而导致错误，所以你需要自己定义parse函数
+      // 默认兼容的分隔符
+      //var t = str.split(this.datetimeSplit);
+      return str.split(/\D/).filter(function (d) {
+        return !!d;
+      })
+    }
   });
 
-  $(".train_endDate").calendar({
-    'dateFormat': 'yyyy-mm-dd'
+  $(".train_endDate").datetimePicker({
+    times: function () {
+      return [  // 自定义的时间
+      ];
+    },
+    parse: function (str) {
+      // 把字符串转换成数组，用来解析初始值
+      // 如果你的定制的初始值格式无法被这个默认函数解析，请自定义这个函数。比如你的时间是 '子时' 那么默认情况这个'时'会被当做分隔符而导致错误，所以你需要自己定义parse函数
+      // 默认兼容的分隔符
+      //var t = str.split(this.datetimeSplit);
+      return str.split(/\D/).filter(function (d) {
+        return !!d;
+      })
+    }
   });
 
   $(".train_delete").on("click", function () {
@@ -1232,10 +1280,11 @@ function initFamility() {
       var work = $(this).find(".family_work").val();
 
 
-      if (name == "") {
-        $.toptip(buildMessage(data.message), 'error');
-        return false;
-      }
+      // if (name == "") {
+      //   $.toptip(buildMessage(data.message), 'error');
+      //   return false;
+      // }
+
       var subData = {
         'name': name,
         'relation': relation,
@@ -1244,6 +1293,7 @@ function initFamility() {
       }
       data.push(subData);
     });
+
 
     $.ajax({
       url: handelUrl,
@@ -1276,4 +1326,20 @@ function initFamility() {
       $.toptip('操作失败', 'error');;
     });
   });
+}
+
+function initSRCode() {
+  $.ajax({
+    url: resourceUrl,
+    type: "GET",
+    crossDomain: true,
+    data: {
+      'func': "GetReferralCode"
+    }
+  }).done(function (data) {
+    $("#btnSRCode").prop("src",data)
+  }).fail(function (data) {
+    $.toptip('操作失败', 'error');;
+  });
+
 }

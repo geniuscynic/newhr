@@ -12,8 +12,8 @@
 // +----------------------------------------------------------------------
 // | 应用设置
 // +----------------------------------------------------------------------
-define("domain", "http://xjz.xjjxmm.com");
-define("APPLICATION_FOLDER", "/newhr1");
+define("domain", "http://localhost/hr");
+define("APPLICATION_FOLDER", "/hr/newhr");
 define("RESOURCE_FOLDER", APPLICATION_FOLDER."/application/public/");
 
 define("UPLOAD_FOLDER", "./uploads");
