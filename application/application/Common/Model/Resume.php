@@ -287,8 +287,9 @@ class Resume extends Base
         //     '个人证书技能',
         //     '最后更新时间'
         $resumeList = db("resume")
+                ->alias('r')
                 ->field(
-                    "id,name,sex,phone,cardno,birthday,
+                    "r.id,r.name,sex,phone,cardno,birthday,
                      nation,educational,political,workingYear,
                      house,workingStatus,joinTime,industry,
                      workType, 
@@ -298,8 +299,10 @@ class Resume extends Base
 
                      salary,workingAddress,contractName,
                      contractPhone, '' as skill,
+                     w.name as refereeName,
                      updateDate"
                 )
+                ->join('referee w','r.id = w.resumeId')
                 ->order(['updateDate' => 'desc', 'id' => 'desc'])
                 ->paginate(15);
 
@@ -341,8 +344,9 @@ class Resume extends Base
         //     '个人证书技能',
         //     '最后更新时间'
         $resumeList = db("resume")
+                ->alias('r')
                 ->field(
-                    "id,name,sex,phone,cardno,birthday,
+                    "r.id,r.name,sex,phone,cardno,birthday,
                      nation,educational,political,workingYear,
                      house,workingStatus,joinTime,industry,
                      workType, 
@@ -352,8 +356,10 @@ class Resume extends Base
 
                      salary,workingAddress,contractName,
                      contractPhone, '' as skill,
+                     w.name as refereeName,
                      updateDate"
                 )
+                ->join('referee w','r.id = w.resumeId')
                 ->where([
                     "id" => $data
                 ])

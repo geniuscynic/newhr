@@ -12,8 +12,8 @@
 // +----------------------------------------------------------------------
 // | 应用设置
 // +----------------------------------------------------------------------
-define("domain", "http://localhost/hr");
-define("APPLICATION_FOLDER", "/hr/newhr");
+define("domain", "http://xjz.xjjxmm.com");
+define("APPLICATION_FOLDER", "");
 define("RESOURCE_FOLDER", APPLICATION_FOLDER."/application/public/");
 
 define("UPLOAD_FOLDER", "./uploads");
@@ -29,9 +29,9 @@ return [
     // 应用地址
     'app_host'               => '',
     // 应用调试模式
-    'app_debug'              => true,
+    'app_debug'              => false,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 是否支持多模块
     'app_multi_module'       => true,
     // 入口自动绑定模块

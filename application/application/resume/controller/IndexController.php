@@ -184,7 +184,7 @@ class IndexController extends BaseController
         if($input["skill3"] != "" && $input["skill3"] != "无") {
             $data[] = array(
                 'resumeId' =>$resuemId,
-                "name" => $input["skill2"],
+                "name" => $input["skill3"],
                 "file1" => $this->parseFileName($input["li5"], $file),
                 "file2" => $this->parseFileName($input["li6"], $file)
             );

@@ -65,6 +65,7 @@ class ResumeController extends BaseAdminController
             '紧急联络人',
             '紧急联系电话',
             '个人证书技能',
+            '推荐人',
             '最后更新时间'
         ]];
 
@@ -94,7 +95,7 @@ class ResumeController extends BaseAdminController
         }
 
        
-
+//dump($dataArray);
         // //dump($dataArray);
         $spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A1');
 
