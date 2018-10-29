@@ -8,7 +8,7 @@ class Auth
     {
         
         if (session('user') == null) {
-            return redirect(url('/login'));
+            return redirect(url('/user/login'));
         }
 
         return $next($request);
